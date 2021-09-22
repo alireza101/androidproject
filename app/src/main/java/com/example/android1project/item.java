@@ -1,6 +1,7 @@
 package com.example.android1project;
 
 public class item {
+
     private String itemid;
     private String itempicture;
     private String itemname;
@@ -8,6 +9,16 @@ public class item {
     private String itemtime;
     private String itemexpiration;
     private String itemsum;
+
+    public item(String itemid, String itempicture, String itemname, String itemtype, String itemtime, String itemexpiration, String itemsum) {
+        this.setItemid(itemid);
+        this.setItempicture(itempicture);
+        this.setItemname(itemname);
+        this.setItemtype(itemtype);
+        this.setItemtime(itemtime);
+        this.setItemexpiration(itemexpiration);
+        this.setItemsum(itemsum);
+    }
 
     public String getItemid() {
         return itemid;
@@ -63,16 +74,5 @@ public class item {
 
     public void setItemsum(String itemsum) {
         this.itemsum = itemsum;
-    }
-
-
-    public item(String itemid, String itempicture, String itemname, String itemtype, String itemtime, String itemexpiration, String itemsum) {
-        this.setItemid(itemid);
-        this.setItempicture(itempicture);
-        this.setItemname(itemname);
-        this.setItemtype(itemtype);
-        this.setItemtime(itemtime);
-        this.setItemexpiration(itemexpiration);
-        this.setItemsum(itemsum);
     }
 }

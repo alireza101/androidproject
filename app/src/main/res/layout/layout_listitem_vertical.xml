@@ -3,24 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="5dp"
+    >
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        app:cardCornerRadius="40dp"
+        app:cardCornerRadius="20dp"
         app:cardElevation="10dp"
-        app:cardMaxElevation="20dp">
+        app:cardMaxElevation="20dp"
+        >
 
         <LinearLayout
-            android:id="@+id/nameitem1"
+            android:id="@+id/itemcard"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            >
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imagever"
+                android:id="@+id/itemimage"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -33,23 +37,52 @@
                 android:layout_weight="2"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/namehor"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
                     android:layout_weight="3"
-                    android:textSize="20dp"
-                    android:gravity="center"
-                    android:text="textver"
-                    android:textAlignment="textStart"
-                    tools:ignore="RtlCompat" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/itemname"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="3"
+                        android:gravity="center"
+                        android:text="textver"
+                        android:textAlignment="textStart"
+                        android:textSize="20dp"
+                        tools:ignore="RtlCompat" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="sum:"
+                        android:textAlignment="textStart"
+                        android:textSize="15dp"
+                        tools:ignore="RtlCompat"
+                        android:gravity="center"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:id="@+id/itemsum"
+                        android:layout_weight="2"
+                        android:gravity="center"
+
+                        android:textAlignment="textStart"
+                        android:textSize="15dp"
+                        tools:ignore="RtlCompat"            />
+                </LinearLayout>
+
                 <TextView
                     android:layout_width="match_parent"
+                    android:id="@+id/itemexprece"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="time exprecine"/>
+                    android:text="time exprecine" />
             </LinearLayout>
 
         </LinearLayout>
