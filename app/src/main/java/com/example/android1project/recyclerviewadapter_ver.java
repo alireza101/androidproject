@@ -1,24 +1,19 @@
 package com.example.android1project;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class recyclerviewadapter_ver  extends RecyclerView.Adapter<recyclerviewadapter_ver.myholder> {
     private ArrayList<item> mitemlist;
@@ -43,16 +38,16 @@ public class recyclerviewadapter_ver  extends RecyclerView.Adapter<recyclerviewa
 
         holder.itemname.setText(item.getItemname());
         holder.itemsum.setText(item.getItemsum());
-        holder.itemexprece.setText(item.getItemexpiration());
+        holder.itemexprece.setText(item.getItemexpiration()+"days");
         Picasso.with(mitemcontext).load(item.getItempicture()).into(holder.itemimage);
 
-        holder.itemcard.setOnClickListener(new View.OnClickListener() {
+       /* holder.itemcard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                // Toast.makeText(mitemcontext,item.getItemname(), Toast.LENGTH_SHORT).show();
 
             }
-        });
+        });*/
 
 
     }
@@ -96,7 +91,7 @@ public class recyclerviewadapter_ver  extends RecyclerView.Adapter<recyclerviewa
    public class myholder extends RecyclerView.ViewHolder{
         ImageView itemimage;
         TextView itemname,itemsum,itemexprece;
-        LinearLayout itemcard;
+//        LinearLayout itemcard;
 
         public myholder(@NonNull View itemView) {
             super(itemView);
@@ -104,7 +99,7 @@ public class recyclerviewadapter_ver  extends RecyclerView.Adapter<recyclerviewa
             itemname=itemView.findViewById(R.id.itemname);
             itemsum=itemView.findViewById(R.id.itemsum);
             itemexprece=itemView.findViewById(R.id.itemexprece);
-            itemcard=itemView.findViewById(R.id.itemcard);
+//            itemcard=itemView.findViewById(R.id.itemcard);
         }
     }
 }

@@ -36,6 +36,9 @@ public class webapihandler {
                 apilink=config.getpicture;
                 break;
             }
+            case "login":{
+                apilink=config.login;
+            }
         }
         ProgressDialog progressDialog = ProgressDialog.show(context, "connecting...", "please wait", false, false);
         StringRequest request = new StringRequest(Request.Method.POST, apilink, new Response.Listener<String>() {
@@ -67,11 +70,11 @@ public class webapihandler {
                 String itempicture = jsonObject1.getString("itempicture");
                 String itemname = jsonObject1.getString("itemname");
                 String itemtype = jsonObject1.getString("itemtype");
-                String itemtime = jsonObject1.getString("itemtime");
+                String itemremaining = jsonObject1.getString("itemremaining");
                 String itemexpiration = jsonObject1.getString("itemexpiration");
                 String itemsum = jsonObject1.getString("itemsum");
 
-                item item=new item(itemid,itempicture,itemname,itemtype,itemtime,itemexpiration,itemsum);
+                item item=new item(itemid,itempicture,itemname,itemtype,itemremaining,itemexpiration,itemsum);
                 itemArrayList.add(item);
 
             }

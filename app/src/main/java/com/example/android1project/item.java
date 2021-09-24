@@ -6,16 +6,16 @@ public class item {
     private String itempicture;
     private String itemname;
     private String itemtype;
-    private String itemtime;
+    private String itemremaining;
     private String itemexpiration;
     private String itemsum;
 
-    public item(String itemid, String itempicture, String itemname, String itemtype, String itemtime, String itemexpiration, String itemsum) {
+    public item(String itemid, String itempicture, String itemname, String itemtype, String itemremaining, String itemexpiration, String itemsum) {
         this.setItemid(itemid);
         this.setItempicture(itempicture);
         this.setItemname(itemname);
         this.setItemtype(itemtype);
-        this.setItemtime(itemtime);
+        this.setItemremaining(itemremaining);
         this.setItemexpiration(itemexpiration);
         this.setItemsum(itemsum);
     }
@@ -52,12 +52,12 @@ public class item {
         this.itemtype = itemtype;
     }
 
-    public String getItemtime() {
-        return itemtime;
+    public String getItemremaining() {
+        return itemremaining;
     }
 
-    public void setItemtime(String itemtime) {
-        this.itemtime = itemtime;
+    public void setItemremaining(String itemremaining) {
+        this.itemremaining = itemremaining;
     }
 
     public String getItemexpiration() {
