@@ -108,8 +108,8 @@ public class signup_activity extends AppCompatActivity {
                 //creating request parameters
                 HashMap<String, String> params = new HashMap<>();
                 params.put("username", username);
-                params.put("email", useremail);
-                params.put("password", userpassword);
+                params.put("useremail", useremail);
+                params.put("userpassword", userpassword);
 
                 //returing the response
                 return requestHandler.sendPostRequest(config.signup, params);
@@ -142,7 +142,7 @@ public class signup_activity extends AppCompatActivity {
 
                         //creating a new user object
                         user user = new user(
-                                userJson.getInt("id"),
+                                userJson.getInt("userid"),
                                 userJson.getString("username"),
                                 userJson.getString("useremail")
                         );
@@ -154,7 +154,7 @@ public class signup_activity extends AppCompatActivity {
                         finish();
                         startActivity(new Intent(getApplicationContext(), mainapp.class));
                     } else {
-                        Toast.makeText(getApplicationContext(), "Some error occurred", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), obj.getString("message")+"..", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

@@ -48,9 +48,7 @@ public class MainActivity extends AppCompatActivity {
         nextbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(getitem(0)==1){
-                    nextbtn.setText("Done");
-                }
+
                 if (getitem(0)<2) {
                     msliderviewpager.setCurrentItem(getitem(1), true);
                 }else {
