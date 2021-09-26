@@ -2,8 +2,12 @@ package com.example.android1project;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -16,6 +20,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class webapihandler {
     Context context;
@@ -32,29 +39,25 @@ public class webapihandler {
                 apilink = config.selectitem_api;
                 break;
             }
-            case "register1":{
-                apilink=config.getpicture;
-                break;
-            }
-            case "login":{
-                apilink=config.login;
-            }
+
         }
         ProgressDialog progressDialog = ProgressDialog.show(context, "connecting...", "please wait", false, false);
         StringRequest request = new StringRequest(Request.Method.POST, apilink, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                showJeson(response);
-                progressDialog.dismiss();
+                if (type.equals("register")) {
+                    showJeson(response);
+                }
 
+                progressDialog.dismiss();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, error.getMessage()+"????", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
             }
-        });
+        }) ;
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(request);
     }
@@ -73,8 +76,9 @@ public class webapihandler {
                 String itemremaining = jsonObject1.getString("itemremaining");
                 String itemexpiration = jsonObject1.getString("itemexpiration");
                 String itemsum = jsonObject1.getString("itemsum");
+                String itemuser = jsonObject1.getString("itemuser");
 
-                item item=new item(itemid,itempicture,itemname,itemtype,itemremaining,itemexpiration,itemsum);
+                item item = new item(itemid, itempicture, itemname, itemtype, itemremaining, itemexpiration, itemsum, itemuser);
                 itemArrayList.add(item);
 
             }
@@ -82,8 +86,8 @@ public class webapihandler {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        mainapp.itemArrayList=itemArrayList;
-        IData iData= (IData) context;
+        mainapp.itemArrayList = itemArrayList;
+        IData iData = (IData) context;
         iData.sendata();
     }
 }

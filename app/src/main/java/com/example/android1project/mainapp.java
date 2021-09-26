@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class mainapp extends AppCompatActivity implements IData{
     private ArrayList<String> mnamehor = new ArrayList<>();

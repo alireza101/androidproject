@@ -9,8 +9,17 @@ public class item {
     private String itemremaining;
     private String itemexpiration;
     private String itemsum;
+    private String itemuser;
 
-    public item(String itemid, String itempicture, String itemname, String itemtype, String itemremaining, String itemexpiration, String itemsum) {
+    public String getItemuser() {
+        return itemuser;
+    }
+
+    public void setItemuser(String itemuser) {
+        this.itemuser = itemuser;
+    }
+
+    public item(String itemid, String itempicture, String itemname, String itemtype, String itemremaining, String itemexpiration, String itemsum, String itemuser) {
         this.setItemid(itemid);
         this.setItempicture(itempicture);
         this.setItemname(itemname);
@@ -18,6 +27,8 @@ public class item {
         this.setItemremaining(itemremaining);
         this.setItemexpiration(itemexpiration);
         this.setItemsum(itemsum);
+        this.setItemuser(itemuser);
+
     }
 
     public String getItemid() {

@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         preferences=getSharedPreferences("pref1",MODE_PRIVATE);
         if (preferences.getString("startac","").equals("1")){
-            startActivity(new Intent(this,login_activity.class));
+            startActivity(new Intent(this, signup_activity.class));
             finish();
         }
         preferences.edit().putString("startac","1").apply();
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent i =new Intent(MainActivity.this,login_activity.class);
+                Intent i =new Intent(MainActivity.this, signup_activity.class);
                 startActivity(i);
                 finish();
             }
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                 if (getitem(0)<2) {
                     msliderviewpager.setCurrentItem(getitem(1), true);
                 }else {
-                    Intent i =new Intent(MainActivity.this,login_activity.class);
+                    Intent i =new Intent(MainActivity.this, signup_activity.class);
                     startActivity(i);
                     finish();
 
