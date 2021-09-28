@@ -47,12 +47,12 @@ public class recyclerviewadapter_hor extends RecyclerView.Adapter<recyclerviewad
                 .load(mimagehor.get(position))
                 .into(holder.imagehor);
         holder.namehor.setText(mnamehor.get(position));
-        holder.namecard1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(mcontext, "click to the "+ mnamehor.get(position), Toast.LENGTH_SHORT).show();
-            }
-        });
+//        holder.namecard1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(mcontext, "click to the "+ mnamehor.get(position), Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
 
 
@@ -66,13 +66,13 @@ public class recyclerviewadapter_hor extends RecyclerView.Adapter<recyclerviewad
     public class viewholder extends RecyclerView.ViewHolder{
         CircleImageView imagehor;
         TextView namehor;
-        LinearLayout namecard1;
+ //       LinearLayout namecard1;
 
         public viewholder(@NonNull View itemView) {
             super(itemView);
             imagehor=itemView.findViewById(R.id.imagehor);
             namehor=itemView.findViewById(R.id.namehor);
-            namecard1=itemView.findViewById(R.id.namecard1);
+//            namecard1=itemView.findViewById(R.id.namecard1);
         }
     }
 

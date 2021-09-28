@@ -38,6 +38,19 @@ public class mainapp extends AppCompatActivity implements IData{
 
             }
         }));
+        rcmainhor.addOnItemTouchListener(new RecyclerTouchListener(this, rcmainhor, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+
+
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+
 
     }
 
