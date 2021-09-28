@@ -18,7 +18,7 @@ public class mainapp extends AppCompatActivity implements IData{
     static ArrayList<item> itemArrayList = new ArrayList<>();
 
     webapihandler webapihandler;
-    RecyclerView rcmain;
+    RecyclerView rcmain,rcmainhor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +27,7 @@ public class mainapp extends AppCompatActivity implements IData{
         webapihandler=new webapihandler(this);
         webapihandler.apiconecct("register");
         rcmain=findViewById(R.id.recyclerviewver);
+        rcmainhor=findViewById(R.id.recyclerview);
         rcmain.addOnItemTouchListener(new RecyclerTouchListener(this, rcmain, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -56,6 +57,9 @@ public class mainapp extends AppCompatActivity implements IData{
 
 
     private void inititemshor() {
+        mnamehor.add("All");
+        mimagehor.add(R.drawable.btn_background);
+
         mnamehor.add("beverages");
         mimagehor.add(R.drawable.beverages);
 
