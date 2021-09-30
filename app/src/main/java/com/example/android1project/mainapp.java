@@ -12,10 +12,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class mainapp extends AppCompatActivity implements IData{
-    private ArrayList<String> mnamehor = new ArrayList<>();
-    private ArrayList<Integer> mimagehor = new ArrayList<Integer>();
+//    private ArrayList<String> mnamehor = new ArrayList<>();
+//    private ArrayList<Integer> mimagehor = new ArrayList<Integer>();
 
     static ArrayList<item> itemArrayList = new ArrayList<>();
+    static ArrayList<type> typeArrayList = new ArrayList<>();
 
     webapihandler webapihandler;
     RecyclerView rcmain,rcmainhor;
@@ -23,8 +24,8 @@ public class mainapp extends AppCompatActivity implements IData{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainapp);
-        inititemshor();
         webapihandler=new webapihandler(this);
+        webapihandler.apiconecct("itemtype");
         webapihandler.apiconecct("register");
         rcmain=findViewById(R.id.recyclerviewver);
         rcmainhor=findViewById(R.id.recyclerview);
@@ -55,42 +56,11 @@ public class mainapp extends AppCompatActivity implements IData{
 
     }
 
-
-    private void inititemshor() {
-        mnamehor.add("All");
-        mimagehor.add(R.drawable.btn_background);
-
-        mnamehor.add("beverages");
-        mimagehor.add(R.drawable.beverages);
-
-        mnamehor.add("dairy");
-        mimagehor.add(R.drawable.dairy);
-
-        mnamehor.add("fruit");
-        mimagehor.add(R.drawable.fruit);
-
-        mnamehor.add("protein");
-        mimagehor.add(R.drawable.protein);
-
-        mnamehor.add("vegetable");
-        mimagehor.add(R.drawable.vegetable);
-
-        initrecyclerview();
-    }
-
-    private void initrecyclerview(){
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
-        RecyclerView recyclerView=findViewById(R.id.recyclerview);
-        recyclerView.setLayoutManager(linearLayoutManager);
-
-        recyclerviewadapter_hor adapter=new recyclerviewadapter_hor(this,mnamehor,mimagehor);
-        recyclerView.setAdapter(adapter);
-    }
-
-
     @Override
     public void sendata() {
-
+        recyclerviewadapter_hor adapte1=new recyclerviewadapter_hor(this,typeArrayList);
+        rcmainhor.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        rcmainhor.setAdapter(adapte1);
         recyclerviewadapter_ver adapter =new recyclerviewadapter_ver(this,itemArrayList);
         rcmain.setLayoutManager(new LinearLayoutManager(this));
         rcmain.setAdapter(adapter);

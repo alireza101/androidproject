@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,19 +14,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.android1project.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class recyclerviewadapter_hor extends RecyclerView.Adapter<recyclerviewadapter_hor.viewholder>{
-    private ArrayList<String> mnamehor=new ArrayList<>();
-    private ArrayList<Integer>mimagehor=new ArrayList<>();
+   //1 private ArrayList<String> mnamehor=new ArrayList<>();
+   //2 private ArrayList<Integer>mimagehor=new ArrayList<>();
+    private ArrayList<type>mtypelist;
+
     private Context mcontext;
 
-    public recyclerviewadapter_hor(Context mcontext,ArrayList<String> mnamehor, ArrayList<Integer> mimagehor) {
-        this.mnamehor = mnamehor;
-        this.mimagehor = mimagehor;
+    public recyclerviewadapter_hor(Context mcontext,ArrayList<type>mtypelist) {
+//        this.mnamehor = mnamehor;
+//        this.mimagehor = mimagehor;
+        this.mtypelist=mtypelist;
         this.mcontext = mcontext;
     }
 
@@ -42,11 +47,15 @@ public class recyclerviewadapter_hor extends RecyclerView.Adapter<recyclerviewad
 
     @Override
     public void onBindViewHolder(@NonNull viewholder holder, @SuppressLint("RecyclerView") int position) {
-        Glide.with(mcontext)
-                .asBitmap()
-                .load(mimagehor.get(position))
-                .into(holder.imagehor);
-        holder.namehor.setText(mnamehor.get(position));
+//        Glide.with(mcontext)
+//                .asBitmap()
+//                .load(mimagehor.get(position))
+//                .into(holder.imagehor);
+//        holder.namehor.setText(mnamehor.get(position));
+        type type=mtypelist.get(position);
+        holder.namehor.setText(type.getTypename());
+        Picasso.with(mcontext).load(type.getTypepicture()).into(holder.imagehor);
+
 //        holder.namecard1.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -60,11 +69,11 @@ public class recyclerviewadapter_hor extends RecyclerView.Adapter<recyclerviewad
 
     @Override
     public int getItemCount() {
-        return mnamehor.size();
+        return mtypelist.size();
     }
 
     public class viewholder extends RecyclerView.ViewHolder{
-        CircleImageView imagehor;
+        ImageView imagehor;
         TextView namehor;
  //       LinearLayout namecard1;
 

@@ -28,6 +28,7 @@ public class webapihandler {
     Context context;
     String apilink = "";
     ArrayList<item> itemArrayList = new ArrayList<>();
+    ArrayList<type>typeArrayList=new ArrayList<>();
 
     public webapihandler(Context context) {
         this.context = context;
@@ -39,6 +40,10 @@ public class webapihandler {
                 apilink = config.selectitem_api;
                 break;
             }
+            case "itemtype":{
+                apilink=config.selecttype;
+            }
+
 
         }
         ProgressDialog progressDialog = ProgressDialog.show(context, "connecting...", "please wait", false, false);
@@ -48,18 +53,44 @@ public class webapihandler {
                 if (type.equals("register")) {
                     showJeson(response);
                 }
+                if (type.equals("itemtype")) {
+                    showJesontype(response);
+                }
 
                 progressDialog.dismiss();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, error.getMessage()+"????", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
             }
         }) ;
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(request);
+    }
+
+    private void showJesontype(String response) {
+        typeArrayList.clear();
+
+            try {
+                JSONObject jsonObjecttype=new JSONObject(response);
+                JSONArray jsonArraytype=jsonObjecttype.getJSONArray("itemtype");
+                for (int i=0;i<jsonArraytype.length();i++){
+                    JSONObject jsonObjecttype1=jsonArraytype.getJSONObject(i);
+                    String typeid=jsonObjecttype1.getString("typeid");
+                    String typename=jsonObjecttype1.getString("typename");
+                    String typepicture=jsonObjecttype1.getString("typepicture");
+                    type type=new type(typeid,typename,typepicture);
+                    typeArrayList.add(type);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            mainapp.typeArrayList=typeArrayList;
+            IData iData= (IData) context;
+            iData.sendata();
+
     }
 
     private void showJeson(String response) {
