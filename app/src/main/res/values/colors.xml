@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="white1">#CACACA</color>
     <color name="black">#3B2E24</color>
+    <color name="black1">#000000</color>
     <color name="gold">#56422E</color>
 
 </resources>

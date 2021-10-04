@@ -7,6 +7,7 @@
     tools:context=".login_activity"
     android:background="@drawable/loginpicture"
     android:orientation="vertical"
+    android:gravity="bottom"
     android:weightSum="10">
 
     <View
@@ -138,6 +139,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnlogin"
         android:layout_width="match_parent"
+        android:layout_gravity="bottom"
 
         android:layout_height="0dp"
         android:layout_weight="1"

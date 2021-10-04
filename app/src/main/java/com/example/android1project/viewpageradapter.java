@@ -12,14 +12,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
+import com.squareup.picasso.Picasso;
+
 public class viewpageradapter extends PagerAdapter {
 
     Context context;
 
-    int images[] = {
-            R.drawable.page1,
-            R.drawable.page2,
-            R.drawable.page3
+    String images[] = {
+            "https://res.cloudinary.com/dlgnk4lmq/image/upload/v1631765973/android1pro/firstactivity/page1.jpg",
+            "https://res.cloudinary.com/dlgnk4lmq/image/upload/v1631765973/android1pro/firstactivity/page2.jpg",
+            "https://res.cloudinary.com/dlgnk4lmq/image/upload/v1631765973/android1pro/firstactivity/page3.jpg"
     };
 
     int headings[] = {
@@ -59,7 +61,7 @@ public class viewpageradapter extends PagerAdapter {
         TextView slideheading=(TextView) view.findViewById(R.id.texttitle);
         TextView slidedescription=(TextView) view.findViewById(R.id.textdeccription);
 
-        slidetitleimage.setImageResource(images[position]);
+        Picasso.with(context).load(images[position]).into(slidetitleimage);
         slideheading.setText(headings[position]);
         slidedescription.setText(description[position]);
 

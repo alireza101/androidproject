@@ -32,14 +32,13 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, signup_activity.class));
             finish();
         }
-        preferences.edit().putString("startac","1").apply();
         skipbtn=findViewById(R.id.skipbtn);
         nextbtn=findViewById(R.id.nextbtn);
 
         skipbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                preferences.edit().putString("startac","1").apply();
                 Intent i =new Intent(MainActivity.this, signup_activity.class);
                 startActivity(i);
                 finish();
@@ -52,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 if (getitem(0)<2) {
                     msliderviewpager.setCurrentItem(getitem(1), true);
                 }else {
+                    preferences.edit().putString("startac","1").apply();
                     Intent i =new Intent(MainActivity.this, signup_activity.class);
                     startActivity(i);
                     finish();
