@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <group android:checkableBehavior="none">
+        <item
+            android:id="@+id/db"
+            android:icon="@drawable/ic_baseline_dashboard_24"
+            android:title="Dashboard" />
+        <item
+            android:id="@+id/setting"
+            android:icon="@drawable/ic_baseline_settings_24"
+            android:title="Setting" />
+        <item
+            android:id="@+id/profile"
+            android:icon="@drawable/ic_profie"
+            android:title="profile" />
+    </group>
+    <item android:title="communicate">
+        <menu>
+            <item
+                android:id="@+id/about_us"
+                android:icon="@drawable/ic_baseline_contact_support_24"
+                android:title="About us" />
+            <item
+                android:id="@+id/exit"
+                android:icon="@drawable/ic_baseline_login_24"
+                android:title="Logout" />
+        </menu>
+    </item>
+
+</menu>

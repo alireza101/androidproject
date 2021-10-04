@@ -4,13 +4,17 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Alireza/AndroidStudioProjects/android1project/app/src/main/res/drawable/btn_background.xml" value="0.21203703703703702" />
+        <entry key="..\:/Users/Alireza/AndroidStudioProjects/android1project/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.3203125" />
         <entry key="..\:/Users/Alireza/AndroidStudioProjects/android1project/app/src/main/res/layout/activity_login.xml" value="0.30416666666666664" />
         <entry key="..\:/Users/Alireza/AndroidStudioProjects/android1project/app/src/main/res/layout/activity_main.xml" value="0.2222222222222222" />
-        <entry key="..\:/Users/Alireza/AndroidStudioProjects/android1project/app/src/main/res/layout/activity_mainapp.xml" value="0.1" />
+        <entry key="..\:/Users/Alireza/AndroidStudioProjects/android1project/app/src/main/res/layout/activity_mainapp.xml" value="0.30416666666666664" />
         <entry key="..\:/Users/Alireza/AndroidStudioProjects/android1project/app/src/main/res/layout/activity_signup.xml" value="0.30416666666666664" />
+        <entry key="..\:/Users/Alireza/AndroidStudioProjects/android1project/app/src/main/res/layout/header_navigation.xml" value="0.30416666666666664" />
         <entry key="..\:/Users/Alireza/AndroidStudioProjects/android1project/app/src/main/res/layout/layout_listitem_horizental.xml" value="0.27395833333333336" />
         <entry key="..\:/Users/Alireza/AndroidStudioProjects/android1project/app/src/main/res/layout/layout_listitem_vertical.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/Alireza/AndroidStudioProjects/android1project/app/src/main/res/layout/slider_layout.xml" value="0.25" />
+        <entry key="..\:/Users/Alireza/AndroidStudioProjects/android1project/app/src/main/res/menu/menu_navigation.xml" value="0.2977777777777778" />
+        <entry key="..\:/Users/Alireza/AndroidStudioProjects/android1project/app/src/main/res/menu/menunavigation.xml" value="0.30416666666666664" />
       </map>
     </option>
   </component>

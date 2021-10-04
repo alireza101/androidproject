@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">android1project</string>
+    <string name="app_name">Refrigerator</string>
     <string name="heading_page1">welcome to \n My Refrigerator </string>
     <string name="page1"></string>
     <string name="heading_page2">Kitchen</string>
@@ -11,4 +11,6 @@ To create an alternating eighth expiration date</string>
     <string name="skip">skip</string>
     <string name="about">about</string>
     <string name="detail">detail</string>
+    <string name="open">open</string>
+    <string name="close">close</string>
 </resources>
