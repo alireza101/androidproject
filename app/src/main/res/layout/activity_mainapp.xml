@@ -7,17 +7,33 @@
     android:orientation="vertical"
     tools:context=".mainapp"
     android:background="#f2f2f2">
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/recyclerview"/>
-    <androidx.recyclerview.widget.RecyclerView
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:id="@+id/recyclerview"/>-->
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_weight="9"-->
+<!--        android:orientation="vertical"-->
+<!--        android:id="@+id/recyclerviewver"/>-->
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="9"
-        android:orientation="vertical"
-        android:id="@+id/recyclerviewver"/>
+        android:layout_weight="1"
+        android:id="@+id/frame_layout"/>
 
+    <com.etebarian.meowbottomnavigation.MeowBottomNavigation
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bottom_navigation"
+        app:mbn_circleColor="@color/white"
+        app:mbn_selectedIconColor="@color/black"
+        app:mbn_countTextColor="@color/white"
+        app:mbn_countBackgroundColor="@color/black"
+        app:mbn_defaultIconColor="@color/white"
+        app:mbn_backgroundBottomColor="@color/black"/>
 
 </LinearLayout>
