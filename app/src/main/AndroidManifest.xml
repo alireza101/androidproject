@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Android1project"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".detail_item"
+            android:exported="true" />
+        <activity
             android:name=".login_activity"
             android:exported="true" />
         <activity
@@ -21,7 +24,7 @@
         <activity
             android:name=".mainapp"
             android:exported="true"
-            android:theme="@style/Theme.Android1project.NoActionBar"/>
+            android:theme="@style/Theme.Android1project.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

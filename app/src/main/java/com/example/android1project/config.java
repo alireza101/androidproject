@@ -2,7 +2,7 @@ package com.example.android1project;
 
 public class config {
 
-        static String ip_value="http://192.168.1.105/android1project/api/";
+        static String ip_value="http://192.168.1.102/android1project/api/";
         static String selectitem_api=ip_value+"register.php";
         static String selecttype=ip_value+"itemtype.php";
 
@@ -10,4 +10,6 @@ public class config {
         static String signup=apilogin+"signup";
         static String login=apilogin+"login";
 
+        static String apidelete=ip_value+"delete_item.php?apicall=";
+        static String delete=apidelete+"delete";
 }

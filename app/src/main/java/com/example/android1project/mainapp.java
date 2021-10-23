@@ -1,38 +1,34 @@
 package com.example.android1project;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
+
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
+
 import android.view.View;
+import android.widget.Toast;
 
-import android.widget.TextView;
 
-
-import com.google.android.material.navigation.NavigationView;
+import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 
 import java.util.ArrayList;
 
-public class mainapp extends AppCompatActivity implements IData, NavigationView.OnNavigationItemSelectedListener {
-//    private ArrayList<String> mnamehor = new ArrayList<>();
-//    private ArrayList<Integer> mimagehor = new ArrayList<Integer>();
+public class mainapp extends AppCompatActivity implements IData {
 
+    MeowBottomNavigation bottomNavigation;
     static ArrayList<item> itemArrayList = new ArrayList<>();
      ArrayList<item> itemArrayListfilter = new ArrayList<>();
     static ArrayList<type> typeArrayList = new ArrayList<>();
-    private DrawerLayout drawer;
+
+    boolean flagfilter=false;
 
     webapihandler webapihandler;
     RecyclerView rcmain, rcmainhor;
-    TextView emailnavigation, namenavigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,47 +39,56 @@ public class mainapp extends AppCompatActivity implements IData, NavigationView.
         webapihandler.apiconecct("register");
         rcmain = findViewById(R.id.recyclerviewver);
         rcmainhor = findViewById(R.id.recyclerview);
-        emailnavigation = findViewById(R.id.email_navigation);
-        namenavigation = findViewById(R.id.name_navigation);
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.open, R.string.close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
- //       user user = SharedPrefManager.getInstance(this).getUser();
+//        bottomNavigation=findViewById(R.id.bottom_navigation);
+//
+//        bottomNavigation.add(new MeowBottomNavigation.Model(1,R.drawable.ic_profie));
+//        bottomNavigation.add(new MeowBottomNavigation.Model(2,R.drawable.ic_add_circle));
+//        bottomNavigation.add(new MeowBottomNavigation.Model(3,R.drawable.home));
+//
+//        bottomNavigation.setOnShowListener(new MeowBottomNavigation.ShowListener() {
+//            @Override
+//            public void onShowItem(MeowBottomNavigation.Model item) {
+//                Fragment fragment=null;
+//                switch (item.getId()){
+//                    case 1:
+//                        fragment=new profileFragment();
+//                        break;
+//
+//                    case 3:
+//                        fragment=new homeFragment();
+//                        break;
+//                }
+//                loadfragment(fragment);
+//            }
+//        });
 
         if (!SharedPrefManager.getInstance(this).isLoggedIn()) {
             finish();
             startActivity(new Intent(this, login_activity.class));
         }
 
- //       String namnav = "ID:" + String.valueOf(user.getId()) + "=" + user.getUsername();
-//       namenavigation.setText();
-        //emailnavigation.setText(user.getUsermail()+" h");
-//        findViewById(R.id.exit).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                finish();
-//                SharedPrefManager.getInstance(getApplicationContext()).logout();
-//            }
-//        });
-
-
-        // String [] user = new String[2];
-        //  user[0]=SharedPrefManager.getInstance(getApplicationContext()).getUser()
-        //  Picasso.with(getApplicationContext()).load("https://res.cloudinary.com/dlgnk4lmq/image/upload/v1633006560/android1pro/secoundactivity/2567134_a8pu69.jpg").into(image_header_navigation);
-
 
         rcmain.addOnItemTouchListener(new RecyclerTouchListener(this, rcmain, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-
+                Intent intent=new Intent(mainapp.this,detail_item.class);
+                item item;
+                if (flagfilter) {
+                     item = itemArrayListfilter.get(position);
+                }else {
+                     item = itemArrayList.get(position);
+                }
+                String getidname = "";
+                for (type type:typeArrayList){
+                    if (item.getItemtype().equals(type.getTypeid())){
+                         getidname=type.getTypename();
+                        break;
+                    }
+                }
+                String[]putitem=new String[]{item.getItemid(),item.getItemname(),item.getItempicture(),item.getItemsum()
+                ,getidname,item.getItemexpiration()};
+                intent.putExtra("item",putitem);
+                startActivity(intent);
             }
 
             @Override
@@ -108,6 +113,7 @@ public class mainapp extends AppCompatActivity implements IData, NavigationView.
                 }
                 recyclerviewadapter_ver adapter = new recyclerviewadapter_ver(getApplicationContext(), itemArrayListfilter);
                 rcmain.setAdapter(adapter);
+                flagfilter=true;
             }
 
             @Override
@@ -115,25 +121,32 @@ public class mainapp extends AppCompatActivity implements IData, NavigationView.
 
             }
         }));
+//         bottomNavigation.show(2,true);
+//
+//         bottomNavigation.setOnClickMenuListener(new MeowBottomNavigation.ClickListener() {
+//             @Override
+//             public void onClickItem(MeowBottomNavigation.Model item) {
+//                 Toast.makeText(getApplicationContext(), "you clicked "+item.getId(), Toast.LENGTH_SHORT).show();
+//             }
+//         });
+//
+//         bottomNavigation.setOnReselectListener(new MeowBottomNavigation.ReselectListener() {
+//             @Override
+//             public void onReselectItem(MeowBottomNavigation.Model item) {
+//                 Toast.makeText(getApplicationContext(), "you reselect "+item.getId(), Toast.LENGTH_SHORT).show();
+//             }
+//         });
 
 
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.exit:
-                finish();
-                SharedPrefManager.getInstance(getApplicationContext()).logout();
-                break;
-            case R.id.db:
-                finish();
-                startActivity(new Intent(getApplicationContext(), mainapp.class));
-                break;
+//    private void loadfragment(Fragment fragment) {
+//        getSupportFragmentManager()
+//                .beginTransaction()
+//                .replace(R.id.frame_layout,fragment)
+//                .commit();
+//    }
 
-        }
-        return true;
-    }
 
     @Override
     public void sendata() {
@@ -145,13 +158,5 @@ public class mainapp extends AppCompatActivity implements IData, NavigationView.
         rcmain.setAdapter(adapter);
     }
 
-    @Override
-    public void onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
 
-    }
 }

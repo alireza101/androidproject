@@ -15,7 +15,7 @@
         android:layout_height="400dp"
         android:scaleType="fitCenter"
         android:layout_marginTop="10dp"
-        android:src="@drawable/page1" />
+        android:src="@drawable/ic_launcher_foreground" />
 
     <TextView
         android:id="@+id/texttitle"
