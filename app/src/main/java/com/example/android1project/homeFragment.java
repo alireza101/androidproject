@@ -1,64 +1,117 @@
 package com.example.android1project;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link homeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class homeFragment extends Fragment {
+import java.util.ArrayList;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+public class homeFragment extends Fragment  {
+    static ArrayList<item> itemArrayList = new ArrayList<>();
+    ArrayList<item> itemArrayListfilter = new ArrayList<>();
+
+    static ArrayList<type> typeArrayList = new ArrayList<>();
+    boolean flagfilter=false;
+
+    webapihandler webapihandler;
+    RecyclerView rcmain,rcmainhor;
 
     public homeFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment homeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static homeFragment newInstance(String param1, String param2) {
-        homeFragment fragment = new homeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view= inflater.inflate(R.layout.fragment_home, container, false);
+        Bundle bundle=getArguments();
+        boolean loaddata=true;
+        if(bundle!=null){
+             loaddata=bundle.getBoolean("loaddata");
+        }
+        if (loaddata!=false || bundle==null) {
+            webapihandler = new webapihandler(getActivity());
+            webapihandler.apiconecct("itemtype");
+            webapihandler.apiconecct("register");
+        }
+            rcmain = view.findViewById(R.id.recyclerviewver);
+            rcmainhor = view.findViewById(R.id.recyclerview);
+
+        rcmain.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), rcmain, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Intent intent=new Intent(getActivity(),detail_item.class);
+                item item;
+                if (flagfilter) {
+                    item = itemArrayListfilter.get(position);
+                }else {
+                    item = itemArrayList.get(position);
+                }
+                String getidname = "";
+                for (type type:typeArrayList){
+                    if (item.getItemtype().equals(type.getTypeid())){
+                        getidname=type.getTypename();
+                        break;
+                    }
+                }
+                String[]putitem=new String[]{item.getItemid(),item.getItemname(),item.getItempicture(),item.getItemsum()
+                        ,getidname,item.getItemexpiration()};
+                intent.putExtra("item",putitem);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+        rcmainhor.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), rcmainhor, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                itemArrayListfilter.clear();
+
+                type type=typeArrayList.get(position);
+                for (item item : itemArrayList) {
+                    if (type.getTypename().equals("All")){
+                        itemArrayListfilter.add(item);
+                    }else {
+                        if (type.getTypeid().equals(item.getItemtype())) {
+                            itemArrayListfilter.add(item);
+                        }
+                    }
+                }
+                recyclerviewadapter_ver adapter = new recyclerviewadapter_ver(getActivity(), itemArrayListfilter);
+                rcmain.setAdapter(adapter);
+                flagfilter=true;
+
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+
+        typedata();
+        return view;
     }
+    public void typedata(){
+        recyclerviewadapter_hor adapte1=new recyclerviewadapter_hor(getActivity(),typeArrayList);
+        rcmainhor.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
+        rcmainhor.setAdapter(adapte1);
+        recyclerviewadapter_ver adapter =new recyclerviewadapter_ver(getActivity(),itemArrayList);
+        rcmain.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rcmain.setAdapter(adapter);
+    }
+
+
 }

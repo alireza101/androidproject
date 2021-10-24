@@ -62,7 +62,7 @@ public class webapihandler {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context.getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
             }
         }) ;
@@ -87,7 +87,7 @@ public class webapihandler {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            mainapp.typeArrayList=typeArrayList;
+            homeFragment.typeArrayList=typeArrayList;
             IData iData= (IData) context;
             iData.sendata();
 
@@ -117,7 +117,7 @@ public class webapihandler {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        mainapp.itemArrayList = itemArrayList;
+        homeFragment.itemArrayList = itemArrayList;
         IData iData = (IData) context;
         iData.sendata();
     }
