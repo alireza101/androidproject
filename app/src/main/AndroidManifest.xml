@@ -16,10 +16,6 @@
             android:name=".detail_item"
             android:exported="true" />
         <activity
-            android:name=".login_activity"
-            android:exported="true"
-            android:theme="@style/Theme.Android1project.NoActionBar"/>
-        <activity
             android:name=".signup_activity"
             android:exported="true" />
         <activity

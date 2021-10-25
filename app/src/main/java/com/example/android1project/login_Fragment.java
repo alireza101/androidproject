@@ -1,12 +1,15 @@
 package com.example.android1project;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -18,21 +21,26 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
-public class login_activity extends AppCompatActivity {
+public class login_Fragment extends Fragment {
 
     EditText txtusername,txtuserpassword;
     TextView txtlogingo;
     Button btnlogin;
+    public login_Fragment() {
+        // Required empty public constructor
+    }
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        txtusername=findViewById(R.id.txtusername);
-        txtuserpassword=findViewById(R.id.txtuserpassword);
-        txtlogingo=findViewById(R.id.txtlogingo);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view= inflater.inflate(R.layout.fragment_login, container, false);
+        txtusername=view.findViewById(R.id.txtusername);
+        txtuserpassword=view.findViewById(R.id.txtuserpassword);
+        txtlogingo=view.findViewById(R.id.txtlogingo);
 
-        btnlogin=findViewById(R.id.btnlogin);
-
+        btnlogin=view.findViewById(R.id.btnlogin);
         btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,10 +50,16 @@ public class login_activity extends AppCompatActivity {
         txtlogingo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
-                startActivity(new Intent(login_activity.this,signup_activity.class));
+                Fragment fragment=new signup_Fragment();
+
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.page1,fragment)
+                        .commit();
             }
         });
+
+        return view;
     }
     private void userLogin() {
         //first getting the values
@@ -74,7 +88,7 @@ public class login_activity extends AppCompatActivity {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                progressBar = (ProgressBar) findViewById(R.id.progressBar);
+                progressBar = (ProgressBar) getView().findViewById(R.id.progressBar);
                 progressBar.setVisibility(View.VISIBLE);
             }
 
@@ -90,7 +104,7 @@ public class login_activity extends AppCompatActivity {
 
                     //if no error in response
                     if (!obj.getBoolean("error")) {
-                        Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), obj.getString("message"), Toast.LENGTH_SHORT).show();
 
                         //getting the user from the response
                         JSONObject userJson = obj.getJSONObject("user");
@@ -105,13 +119,13 @@ public class login_activity extends AppCompatActivity {
                         );
 
                         //storing the user in shared preferences
-                        SharedPrefManager.getInstance(getApplicationContext()).userLogin(user);
+                        SharedPrefManager.getInstance(getActivity()).userLogin(user);
 
                         //starting the profile activity
-                        finish();
-                        startActivity(new Intent(getApplicationContext(), mainapp.class));
+                        getActivity().finish();
+                        startActivity(new Intent(getActivity(), mainapp.class));
                     } else {
-                        Toast.makeText(getApplicationContext(), "Invalid username or password", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Invalid username or password", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

@@ -1,49 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".login_activity"
-    android:background="@drawable/loginpicture"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:gravity="bottom"
-    android:weightSum="10">
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3" />
-
+    tools:context=".signup_Fragment">
     <TextView
         android:id="@+id/textlogin"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="1.5"
         android:gravity="center"
-        android:text=" Login to account"
+        android:text="@string/create_account"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="20sp" />
+        android:textSize="30sp" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="10dp"
-        android:layout_weight="3"
+        android:layout_weight="2"
         android:background="@color/white"
-        app:cardCornerRadius="20dp">
+        app:cardCornerRadius="20dp"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:weightSum="3.5">
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight=".7"
+                android:layout_weight=".3"
                 android:orientation="horizontal">
 
 
@@ -52,19 +44,16 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="login"
+                    android:text="singup"
                     android:textAlignment="center"
                     android:textSize="20sp" />
 
             </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight=".4"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1.2"
+                android:layout_weight=".5"
                 android:layout_marginTop="10dp"
                 android:layout_margin="2dp">
 
@@ -79,9 +68,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="#E3E3E3"
-                        android:drawableStart="@drawable/ic_baseline_person_24"
+                        android:drawableStart="@drawable/profile"
+                        android:drawablePadding="10dp"
                         android:hint="username"
-                        android:textAlignment="center" />
+                        android:textAlignment="textStart"
+                         />
 
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
@@ -89,7 +80,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1.2"
+                android:layout_weight=".5"
                 android:layout_marginTop="10dp"
                 android:layout_margin="2dp">
 
@@ -104,14 +95,38 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/white"
-                        android:drawableStart="@drawable/ic_baseline_lock_24"
+                        android:drawablePadding="10dp"
+                        android:drawableStart="@drawable/password"
                         android:hint="password"
-                        android:textAlignment="center" />
+                         />
 
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".5"
+                android:layout_marginTop="10dp"
+                android:layout_margin="2dp">
 
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#AAA9A9"
+                    app:cardCornerRadius="20dp">
+
+                    <EditText
+                        android:id="@+id/txtuseremail"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#E3E3E3"
+                        android:drawableStart="@drawable/email"
+                        android:hint="email"
+                        android:drawablePadding="10dp"/>
+
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -125,7 +140,7 @@
         android:gravity="center"
         android:textColor="@color/white"
         android:textSize="20sp"
-        android:text="Dont' have an account?\nRegister Here"
+        android:text="@string/login_here"
         android:layout_weight=".7" />
     <ProgressBar
         android:visibility="gone"
@@ -135,15 +150,14 @@
         android:layout_weight="1"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true" />
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnlogin"
         android:layout_width="match_parent"
-        android:layout_gravity="bottom"
-
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:textColor="@color/white"
+        android:layout_weight=".5"
         android:background="@drawable/btn_background"
+        android:textColor="@color/white"
         android:text="Done" />
+
+
 </LinearLayout>

@@ -56,7 +56,7 @@ public class mainapp extends AppCompatActivity implements IData {
 
         if (!SharedPrefManager.getInstance(this).isLoggedIn()) {
             finish();
-            startActivity(new Intent(this, login_activity.class));
+            startActivity(new Intent(this, signup_activity.class));
         }
 
 
