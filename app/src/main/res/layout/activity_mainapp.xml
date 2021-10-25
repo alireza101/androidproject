@@ -19,11 +19,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/bottom_navigation"
-        app:mbn_circleColor="@color/white"
-        app:mbn_selectedIconColor="@color/black"
+        app:mbn_circleColor="@color/black"
+        app:mbn_selectedIconColor="@color/white"
         app:mbn_countTextColor="@color/white"
         app:mbn_countBackgroundColor="@color/black"
-        app:mbn_defaultIconColor="@color/white"
-        app:mbn_backgroundBottomColor="@color/black"/>
+        app:mbn_defaultIconColor="@color/black"
+        app:mbn_backgroundBottomColor="@color/white"/>
 
 </LinearLayout>
