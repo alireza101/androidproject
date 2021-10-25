@@ -11,19 +11,21 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="1.5"
         android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/image_profile"
+            android:id="@+id/profile_image"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@drawable/ic_launcher_background" />
+
+            android:src="@drawable/profilepic" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:id="@+id/profile_name"
             android:layout_weight="3"
             android:gravity="start|center"
             android:paddingStart="15dp"
@@ -35,15 +37,15 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="15dp"
         android:layout_weight="4"
         android:orientation="vertical">
 
         <Button
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="10dp"
+            android:id="@+id/profile_myprofile"
+            android:layout_height="65dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/background_btn_white"
             android:drawableStart="@drawable/profile"
@@ -55,26 +57,47 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <Button
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="65dp"
             android:layout_marginBottom="10dp"
-            android:background="@drawable/background_btn_white"
-            android:drawableStart="@drawable/notification"
-            android:drawablePadding="15dp"
-            android:elevation="3dp"
             android:paddingStart="20dp"
-            android:text="Notification "
-            android:textAlignment="viewStart"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:elevation="3dp"
+            android:background="@drawable/background_btn_white"
+            >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:id="@+id/profile_notification"
+                android:drawablePadding="15dp"
+                android:drawableStart="@drawable/notification"
+                android:text="Notification "
+                android:textColor="#000000"
+                android:gravity="center|start"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+            <androidx.appcompat.widget.SwitchCompat
+                android:layout_width="0dp"
+                android:id="@+id/profile_switch1"
+                android:layout_height="match_parent"
+                android:layout_weight="1.2"
+                android:thumb="@drawable/thumb"
+                android:checked="true"
+                app:track="@drawable/track"
+                android:layout_marginEnd="10dp"
+                app:showText="true"
+                android:textOn="ON"
+                android:textOff="OFF"
+                />
+        </LinearLayout>
+
 
         <Button
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="65dp"
             android:layout_marginBottom="10dp"
+            android:id="@+id/profile_aboutapp"
             android:background="@drawable/background_btn_white"
             android:drawableStart="@drawable/aboutapp"
             android:drawablePadding="15dp"
@@ -87,8 +110,9 @@
 
         <Button
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="65dp"
+
+            android:id="@+id/profile_feedback"
             android:layout_marginBottom="10dp"
             android:background="@drawable/background_btn_white"
             android:drawableStart="@drawable/feedback"
@@ -106,7 +130,8 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2.5" />
+        android:layout_weight="2" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -115,11 +140,13 @@
         android:layout_marginEnd="15dp"
         android:layout_weight="1"
         android:orientation="vertical">
+
         <Button
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="65dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
+            android:id="@+id/profile_logout"
             android:background="@drawable/background_btn_white"
             android:drawableStart="@drawable/logout"
             android:drawablePadding="15dp"
