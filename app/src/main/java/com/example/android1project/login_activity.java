@@ -99,7 +99,9 @@ public class login_activity extends AppCompatActivity {
                         user user = new user(
                                 userJson.getInt("userid"),
                                 userJson.getString("username"),
-                                userJson.getString("useremail")
+                                userJson.getString("useremail"),
+                                userJson.getString("userpassword")
+
                         );
 
                         //storing the user in shared preferences
