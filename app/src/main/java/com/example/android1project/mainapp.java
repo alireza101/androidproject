@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -13,14 +15,20 @@ import android.widget.Toast;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class mainapp extends AppCompatActivity implements IData {
+//    ArrayList<item> itemArrayList = new ArrayList<>();
+//    ArrayList<type> typeArrayList = new ArrayList<>();
 
 
-
-    Fragment fragment=null;
+    Fragment fragment = null;
     MeowBottomNavigation bottomNavigation;
 
     @Override
@@ -28,28 +36,30 @@ public class mainapp extends AppCompatActivity implements IData {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainapp);
 
-        bottomNavigation=findViewById(R.id.bottom_navigation);
-        bottomNavigation.add(new MeowBottomNavigation.Model(1,R.drawable.ic_profie));
-        bottomNavigation.add(new MeowBottomNavigation.Model(2,R.drawable.ic_add_circle));
-        bottomNavigation.add(new MeowBottomNavigation.Model(3,R.drawable.home));
+        bottomNavigation = findViewById(R.id.bottom_navigation);
+        bottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.ic_profie));
+        bottomNavigation.add(new MeowBottomNavigation.Model(2, R.drawable.ic_add_circle));
+        bottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.home));
+
 
         bottomNavigation.setOnShowListener(new MeowBottomNavigation.ShowListener() {
             @Override
             public void onShowItem(MeowBottomNavigation.Model item) {
-
-                switch (item.getId()){
+                switch (item.getId()) {
                     case 1:
-                        fragment=new profileFragment();
+                        fragment = new profileFragment();
                         break;
                     case 2:
-                        fragment=new addFragment();
+                        fragment = new addFragment();
                         break;
                     case 3:
-                        fragment=new homeFragment();
+                        fragment = new homeFragment();
+                        homeFragment.itemArrayList.clear();
                         break;
 
                 }
                 loadFragment(fragment);
+
             }
         });
 
@@ -60,7 +70,7 @@ public class mainapp extends AppCompatActivity implements IData {
         }
 
 
-        bottomNavigation.show(2,true);
+        bottomNavigation.show(2, true);
         bottomNavigation.setOnClickMenuListener(new MeowBottomNavigation.ClickListener() {
             @Override
             public void onClickItem(MeowBottomNavigation.Model item) {
@@ -80,19 +90,17 @@ public class mainapp extends AppCompatActivity implements IData {
     private void loadFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.frame_layout,fragment)
+                .replace(R.id.frame_layout, fragment)
                 .commit();
     }
 
-
     @Override
     public void sendata() {
-         fragment=new homeFragment();
-         Bundle bundle=new Bundle();
+        fragment=new homeFragment();
+        Bundle bundle=new Bundle();
         bundle.putBoolean("loaddata",false);
-         fragment.setArguments(bundle);
+        fragment.setArguments(bundle);
 
-         loadFragment(fragment);
-
+        loadFragment(fragment);
     }
 }
