@@ -10,6 +10,7 @@ public class config {
         static String signup=apilogin+"signup";
         static String login=apilogin+"login";
 
-        static String apidelete=ip_value+"delete_item.php?apicall=";
+        static String apidelete=ip_value+"api.php?apicall=";
         static String delete=apidelete+"delete";
+        static String change=apidelete+"change";
 }

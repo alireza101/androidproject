@@ -30,7 +30,6 @@ public class mainapp extends AppCompatActivity implements IData {
 
     Fragment fragment = null;
     MeowBottomNavigation bottomNavigation;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +39,6 @@ public class mainapp extends AppCompatActivity implements IData {
         bottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.ic_profie));
         bottomNavigation.add(new MeowBottomNavigation.Model(2, R.drawable.ic_add_circle));
         bottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.home));
-
 
         bottomNavigation.setOnShowListener(new MeowBottomNavigation.ShowListener() {
             @Override

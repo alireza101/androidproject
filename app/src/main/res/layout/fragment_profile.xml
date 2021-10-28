@@ -119,7 +119,7 @@
             android:drawablePadding="15dp"
             android:elevation="3dp"
             android:paddingStart="20dp"
-            android:text="Give Us Feedback "
+            android:text="Give Feedback "
             android:textAlignment="viewStart"
             android:textSize="18sp"
             android:textStyle="bold" />

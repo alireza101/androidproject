@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f2f2f2"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".mainapp">
 
 
@@ -19,7 +19,7 @@
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:mbn_backgroundBottomColor="@color/white"
+        app:mbn_backgroundBottomColor="#f2f2f2"
         app:mbn_circleColor="@color/black"
         app:mbn_countBackgroundColor="@color/black"
         app:mbn_countTextColor="@color/white"

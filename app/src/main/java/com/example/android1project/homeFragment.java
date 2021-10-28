@@ -30,7 +30,6 @@ public class homeFragment extends Fragment {
     static ArrayList<type> typeArrayList = new ArrayList<>();
     boolean flagfilter = false;
 
-    //    webapihandler webapihandler;
     RecyclerView rcmain, rcmainhor;
 
     public homeFragment() {
@@ -52,17 +51,7 @@ public class homeFragment extends Fragment {
             registeritem();
             registertype();
         }
-//        Bundle bundle = getArguments();
-//        boolean loaddata = true;
-//        if (bundle != null) {
-//            loaddata = bundle.getBoolean("loaddata");
-//        }
-//        if (loaddata != false || bundle == null) {
-//            webapihandler = new webapihandler(getActivity());
-//            webapihandler.apiconecct("itemtype");
-//            webapihandler.apiconecct("register");
 
-//        }
         rcmain = view.findViewById(R.id.recyclerviewver);
         rcmainhor = view.findViewById(R.id.recyclerview);
 
@@ -135,14 +124,7 @@ public class homeFragment extends Fragment {
         return view;
     }
 
-//    public void typedata() {
-//        recyclerviewadapter_hor adapte1 = new recyclerviewadapter_hor(getActivity(), typeArrayList);
-//        rcmainhor.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-//        rcmainhor.setAdapter(adapte1);
-//        recyclerviewadapter_ver adapter = new recyclerviewadapter_ver(getActivity(), itemArrayList);
-//        rcmain.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        rcmain.setAdapter(adapter);
-//    }
+
     //*******************************************************************************************************************************************************
 
     private void registeritem() {
@@ -172,15 +154,12 @@ public class homeFragment extends Fragment {
             protected void onPreExecute() {
                 super.onPreExecute();
                 //displaying the progress bar while user registers on the server
-//                progressBar = (ProgressBar)getView().findViewById(R.id.progressBar);
-//                progressBar.setVisibility(View.VISIBLE);
-            }
+          }
 
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
                 //hiding the progressbar after completion
-//                progressBar.setVisibility(View.GONE);
                 itemArrayList.clear();
                 try {
                     JSONObject jsonObject = new JSONObject(s);
@@ -205,8 +184,7 @@ public class homeFragment extends Fragment {
                     e.printStackTrace();
                 }
                 progressDialog.dismiss();
-//                IData iData = (IData) getActivity();
-//                iData.sendata();
+
 
             }
 

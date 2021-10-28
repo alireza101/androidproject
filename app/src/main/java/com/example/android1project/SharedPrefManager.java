@@ -10,6 +10,7 @@ public class SharedPrefManager {
     private static final String KEY_userEMAIL = "keyuseremail";
     private static final String KEY_userID = "keyuserid";
     private static final String KEY_userpassword = "keyuserpassword";
+    private static final String KEY_usergender = "keyusergender";
 
     private static SharedPrefManager mInstance;
     private static Context mCtx;
@@ -31,7 +32,11 @@ public class SharedPrefManager {
         editor.putString(KEY_USERNAME, user.getUsername());
         editor.putString(KEY_userEMAIL, user.getUsermail());
         editor.putString(KEY_userpassword, user.getUserpassword());
-
+        if (user.getUsergender() == null){
+            editor.putString(KEY_usergender, null);
+        }else {
+            editor.putString(KEY_usergender, user.getUsergender());
+        }
         editor.apply();
     }
 
@@ -48,7 +53,8 @@ public class SharedPrefManager {
                 sharedPreferences.getInt(KEY_userID, -1),
                 sharedPreferences.getString(KEY_USERNAME, null),
                 sharedPreferences.getString(KEY_userEMAIL, null),
-                sharedPreferences.getString(KEY_userpassword, null)
+                sharedPreferences.getString(KEY_userpassword, null),
+                sharedPreferences.getString(KEY_usergender, null)
 
         );
     }

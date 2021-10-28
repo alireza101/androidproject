@@ -9,11 +9,20 @@ To create an alternating eighth expiration date</string>
     <string name="page3">It can help the supermarket owner to sell their products with better planning without expiring the product.</string>
     <string name="next">next</string>
     <string name="skip">skip</string>
-    <string name="about">about</string>
+    <string name="about">About App</string>
     <string name="detail">detail</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="create_account">Hello! \n Sign Up to \n Get Started.</string>
     <string name="login_here">Already Registered?\nLogin Here</string>
     <string name="login">Hello Again!\n Welcome Back.</string>
+    <string name="email">email:</string>
+    <string name="name">name:</string>
+    <string name="password">password:</string>
+    <string name="gender">Gender:</string>
+    <string name="my_profile">my profile</string>
+    <string name="give_feedback">Give Feedback</string>
+    <string name="send_feedback">Send Feedback</string>
+    <string name="more_about_it">Care to share more about it?</string>
+    <string name="how_do">How did we do?</string>
 </resources>
