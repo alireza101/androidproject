@@ -185,7 +185,7 @@
                 android:layout_gravity="center"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
-                app:lottie_rawRes="@raw/male_account" />
+                app:lottie_rawRes="@raw/man_account" />
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/myprofile_woman"

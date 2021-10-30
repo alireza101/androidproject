@@ -21,15 +21,13 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class recyclerviewadapter_hor extends RecyclerView.Adapter<recyclerviewadapter_hor.viewholder>{
-   //1 private ArrayList<String> mnamehor=new ArrayList<>();
-   //2 private ArrayList<Integer>mimagehor=new ArrayList<>();
+
     private ArrayList<type>mtypelist;
 
     private Context mcontext;
 
     public recyclerviewadapter_hor(Context mcontext,ArrayList<type>mtypelist) {
-//        this.mnamehor = mnamehor;
-//        this.mimagehor = mimagehor;
+
         this.mtypelist=mtypelist;
         this.mcontext = mcontext;
     }
@@ -47,23 +45,10 @@ public class recyclerviewadapter_hor extends RecyclerView.Adapter<recyclerviewad
 
     @Override
     public void onBindViewHolder(@NonNull viewholder holder, @SuppressLint("RecyclerView") int position) {
-//        Glide.with(mcontext)
-//                .asBitmap()
-//                .load(mimagehor.get(position))
-//                .into(holder.imagehor);
-//        holder.namehor.setText(mnamehor.get(position));
+
         type type=mtypelist.get(position);
         holder.namehor.setText(type.getTypename());
         Picasso.with(mcontext).load(type.getTypepicture()).into(holder.imagehor);
-
-//        holder.namecard1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(mcontext, "click to the "+ mnamehor.get(position), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
-
 
     }
 
@@ -75,13 +60,11 @@ public class recyclerviewadapter_hor extends RecyclerView.Adapter<recyclerviewad
     public class viewholder extends RecyclerView.ViewHolder{
         ImageView imagehor;
         TextView namehor;
- //       LinearLayout namecard1;
 
         public viewholder(@NonNull View itemView) {
             super(itemView);
             imagehor=itemView.findViewById(R.id.imagehor);
             namehor=itemView.findViewById(R.id.namehor);
-//            namecard1=itemView.findViewById(R.id.namecard1);
         }
     }
 

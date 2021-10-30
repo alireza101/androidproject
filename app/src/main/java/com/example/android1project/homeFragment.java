@@ -240,7 +240,8 @@ public class homeFragment extends Fragment {
                         String typeid = jsonObjecttype1.getString("typeid");
                         String typename = jsonObjecttype1.getString("typename");
                         String typepicture = jsonObjecttype1.getString("typepicture");
-                        type type = new type(typeid, typename, typepicture);
+                        String typepicture1 = jsonObjecttype1.getString("typepicture1");
+                        type type = new type(typeid, typename, typepicture, typepicture1);
                         typeArrayList.add(type);
                     }
                 } catch (JSONException e) {

@@ -4,6 +4,19 @@ public class type {
     private String typeid;
     private String typename;
     private String typepicture;
+    private String typepicture1;
+
+
+
+    public type(String typeid, String typename, String typepicture, String typepicture1) {
+        this.setTypeid(typeid);
+        this.setTypename(typename);
+        this.setTypepicture(typepicture);
+        this.setTypepicture1(typepicture1);
+
+
+    }
+
 
     public String getTypeid() {
         return typeid;
@@ -29,10 +42,13 @@ public class type {
         this.typepicture = typepicture;
     }
 
-    public type(String typeid, String typename, String typepicture) {
-        this.typeid = typeid;
-        this.typename = typename;
-        this.typepicture = typepicture;
+
+    public String getTypepicture1() {
+        return typepicture1;
+    }
+
+    public void setTypepicture1(String typepicture1) {
+        this.typepicture1 = typepicture1;
     }
 
 }

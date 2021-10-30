@@ -14,9 +14,10 @@ import android.widget.TextView;
 
 
 public class profileFragment extends Fragment {
-    Button btn_logout,btn_myprofile,btn_about,btn_feedback;
+    Button btn_logout, btn_myprofile, btn_about, btn_feedback;
     TextView textView;
-ImageView imageView;
+    ImageView imageView;
+
     public profileFragment() {
         // Required empty public constructor
     }
@@ -25,13 +26,13 @@ ImageView imageView;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_profile, container, false);
-        btn_logout=view.findViewById(R.id.profile_logout);
-        textView=view.findViewById(R.id.profile_name);
-        btn_myprofile=view.findViewById(R.id.profile_myprofile);
-        btn_about=view.findViewById(R.id.profile_aboutapp);
-        btn_feedback=view.findViewById(R.id.profile_feedback);
-        imageView=view.findViewById(R.id.profile_image);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        btn_logout = view.findViewById(R.id.profile_logout);
+        textView = view.findViewById(R.id.profile_name);
+        btn_myprofile = view.findViewById(R.id.profile_myprofile);
+        btn_about = view.findViewById(R.id.profile_aboutapp);
+        btn_feedback = view.findViewById(R.id.profile_feedback);
+        imageView = view.findViewById(R.id.profile_image);
 
         btn_feedback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,10 +59,10 @@ ImageView imageView;
                 SharedPrefManager.getInstance(getActivity()).logout();
             }
         });
-        user user=SharedPrefManager.getInstance(getActivity()).getUser();
+        user user = SharedPrefManager.getInstance(getActivity()).getUser();
         textView.setText(user.getUsername().toString().trim());
 
-        if (user.getUsergender()=="man") {
+        if (user.getUsergender() == "man") {
             imageView.setImageResource(R.drawable.male_user);
         } else {
             imageView.setImageResource(R.drawable.female_user);

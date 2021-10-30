@@ -7,24 +7,29 @@ import android.content.Intent;
 import android.os.Bundle;
 
 public class profile extends AppCompatActivity {
-Fragment fragment=null;
+    Fragment fragment = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        Intent intent=getIntent();
-        int pi=intent.getIntExtra("profileitem",1);
-        switch (pi){
+        Intent intent = getIntent();
+        int pi = intent.getIntExtra("profileitem", 1);
+        switch (pi) {
             case 1:
-                fragment=new myprofileFragment();
+                fragment = new myprofileFragment();
                 loadfragment(fragment);
                 break;
             case 2:
-                fragment=new aboutFragment();
+                fragment = new aboutFragment();
                 loadfragment(fragment);
                 break;
             case 3:
-                fragment=new feedbackFragment();
+                fragment = new feedbackFragment();
+                loadfragment(fragment);
+                break;
+            case 4:
+                fragment = new save_item_Fragment();
                 loadfragment(fragment);
                 break;
         }
