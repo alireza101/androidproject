@@ -74,6 +74,8 @@ public class myprofileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 getActivity().finish();
+                Fragment fragment=new profileFragment();
+                loadfragment(fragment);
 //                Intent intent=new Intent(getActivity(),mainapp.class);
 //                intent.putExtra("loadmainapp","1");
 //                startActivity(intent);
@@ -103,6 +105,14 @@ public class myprofileFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void loadfragment(Fragment fragment) {
+
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.frame_layout, fragment)
+                .commit();
     }
 
     private void registeritem() {

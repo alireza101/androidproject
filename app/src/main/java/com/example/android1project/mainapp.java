@@ -23,13 +23,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class mainapp extends AppCompatActivity implements IData {
+public class mainapp extends AppCompatActivity  {
 //    ArrayList<item> itemArrayList = new ArrayList<>();
 //    ArrayList<type> typeArrayList = new ArrayList<>();
 
 
     Fragment fragment = null;
     MeowBottomNavigation bottomNavigation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,8 +38,9 @@ public class mainapp extends AppCompatActivity implements IData {
 
         bottomNavigation = findViewById(R.id.bottom_navigation);
         bottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.ic_profie));
-        bottomNavigation.add(new MeowBottomNavigation.Model(2, R.drawable.ic_add_circle));
-        bottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.home));
+        bottomNavigation.add(new MeowBottomNavigation.Model(2, R.drawable.home));
+        bottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.ic_add_circle));
+
 
         bottomNavigation.setOnShowListener(new MeowBottomNavigation.ShowListener() {
             @Override
@@ -47,12 +49,12 @@ public class mainapp extends AppCompatActivity implements IData {
                     case 1:
                         fragment = new profileFragment();
                         break;
-                    case 2:
+                    case 3:
                         fragment = new addFragment();
                         break;
-                    case 3:
+                    case 2:
                         fragment = new homeFragment();
-                        homeFragment.itemArrayList.clear();
+//                        homeFragment.itemArrayList.clear();
                         break;
 
                 }
@@ -92,13 +94,13 @@ public class mainapp extends AppCompatActivity implements IData {
                 .commit();
     }
 
-    @Override
-    public void sendata() {
-        fragment=new homeFragment();
-        Bundle bundle=new Bundle();
-        bundle.putBoolean("loaddata",false);
-        fragment.setArguments(bundle);
-
-        loadFragment(fragment);
-    }
+//    @Override
+//    public void sendata() {
+//        fragment = new homeFragment();
+//        Bundle bundle = new Bundle();
+//        bundle.putBoolean("loaddata", false);
+//        fragment.setArguments(bundle);
+//
+//        loadFragment(fragment);
+//    }
 }

@@ -41,17 +41,17 @@ public class homeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
-        Bundle bundle=getArguments();
-        boolean loaddata=true;
-        if(bundle!=null){
-            loaddata=bundle.getBoolean("loaddata");
-        }
-        if (loaddata!=false || bundle==null) {
-            registeritem();
-            registertype();
-        }
-
+//        Bundle bundle=getArguments();
+//        boolean loaddata=true;
+//        if(bundle!=null){
+//            loaddata=bundle.getBoolean("loaddata");
+//        }
+//        if (loaddata || bundle==null) {
+//            registeritem();
+//            registertype();
+//        }
+        registeritem();
+        registertype();
         rcmain = view.findViewById(R.id.recyclerviewver);
         rcmainhor = view.findViewById(R.id.recyclerview);
 
@@ -247,8 +247,8 @@ public class homeFragment extends Fragment {
                     e.printStackTrace();
                 }
                 progressDialog.dismiss();
-                IData iData = (IData) getActivity();
-                iData.sendata();
+//                IData iData = (IData) getActivity();
+//                iData.sendata();
             }
         }
         //executing the async task

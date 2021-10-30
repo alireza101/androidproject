@@ -1,16 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:orientation="vertical"
     tools:context=".addFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="add fragment"
         android:gravity="center"
-        android:textSize="30sp"/>
+        android:orientation="vertical"
+        android:background="@drawable/background_dialog">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Add choice:"
+            android:textSize="30sp"
+            android:textStyle="bold"/>
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="save item"
 
-</FrameLayout>
+            android:background="@drawable/background_btn_addf_yellow"
+            android:id="@+id/add_saveitem"/>
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="custom item"
+            android:background="@drawable/background_btn_addf_red"
+            android:id="@+id/add_customitem"/>
+
+    </LinearLayout>
+
+</LinearLayout>
