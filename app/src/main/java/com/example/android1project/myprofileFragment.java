@@ -1,7 +1,6 @@
 package com.example.android1project;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -12,7 +11,6 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,7 +18,6 @@ import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -74,17 +71,12 @@ public class myprofileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 getActivity().finish();
-                Fragment fragment=new profileFragment();
-                loadfragment(fragment);
-//                Intent intent=new Intent(getActivity(),mainapp.class);
-//                intent.putExtra("loadmainapp","1");
-//                startActivity(intent);
             }
         });
         tvok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                registeritem();
+                registeruser();
                 getActivity().finish();
             }
         });
@@ -115,7 +107,7 @@ public class myprofileFragment extends Fragment {
                 .commit();
     }
 
-    private void registeritem() {
+    private void registeruser() {
 
         sedname = edname.getText().toString();
         sedemail = edemail.getText().toString();
@@ -148,7 +140,7 @@ public class myprofileFragment extends Fragment {
 
         //if it passes all the validations
 
-        class Registeritem extends AsyncTask<Void, Void, String> {
+        class registeruser extends AsyncTask<Void, Void, String> {
 
             ProgressDialog progressDialog = ProgressDialog.show(getActivity(), "connecting...", "please wait", false, false);
 
@@ -204,7 +196,7 @@ public class myprofileFragment extends Fragment {
 
         }
         //executing the async task
-        Registeritem ru = new Registeritem();
+        registeruser ru = new registeruser();
         ru.execute();
 
     }

@@ -56,6 +56,7 @@ public class profileFragment extends Fragment {
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                getActivity().finish();
                 SharedPrefManager.getInstance(getActivity()).logout();
             }
         });

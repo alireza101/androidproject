@@ -2,30 +2,35 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="150dp"
     android:layout_marginBottom="10dp"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_margin="4dp"
-        >
+        android:layout_height="match_parent"
+        android:layout_margin="4dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginEnd="15dp"
+
             android:elevation="10dp"
             app:cardCornerRadius="8dp">
 
-            <ImageView
-                android:id="@+id/saveitem_image"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/black2">
 
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_launcher_background" />
+                <ImageView
+                    android:id="@+id/saveitem_image"
+                    android:layout_width="250dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_launcher_background" />
+            </LinearLayout>
         </androidx.cardview.widget.CardView>
 
 
@@ -33,8 +38,20 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="match_parent"
         android:layout_margin="4dp">
+
+        <TextView
+            android:id="@+id/saveitem_exp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="60dp"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="italic" />
 
         <TextView
             android:id="@+id/saveitem_name"
@@ -45,29 +62,24 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="50dp"
             android:text="name type"
+            android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="30sp"
             android:textStyle="bold" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
+            android:id="@+id/saveitem_showitem"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="58dp"
-            android:background="@drawable/background_add_orange"
+            android:background="@drawable/background_add_open_orange"
+            android:scaleType="matrix"
             android:src="@drawable/add" />
 
 
     </RelativeLayout>
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview_save_item"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="8dp"
-        android:visibility="gone" />
 
 </RelativeLayout>

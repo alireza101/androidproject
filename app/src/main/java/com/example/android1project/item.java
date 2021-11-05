@@ -6,25 +6,24 @@ public class item {
     private String itempicture;
     private String itemname;
     private String itemtype;
-    private String itemremaining;
     private String itemexpiration;
     private String itemsum;
     private String itemuser;
 
-    public String getItemuser() {
-        return itemuser;
+
+    public item(String itemid,String itemname , String itempicture, String itemexp, String typeitem) {
+        this.setItemid(itemid);
+        this.setItempicture(itempicture);
+        this.setItemname(itemname);
+        this.setItemexpiration(itemexp);
+        this.setItemuser(typeitem);
     }
 
-    public void setItemuser(String itemuser) {
-        this.itemuser = itemuser;
-    }
-
-    public item(String itemid, String itempicture, String itemname, String itemtype, String itemremaining, String itemexpiration, String itemsum, String itemuser) {
+    public item(String itemid, String itempicture, String itemname, String itemtype, String itemexpiration, String itemsum, String itemuser) {
         this.setItemid(itemid);
         this.setItempicture(itempicture);
         this.setItemname(itemname);
         this.setItemtype(itemtype);
-        this.setItemremaining(itemremaining);
         this.setItemexpiration(itemexpiration);
         this.setItemsum(itemsum);
         this.setItemuser(itemuser);
@@ -63,14 +62,6 @@ public class item {
         this.itemtype = itemtype;
     }
 
-    public String getItemremaining() {
-        return itemremaining;
-    }
-
-    public void setItemremaining(String itemremaining) {
-        this.itemremaining = itemremaining;
-    }
-
     public String getItemexpiration() {
         return itemexpiration;
     }
@@ -85,5 +76,12 @@ public class item {
 
     public void setItemsum(String itemsum) {
         this.itemsum = itemsum;
+    }
+    public String getItemuser() {
+        return itemuser;
+    }
+
+    public void setItemuser(String itemuser) {
+        this.itemuser = itemuser;
     }
 }

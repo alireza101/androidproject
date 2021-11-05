@@ -41,18 +41,7 @@ public class addFragment extends Fragment {
 
         return view;
     }
-    private void loadFragment(Fragment fragment) {
-        getActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.frame_layout_profile, fragment)
-                .commit();
-    }
-    private void closeFragment(Fragment fragment) {
-        getActivity().getSupportFragmentManager().popBackStack();
-//                .beginTransaction()
-//                .remove(fragment)
-//                .commit();
-    }
+
     private void loadprodile(int i) {
         Intent intent = new Intent(getActivity(), profile.class);
         intent.putExtra("profileitem", i);

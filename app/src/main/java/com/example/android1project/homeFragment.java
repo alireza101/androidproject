@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class homeFragment extends Fragment {
+public class homeFragment extends Fragment  {
     static ArrayList<item> itemArrayList = new ArrayList<>();
     ArrayList<item> itemArrayListfilter = new ArrayList<>();
 
@@ -55,34 +55,34 @@ public class homeFragment extends Fragment {
         rcmain = view.findViewById(R.id.recyclerviewver);
         rcmainhor = view.findViewById(R.id.recyclerview);
 
-        rcmain.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), rcmain, new RecyclerTouchListener.ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                Intent intent = new Intent(getActivity(), detail_item.class);
-                item item;
-                if (flagfilter) {
-                    item = itemArrayListfilter.get(position);
-                } else {
-                    item = itemArrayList.get(position);
-                }
-                String getidname = "";
-                for (type type : typeArrayList) {
-                    if (item.getItemtype().equals(type.getTypeid())) {
-                        getidname = type.getTypename();
-                        break;
-                    }
-                }
-                String[] putitem = new String[]{item.getItemid(), item.getItemname(), item.getItempicture(), item.getItemsum()
-                        , getidname, item.getItemexpiration()};
-                intent.putExtra("item", putitem);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-
-            }
-        }));
+//        rcmain.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), rcmain, new RecyclerTouchListener.ClickListener() {
+//            @Override
+//            public void onClick(View view, int position) {
+//                Intent intent = new Intent(getActivity(), detail_item.class);
+//                item item;
+//                if (flagfilter) {
+//                    item = itemArrayListfilter.get(position);
+//                } else {
+//                    item = itemArrayList.get(position);
+//                }
+//                String getidname = "";
+//                for (type type : typeArrayList) {
+//                    if (item.getItemtype().equals(type.getTypeid())) {
+//                        getidname = type.getTypename();
+//                        break;
+//                    }
+//                }
+//                String[] putitem = new String[]{item.getItemid(), item.getItemname(), item.getItempicture(), item.getItemsum()
+//                        , getidname, item.getItemexpiration()};
+//                intent.putExtra("item", putitem);
+//                startActivity(intent);
+//            }
+//
+//            @Override
+//            public void onLongClick(View view, int position) {
+//
+//            }
+//        }));
         rcmainhor.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), rcmainhor, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -170,12 +170,11 @@ public class homeFragment extends Fragment {
                         String itempicture = jsonObject1.getString("itempicture");
                         String itemname = jsonObject1.getString("itemname");
                         String itemtype = jsonObject1.getString("itemtype");
-                        String itemremaining = jsonObject1.getString("itemremaining");
                         String itemexpiration = jsonObject1.getString("itemexpiration");
                         String itemsum = jsonObject1.getString("itemsum");
                         String itemuser = jsonObject1.getString("itemuser");
 
-                        item item = new item(itemid, itempicture, itemname, itemtype, itemremaining, itemexpiration, itemsum, itemuser);
+                        item item = new item(itemid, itempicture, itemname, itemtype, itemexpiration, itemsum, itemuser);
                         itemArrayList.add(item);
 
                     }
@@ -256,5 +255,4 @@ public class homeFragment extends Fragment {
         Registertype ru = new Registertype();
         ru.execute();
     }
-
 }
