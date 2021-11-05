@@ -22,7 +22,7 @@ public class detail_item extends AppCompatActivity {
     ImageView imageView, delete_item;
     TextView textname, texttype, textkalery, textsum, textexp, textenargy;
     Button btn_backdetail;
-    String textid;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,37 +40,41 @@ public class detail_item extends AppCompatActivity {
 
         Intent intent = getIntent();
         String[] getdata = intent.getStringArrayExtra("item");
-        textid = getdata[0];
+        String textid = getdata[0];
         textname.setText(getdata[1]);
-        texttype.setText(getdata[4]);
         textkalery.setText("0 KG");
         textsum.setText(getdata[3]);
         textexp.setText(getdata[5]);
         textenargy.setText("0 %");
         Picasso.with(getApplicationContext()).load(getdata[2]).into(imageView);
 
+        for (type type:homeFragment.typeArrayList){
+            if (type.getTypeid().equals(getdata[4])){
+                texttype.setText(type.getTypename());
+            }
+        }
         btn_backdetail.setOnClickListener(view -> {
             startActivity(new Intent(detail_item.this, mainapp.class));
             finish();
         });
 
         delete_item.setOnClickListener(view -> {
-            deleteitem();
+            deleteitem(textid);
 
         });
 
 
     }
 
-    private void deleteitem() {
-        String txtid = textid;
+    public void deleteitem(String id) {
+
         class deleteitem extends AsyncTask<Void, Void, String> {
 
             @Override
             protected String doInBackground(Void... voids) {
                 RequestHandler requestHandler = new RequestHandler();
                 HashMap<String, String> params = new HashMap<>();
-                params.put("getitemid", txtid);
+                params.put("getitemid", id);
                 return requestHandler.sendPostRequest(config.delete, params);
             }
 

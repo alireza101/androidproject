@@ -2,6 +2,7 @@ package com.example.android1project;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,8 +44,7 @@ public class recyclerviewadapter_ver  extends RecyclerView.Adapter<recyclerviewa
 
     @Override
     public void onBindViewHolder(@NonNull myholder holder, int position) {
-        int b=position;
-        if (b%2==1) {
+        if (position%2==1) {
             holder.item_background.setBackgroundResource(R.color.black3);
         }
         item item=mitemlist.get(position);
@@ -71,9 +71,40 @@ public class recyclerviewadapter_ver  extends RecyclerView.Adapter<recyclerviewa
                 
             }
         });
+        holder.itemdetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(mitemcontext,detail_item.class);
+                String[] putitem = new String[]{item.getItemid(), item.getItemname(), item.getItempicture(), item.getItemsum()
+                        , item.getItemtype(), item.getItemexpiration()};
+                intent.putExtra("item", putitem);
+                mitemcontext.startActivity(intent);
+            }
+        });
 
 
 
+    }
+    @Override
+    public int getItemCount() {
+        return mitemlist.size();
+    }
+
+   public class myholder extends RecyclerView.ViewHolder{
+        ImageView itemimage,itemdetail,itemsum_min;
+        TextView itemname,itemsum,itemexprece;
+        RelativeLayout item_background;
+
+        public myholder(@NonNull View itemView) {
+            super(itemView);
+            itemimage=itemView.findViewById(R.id.itemimage);
+            itemname=itemView.findViewById(R.id.itemname);
+            itemsum=itemView.findViewById(R.id.itemsum);
+            itemexprece=itemView.findViewById(R.id.itemexprece);
+            itemdetail=itemView.findViewById(R.id.item_show_detail);
+            itemsum_min=itemView.findViewById(R.id.itemsum_minus);
+            item_background=itemView.findViewById(R.id.item_background);
+        }
     }
 
     private void registeritem(String sum, String id) {
@@ -109,30 +140,5 @@ public class recyclerviewadapter_ver  extends RecyclerView.Adapter<recyclerviewa
         //executing the async task
         Registertype ru = new Registertype();
         ru.execute();
-    }
-
-
-    @Override
-    public int getItemCount() {
-        return mitemlist.size();
-    }
-
-
-
-   public class myholder extends RecyclerView.ViewHolder{
-        ImageView itemimage,itemdetail,itemsum_min;
-        TextView itemname,itemsum,itemexprece;
-        RelativeLayout item_background;
-
-        public myholder(@NonNull View itemView) {
-            super(itemView);
-            itemimage=itemView.findViewById(R.id.itemimage);
-            itemname=itemView.findViewById(R.id.itemname);
-            itemsum=itemView.findViewById(R.id.itemsum);
-            itemexprece=itemView.findViewById(R.id.itemexprece);
-            itemdetail=itemView.findViewById(R.id.item_show_detail);
-            itemsum_min=itemView.findViewById(R.id.itemsum_minus);
-            item_background=itemView.findViewById(R.id.item_background);
-        }
     }
 }

@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,7 +30,7 @@ public class homeFragment extends Fragment  {
     ArrayList<item> itemArrayListfilter = new ArrayList<>();
 
     static ArrayList<type> typeArrayList = new ArrayList<>();
-    boolean flagfilter = false;
+//    boolean flagfilter = false;
 
     RecyclerView rcmain, rcmainhor;
 
@@ -101,7 +103,7 @@ public class homeFragment extends Fragment  {
                 }
                 recyclerviewadapter_ver adapter = new recyclerviewadapter_ver(getActivity(), itemArrayListfilter);
                 rcmain.setAdapter(adapter);
-                flagfilter = true;
+//                flagfilter = true;
 
             }
 
@@ -119,6 +121,33 @@ public class homeFragment extends Fragment  {
         rcmain.setLayoutManager(new LinearLayoutManager(getActivity()));
         rcmain.setAdapter(adapter);
 
+
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                item item;
+
+                    item=itemArrayListfilter.get(viewHolder.getAdapterPosition());
+                    itemArrayListfilter.remove(viewHolder.getAdapterPosition());
+                    recyclerviewadapter_ver adapter = new recyclerviewadapter_ver(getActivity(), itemArrayListfilter);
+                    rcmain.setAdapter(adapter);
+//                    adapter.notifyDataSetChanged();
+                    deleteitem(item.getItemid());
+                    for (item item1:itemArrayList){
+                        if (item1.getItemid().equals(item.getItemid())){
+                            itemArrayList.remove(item1);
+                            break;
+                        }
+                }
+
+            }
+        }).attachToRecyclerView(rcmain);
 
 
         return view;
@@ -254,5 +283,35 @@ public class homeFragment extends Fragment  {
         //executing the async task
         Registertype ru = new Registertype();
         ru.execute();
+    }
+    //***********************************************************************************************************************************************
+    public void deleteitem(String id) {
+
+        class deleteitem extends AsyncTask<Void, Void, String> {
+
+            @Override
+            protected String doInBackground(Void... voids) {
+                RequestHandler requestHandler = new RequestHandler();
+                HashMap<String, String> params = new HashMap<>();
+                params.put("getitemid", id);
+                return requestHandler.sendPostRequest(config.delete, params);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+
+                try {
+                    JSONObject obj = new JSONObject(s);
+                    Toast.makeText(getActivity(), obj.getString("message"), Toast.LENGTH_SHORT).show();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+        deleteitem deleteitem = new deleteitem();
+        deleteitem.execute();
     }
 }

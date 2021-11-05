@@ -63,7 +63,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="30dp"
-        android:layout_marginEnd="90dp"
+        android:layout_marginEnd="100dp"
         android:text="sum:"
         android:textColor="@color/white"
         android:textSize="20sp"
@@ -76,7 +76,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="30dp"
-        android:layout_marginEnd="65dp"
+        android:layout_marginEnd="75dp"
         android:text="1"
         android:textColor="@color/white"
         android:textSize="20sp"
@@ -88,7 +88,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="25dp"
-        android:layout_marginEnd="60dp"
+        android:layout_marginEnd="70dp"
         android:src="@drawable/background_minus_yellow"
         />
 
