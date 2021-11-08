@@ -11,7 +11,6 @@ To create an alternating eighth expiration date</string>
     <string name="skip">skip</string>
     <string name="about">About App</string>
     <string name="detail">detail</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="create_account">Hello! \n Sign Up to \n Get Started.</string>
     <string name="login_here">Already Registered?\nLogin Here</string>

@@ -3,20 +3,27 @@ package com.example.android1project;
 public class item {
 
     private String itemid;
-    private String itempicture;
     private String itemname;
-    private String itemtype;
+    private String itempicture;
     private String itemexpiration;
+    private String itemcalorie;
+    private String itemsnname;
     private String itemsum;
+    private String itemtype;
+    private String itemgrading;
     private String itemuser;
 
 
-    public item(String itemid,String itemname , String itempicture, String itemexp, String typeitem) {
+    public item(String itemid,String itemname , String itempicture, String itemexp,String itemcalorie,String itemsnname,String itemsum, String typeitem,String itemgrading) {
         this.setItemid(itemid);
         this.setItempicture(itempicture);
         this.setItemname(itemname);
         this.setItemexpiration(itemexp);
         this.setItemuser(typeitem);
+        this.setItemcalorie(itemcalorie);
+        this.setItemsnname(itemsnname);
+        this.setItemsum(itemsum);
+        this.setItemgrading(itemgrading);
     }
 
     public item(String itemid, String itempicture, String itemname, String itemtype, String itemexpiration, String itemsum, String itemuser) {
@@ -83,5 +90,28 @@ public class item {
 
     public void setItemuser(String itemuser) {
         this.itemuser = itemuser;
+    }
+    public String getItemcalorie() {
+        return itemcalorie;
+    }
+
+    public void setItemcalorie(String itemcalorie) {
+        this.itemcalorie = itemcalorie;
+    }
+
+    public String getItemsnname() {
+        return itemsnname;
+    }
+
+    public void setItemsnname(String itemsnname) {
+        this.itemsnname = itemsnname;
+    }
+
+    public String getItemgrading() {
+        return itemgrading;
+    }
+
+    public void setItemgrading(String itemgrading) {
+        this.itemgrading = itemgrading;
     }
 }

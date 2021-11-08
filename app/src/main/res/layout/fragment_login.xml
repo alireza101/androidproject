@@ -136,7 +136,7 @@
         android:layout_height="0dp"
         android:layout_weight=".4"
         android:textColor="@color/white"
-        android:background="@drawable/btn_background"
+        android:background="@drawable/background_btn"
         android:text="Done" />
 
 </LinearLayout>

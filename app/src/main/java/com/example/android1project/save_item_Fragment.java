@@ -45,7 +45,6 @@ public class save_item_Fragment extends Fragment {
     LinearLayout layout_type,layout_item;
     ImageView typeimage,itemimage;
     TextView typename,saveitem_back;
-    Dialog dialog;
     Fragment fragment;
     public save_item_Fragment() {
         // Required empty public constructor
@@ -110,8 +109,8 @@ public class save_item_Fragment extends Fragment {
                         itemimage=view.findViewById(R.id.saveitem_showitem);
                         roateImage(true,itemimage);
                         item item=itemArrayList_save.get(position);
-
-                        String []a={item.getItempicture(),item.getItemname(),item.getItemexpiration(),type.getTypeid()};
+                        String []a={item.getItemname(),item.getItempicture(),item.getItemexpiration(),item.getItemcalorie()
+                                ,item.getItemsnname(),item.getItemsum(),type.getTypeid()};
                         fragment=new additemFragment();
                         Bundle bundle=new Bundle();
                         bundle.putStringArray("dataitempnet",a);
@@ -259,9 +258,13 @@ public class save_item_Fragment extends Fragment {
                             String isname = jsonObject1.getString("isname");
                             String ispicture = jsonObject1.getString("ispicture");
                             String isexp = jsonObject1.getString("isexp");
+                            String iscalorie = jsonObject1.getString("iscalorie");
+                            String snname = jsonObject1.getString("snname");
+                            String issum = jsonObject1.getString("issum");
                             String istypeid = jsonObject1.getString("istypeid");
+                            String isgrading = jsonObject1.getString("isgrading");
 
-                            item item = new item(isid, isname, ispicture, isexp, istypeid);
+                            item item = new item(isid, isname, ispicture, isexp,iscalorie,snname,issum,istypeid,isgrading);
                             itemArrayList_save.add(item);
                         }
                     } else {

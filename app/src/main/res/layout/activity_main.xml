@@ -29,7 +29,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="15dp"
                 android:id="@+id/skipbtn"
-                android:background="@drawable/btn_background"
+                android:background="@drawable/background_btn"
                 android:text="@string/skip"
                 android:textColor="@color/white" />
 
@@ -63,7 +63,7 @@
             android:id="@+id/nextbtn"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
-            android:background="@drawable/btn_background"
+            android:background="@drawable/background_btn"
             android:text="@string/next"
             android:textColor="@color/white" />
 
