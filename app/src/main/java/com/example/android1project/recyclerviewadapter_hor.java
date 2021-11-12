@@ -48,7 +48,7 @@ public class recyclerviewadapter_hor extends RecyclerView.Adapter<recyclerviewad
 
         type type=mtypelist.get(position);
         holder.namehor.setText(type.getTypename());
-        Picasso.with(mcontext).load(type.getTypepicture()).into(holder.imagehor);
+        Picasso.get().load(type.getTypepicture()).into(holder.imagehor);
 
     }
 

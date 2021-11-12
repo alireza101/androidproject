@@ -61,7 +61,7 @@ public class viewpageradapter extends PagerAdapter {
         TextView slideheading=(TextView) view.findViewById(R.id.texttitle);
         TextView slidedescription=(TextView) view.findViewById(R.id.textdeccription);
 
-        Picasso.with(context).load(images[position]).into(slidetitleimage);
+        Picasso.get().load(images[position]).into(slidetitleimage);
         slideheading.setText(headings[position]);
         slidedescription.setText(description[position]);
 

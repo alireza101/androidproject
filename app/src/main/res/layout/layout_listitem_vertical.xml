@@ -38,71 +38,68 @@
                     android:layout_weight=".8"
                     android:src="@mipmap/ic_launcher" />
 
+                <TextView
+                    android:id="@+id/itemname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@id/itemimage"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="8dp"
+                    android:text="textname"
+                    android:textSize="25sp"
+                     />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_toLeftOf="@id/itemsum"
+                    android:text="sum:"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/itemsum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="55dp"
+                    android:text="---"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+                <ImageView
+                    android:id="@+id/itemsum_minus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/itemsum"
+                    android:layout_marginTop="5dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="50dp"
+                    android:src="@drawable/background_minus_yellow"
+                    />
+
+                <TextView
+                    android:id="@+id/itemexprece"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toEndOf="@id/itemimage"
+                    android:layout_marginBottom="18dp"
+                    android:text="time exprecine"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"/>
             </RelativeLayout>
 
         </androidx.cardview.widget.CardView>
     </RelativeLayout>
 
 
-    <TextView
-        android:id="@+id/itemname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:textColor="@color/white"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="170dp"
-        android:text="textname"
-        android:textSize="25dp"
-        tools:ignore="RtlCompat" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="100dp"
-        android:text="sum:"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-         />
-
-    <TextView
-        android:id="@+id/itemsum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="75dp"
-        android:text="1"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-         />
-    <ImageView
-        android:id="@+id/itemsum_minus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="25dp"
-        android:layout_marginEnd="70dp"
-        android:src="@drawable/background_minus_yellow"
-        />
-
-    <TextView
-        android:id="@+id/itemexprece"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="18dp"
-        android:layout_marginStart="170dp"
-        android:text="time exprecine"
-        android:textColor="@color/white"
-        android:textSize="15sp"/>
 
     <ImageView
         android:id="@+id/item_show_detail"

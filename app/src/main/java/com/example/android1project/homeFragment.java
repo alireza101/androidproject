@@ -25,13 +25,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class homeFragment extends Fragment  {
+public class homeFragment extends Fragment {
     static ArrayList<item> itemArrayList = new ArrayList<>();
-    ArrayList<item> itemArrayListfilter = new ArrayList<>();
 
     static ArrayList<type> typeArrayList = new ArrayList<>();
-//    boolean flagfilter = false;
 
+    boolean f;
     RecyclerView rcmain, rcmainhor;
 
     public homeFragment() {
@@ -52,8 +51,10 @@ public class homeFragment extends Fragment  {
 //            registeritem();
 //            registertype();
 //        }
-        registeritem();
+
         registertype();
+        registeritem("1");
+
         rcmain = view.findViewById(R.id.recyclerviewver);
         rcmainhor = view.findViewById(R.id.recyclerview);
 
@@ -89,20 +90,22 @@ public class homeFragment extends Fragment  {
             @Override
             public void onClick(View view, int position) {
                 //filter or which one type in itemarraylistfilter
-                itemArrayListfilter.clear();
-
+//                itemArrayListfilter.clear();
                 type type = typeArrayList.get(position);
-                for (item item : itemArrayList) {
-                    if (type.getTypename().equals("All")) {
-                        itemArrayListfilter.add(item);
-                    } else {
-                        if (type.getTypeid().equals(item.getItemtype())) {
-                            itemArrayListfilter.add(item);
-                        }
-                    }
-                }
-                recyclerviewadapter_ver adapter = new recyclerviewadapter_ver(getActivity(), itemArrayListfilter);
-                rcmain.setAdapter(adapter);
+
+                registeritem(type.getTypeid());
+
+//                for (item item : itemArrayList) {
+//                    if (type.getTypename().equals("All")) {
+//                        itemArrayListfilter.add(item);
+//                    } else {
+//                        if (type.getTypeid().equals(item.getItemtype())) {
+//                            itemArrayListfilter.add(item);
+//                        }
+//                    }
+//                }
+//                recyclerviewadapter_ver adapter = new recyclerviewadapter_ver(getActivity(), itemArrayList);
+//                rcmain.setAdapter(adapter);
 //                flagfilter = true;
 
             }
@@ -114,16 +117,15 @@ public class homeFragment extends Fragment  {
         }));
 
 
-        recyclerviewadapter_hor adapte1 = new recyclerviewadapter_hor(getActivity(), typeArrayList);
-        rcmainhor.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        rcmainhor.setAdapter(adapte1);
-        recyclerviewadapter_ver adapter = new recyclerviewadapter_ver(getActivity(), itemArrayList);
-        rcmain.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rcmain.setAdapter(adapter);
+//        recyclerviewadapter_hor adapte1 = new recyclerviewadapter_hor(getActivity(), typeArrayList);
+//        rcmainhor.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+//        rcmainhor.setAdapter(adapte1);
+//        recyclerviewadapter_ver adapter = new recyclerviewadapter_ver(getActivity(), itemArrayList);
+//        rcmain.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        rcmain.setAdapter(adapter);
 
 
-
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT) {
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
@@ -133,18 +135,15 @@ public class homeFragment extends Fragment  {
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 item item;
 
-                    item=itemArrayListfilter.get(viewHolder.getAdapterPosition());
-                    itemArrayListfilter.remove(viewHolder.getAdapterPosition());
-                    recyclerviewadapter_ver adapter = new recyclerviewadapter_ver(getActivity(), itemArrayListfilter);
-                    rcmain.setAdapter(adapter);
-//                    adapter.notifyDataSetChanged();
-                    deleteitem(item.getItemid());
-                    for (item item1:itemArrayList){
-                        if (item1.getItemid().equals(item.getItemid())){
-                            itemArrayList.remove(item1);
-                            break;
-                        }
-                }
+                item = itemArrayList.get(viewHolder.getAdapterPosition());
+                itemArrayList.remove(viewHolder.getAdapterPosition());
+                recyclerviewadapter_ver adapter = new recyclerviewadapter_ver(getActivity(), itemArrayList);
+//                adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+                adapter.notifyDataSetChanged();
+
+                rcmain.setAdapter(adapter);
+                deleteitem(item.getItemid());
+
 
             }
         }).attachToRecyclerView(rcmain);
@@ -156,9 +155,10 @@ public class homeFragment extends Fragment  {
 
     //*******************************************************************************************************************************************************
 
-    private void registeritem() {
+    private void registeritem(String typeid) {
         user user = SharedPrefManager.getInstance(getActivity()).getUser();
         int iduser = user.getId();
+
 
         //if it passes all the validations
 
@@ -173,17 +173,34 @@ public class homeFragment extends Fragment  {
 
                 //creating request parameters
                 HashMap<String, String> params = new HashMap<>();
-                params.put("itemuser", String.valueOf(iduser));
+                if (Integer.parseInt(typeid) == 1) {
+                    f = true;
+                }
+                if (Integer.parseInt(typeid) > 1) {
+                    f = false;
+                }
+                if (f) {
+                    params.put("itemuser", String.valueOf(iduser));
 
-                //returing the response
-                return requestHandler.sendPostRequest(config.selectitem, params);
+
+                    //returing the response
+                    return requestHandler.sendPostRequest(config.selectitem, params);
+                } else {
+                    params.put("itemuser", String.valueOf(iduser));
+                    params.put("itemtype", typeid);
+
+
+                    //returing the response
+                    return requestHandler.sendPostRequest(config.selectitem_type, params);
+                }
+
             }
 
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
                 //displaying the progress bar while user registers on the server
-          }
+            }
 
             @Override
             protected void onPostExecute(String s) {
@@ -192,7 +209,7 @@ public class homeFragment extends Fragment  {
                 itemArrayList.clear();
                 try {
                     JSONObject jsonObject = new JSONObject(s);
-                    JSONArray jsonArray = jsonObject.getJSONArray("response");
+                    JSONArray jsonArray = jsonObject.getJSONArray("item");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject1 = jsonArray.getJSONObject(i);
                         String itemid = jsonObject1.getString("itemid");
@@ -201,9 +218,11 @@ public class homeFragment extends Fragment  {
                         String itemtype = jsonObject1.getString("itemtype");
                         String itemexpiration = jsonObject1.getString("itemexpiration");
                         String itemsum = jsonObject1.getString("itemsum");
-                        String itemuser = jsonObject1.getString("itemuser");
+                        String itemcalorie = jsonObject1.getString("itemcalorie");
+                        String itemsumn = jsonObject1.getString("itemsumn");
+                        String itemgrading = jsonObject1.getString("itemgrading");
 
-                        item item = new item(itemid, itempicture, itemname, itemtype, itemexpiration, itemsum, itemuser);
+                        item item = new item(itemid, itemname, itempicture, itemexpiration, itemcalorie, itemsumn, itemsum, itemtype, itemgrading);
                         itemArrayList.add(item);
 
                     }
@@ -212,7 +231,9 @@ public class homeFragment extends Fragment  {
                     e.printStackTrace();
                 }
                 progressDialog.dismiss();
-
+                recyclerviewadapter_ver adapter = new recyclerviewadapter_ver(getActivity(), itemArrayList);
+                rcmain.setLayoutManager(new LinearLayoutManager(getActivity()));
+                rcmain.setAdapter(adapter);
 
             }
 
@@ -262,7 +283,7 @@ public class homeFragment extends Fragment  {
 
                 try {
                     JSONObject jsonObjecttype = new JSONObject(s);
-                    JSONArray jsonArraytype = jsonObjecttype.getJSONArray("itemtype");
+                    JSONArray jsonArraytype = jsonObjecttype.getJSONArray("type");
                     for (int i = 0; i < jsonArraytype.length(); i++) {
                         JSONObject jsonObjecttype1 = jsonArraytype.getJSONObject(i);
                         String typeid = jsonObjecttype1.getString("typeid");
@@ -278,12 +299,16 @@ public class homeFragment extends Fragment  {
                 progressDialog.dismiss();
 //                IData iData = (IData) getActivity();
 //                iData.sendata();
+                recyclerviewadapter_hor adapte1 = new recyclerviewadapter_hor(getActivity(), typeArrayList);
+                rcmainhor.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+                rcmainhor.setAdapter(adapte1);
             }
         }
         //executing the async task
         Registertype ru = new Registertype();
         ru.execute();
     }
+
     //***********************************************************************************************************************************************
     public void deleteitem(String id) {
 

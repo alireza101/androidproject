@@ -2,18 +2,17 @@ package com.example.android1project;
 
 public class config {
 
-        static String ip_value="http://192.168.14.48/android1project/api/";
-        static String selectitem=ip_value+"register.php";
-        static String selecttype=ip_value+"itemtype.php";
 
-        static String apilogin=ip_value+"apilogin.php?apicall=";
-        static String signup=apilogin+"signup";
-        static String login=apilogin+"login";
+        static String ip_value="http://192.168.14.48/android1project/api/api.php?apicall=";
+        static String delete=ip_value+"delete";
+        static String change=ip_value+"change";
+        static String itemsave=ip_value+"itemsave";
+        static String additem_save=ip_value+"additem_save";
+        static String updateitem_sum=ip_value+"updateitem_sum";
+        static String selectitem=ip_value+"itemuser";
+        static String selectitem_type=ip_value+"itemuser_type";
+        static String login=ip_value+"login";
+        static String signup=ip_value+"signup";
+        static String selecttype=ip_value+"itemtype";
 
-        static String apidelete=ip_value+"api.php?apicall=";
-        static String delete=apidelete+"delete";
-        static String change=apidelete+"change";
-        static String itemsave=apidelete+"itemsave";
-        static String additem_save=apidelete+"additem_save";
-        static String updateitem_sum=apidelete+"updateitem_sum";
 }

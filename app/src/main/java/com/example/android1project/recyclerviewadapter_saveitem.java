@@ -40,9 +40,8 @@ public class recyclerviewadapter_saveitem extends RecyclerView.Adapter<recyclerv
         holder.itemname.setText(item.getItemname());
         holder.itemname.setTextSize(24);
         holder.itemexp.setText(item.getItemexpiration()+" days exp");
-        Picasso.with(mcontext).load(item.getItempicture()).into(holder.itemimage);
+        Picasso.get().load(item.getItempicture()).into(holder.itemimage);
         holder.imageshow.setImageResource(R.drawable.add);
-        holder.imageshow.setTag(R.drawable.add);
 
     }
 
@@ -61,7 +60,6 @@ public class recyclerviewadapter_saveitem extends RecyclerView.Adapter<recyclerv
             imageshow = itemView.findViewById(R.id.saveitem_showitem);
             itemname = itemView.findViewById(R.id.saveitem_name);
             itemexp=itemView.findViewById(R.id.saveitem_exp);
-            itemname.setAllCaps(false);
 
         }
     }

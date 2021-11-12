@@ -51,22 +51,22 @@ public class recyclerviewadapter_ver  extends RecyclerView.Adapter<recyclerviewa
 
         s= Integer.parseInt(item.getItemsum());
         holder.itemname.setText(item.getItemname());
-        holder.itemsum.setText(s+"");
-        holder.itemexprece.setText(item.getItemexpiration()+"days");
-        Picasso.with(mitemcontext).load(item.getItempicture()).into(holder.itemimage);
+        holder.itemsum.setText(item.getItemsum()+" "+item.getItemsnname());
+        holder.itemexprece.setText(item.getItemexpiration()+" days");
+        Picasso.get().load(item.getItempicture()).into(holder.itemimage);
 
         holder.itemsum_min.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 s= Integer.parseInt(item.getItemsum());
-                if (s>1){
-                    s--;
-                    holder.itemsum.setText(s+"");
+                if (s>100){
+                    s-=100;
+                    holder.itemsum.setText(s+" "+item.getItemsnname());
                     item.setItemsum(s+"");
                     registeritem(String.valueOf(item.getItemsum()),String.valueOf(item.getItemid()));
                     homeFragment.itemArrayList.set(holder.getAdapterPosition(),item);
                 }else {
-                    Toast.makeText(mitemcontext, "Not less than 1", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mitemcontext, "Not less than 100"+item.getItemsnname(), Toast.LENGTH_SHORT).show();
                 }
                 
             }

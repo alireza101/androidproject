@@ -37,7 +37,7 @@ public class recyclerviewadapter_savetype extends RecyclerView.Adapter<recyclerv
         type type=mtypelist.get(position);
         if (type.getTypepicture1()!="null") {
             holder.typename.setText(type.getTypename());
-            Picasso.with(mcontext).load(type.getTypepicture1()).into(holder.typeimage);
+            Picasso.get().load(type.getTypepicture1()).into(holder.typeimage);
             holder.imageshow.setImageResource(R.drawable.add);
             holder.imageshow.setTag(R.drawable.add);
         }

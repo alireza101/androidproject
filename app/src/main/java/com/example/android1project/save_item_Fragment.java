@@ -86,10 +86,10 @@ public class save_item_Fragment extends Fragment {
                 //load item of type
 
                 type type = typeArrayList_save.get(position);
-                registeritem(type.getTypeid());
+                Registeritem(type.getTypeid());
 
                 typename.setText(type.getTypename());
-                Picasso.with(getActivity()).load(type.getTypepicture1()).into(typeimage);
+                Picasso.get().load(type.getTypepicture1()).into(typeimage);
 
 
 
@@ -207,23 +207,15 @@ public class save_item_Fragment extends Fragment {
 //    }
 
 
-
-    private void loaditem() {
-        recyclerviewadapter_saveitem adapte = new recyclerviewadapter_saveitem(getActivity(), itemArrayList_save);
-        recyclerViewitem.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerViewitem.setAdapter(adapte);
-    }
-
     //****************************************************************************************************************  api
 
 
 
 
 
-    private void registeritem(String getid) {
+    private void Registeritem(String getid) {
         class Registeritem extends AsyncTask<Void, Void, String> {
 
-            ProgressDialog progressDialog = ProgressDialog.show(getActivity(), "connecting...", "please wait", false, false);
 
             @Override
             protected String doInBackground(Void... voids) {
@@ -262,9 +254,8 @@ public class save_item_Fragment extends Fragment {
                             String snname = jsonObject1.getString("snname");
                             String issum = jsonObject1.getString("issum");
                             String istypeid = jsonObject1.getString("istypeid");
-                            String isgrading = jsonObject1.getString("isgrading");
 
-                            item item = new item(isid, isname, ispicture, isexp,iscalorie,snname,issum,istypeid,isgrading);
+                            item item = new item(isid, isname, ispicture, isexp,iscalorie,snname,issum,istypeid);
                             itemArrayList_save.add(item);
                         }
                     } else {
@@ -273,9 +264,9 @@ public class save_item_Fragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                progressDialog.dismiss();
-                loaditem();
-            }
+                recyclerviewadapter_saveitem adapte = new recyclerviewadapter_saveitem(getActivity(), itemArrayList_save);
+                recyclerViewitem.setLayoutManager(new LinearLayoutManager(getActivity()));
+                recyclerViewitem.setAdapter(adapte);            }
         }
         //executing the async task
         Registeritem ru = new Registeritem();

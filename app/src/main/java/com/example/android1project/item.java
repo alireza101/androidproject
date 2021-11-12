@@ -25,6 +25,17 @@ public class item {
         this.setItemsum(itemsum);
         this.setItemgrading(itemgrading);
     }
+    public item(String itemid,String itemname , String itempicture, String itemexp,String itemcalorie,String itemsnname,String itemsum, String typeitem) {
+        this.setItemid(itemid);
+        this.setItempicture(itempicture);
+        this.setItemname(itemname);
+        this.setItemexpiration(itemexp);
+        this.setItemuser(typeitem);
+        this.setItemcalorie(itemcalorie);
+        this.setItemsnname(itemsnname);
+        this.setItemsum(itemsum);
+    }
+
 
     public item(String itemid, String itempicture, String itemname, String itemtype, String itemexpiration, String itemsum, String itemuser) {
         this.setItemid(itemid);

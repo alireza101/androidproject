@@ -71,7 +71,7 @@ public class additemFragment extends Fragment {
         String[] a = getArguments().getStringArray("dataitempnet");
         calorie=Integer.parseInt(a[3]);
         edname.setText(a[0]);
-        Picasso.with(getActivity()).load(a[1]).into(imageview);
+        Picasso.get().load(a[1]).into(imageview);
         float day = Float.parseFloat(a[2]);
         edM.setText(String.valueOf((int) (day / 30.415)));
         edD.setText(String.valueOf((int) (Math.round(day % 30.415))));
@@ -82,6 +82,7 @@ public class additemFragment extends Fragment {
         }
         edsum.setText("100");
         edsumn.setText(a[4]);
+        grading="Household";
 
 
 
@@ -154,6 +155,7 @@ public class additemFragment extends Fragment {
 
                 String[] b = {name,a[1],String.valueOf(exp),a[3],a[4],sum,a[6],grading};
                 registeradditem(b);
+
             }
         });
         minus.setOnClickListener(new View.OnClickListener() {
@@ -237,18 +239,15 @@ public class additemFragment extends Fragment {
                     e.printStackTrace();
                 }
                 progressDialog.dismiss();
+                if (getActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                    getActivity().getSupportFragmentManager().popBackStack();
 
+                }
             }
         }
         //executing the async task
         Registeritem ru = new Registeritem();
         ru.execute();
     }
-    private void loadfragment(Fragment fragment) {
 
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.frame_layout_profile, fragment)
-
-                .commit();
-    }
 }

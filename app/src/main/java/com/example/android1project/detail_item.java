@@ -46,7 +46,7 @@ public class detail_item extends AppCompatActivity {
         textsum.setText(getdata[3]);
         textexp.setText(getdata[5]);
         textenargy.setText("0 %");
-        Picasso.with(getApplicationContext()).load(getdata[2]).into(imageView);
+        Picasso.get().load(getdata[2]).into(imageView);
 
         for (type type:homeFragment.typeArrayList){
             if (type.getTypeid().equals(getdata[4])){
