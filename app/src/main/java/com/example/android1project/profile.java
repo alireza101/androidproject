@@ -32,6 +32,10 @@ public class profile extends AppCompatActivity {
                 fragment = new save_item_Fragment();
                 loadfragment(fragment);
                 break;
+                case 5:
+                fragment = new custom_item_Fragment();
+                loadfragment(fragment);
+                break;
         }
     }
 

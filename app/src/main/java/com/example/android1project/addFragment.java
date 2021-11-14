@@ -28,7 +28,7 @@ public class addFragment extends Fragment {
         btncustom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                loadprodile(5);
             }
         });
         btnsave.setOnClickListener(new View.OnClickListener() {
