@@ -1,5 +1,6 @@
 package com.example.android1project;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -106,7 +107,7 @@ public class signup_Fragment extends Fragment {
 
         class RegisterUser extends AsyncTask<Void, Void, String> {
 
-            private ProgressBar progressBar;
+            ProgressDialog progressDialog = ProgressDialog.show(getActivity(), "connecting...", "please wait", false, false);
 
             @Override
             protected String doInBackground(Void... voids) {
@@ -127,15 +128,13 @@ public class signup_Fragment extends Fragment {
             protected void onPreExecute() {
                 super.onPreExecute();
                 //displaying the progress bar while user registers on the server
-                progressBar = (ProgressBar)getView().findViewById(R.id.progressBar);
-                progressBar.setVisibility(View.VISIBLE);
+
             }
 
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
                 //hiding the progressbar after completion
-                progressBar.setVisibility(View.GONE);
 
                 try {
                     //converting response to json object
@@ -168,6 +167,7 @@ public class signup_Fragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                progressDialog.dismiss();
             }
         }
 

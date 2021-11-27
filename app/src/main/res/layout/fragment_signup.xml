@@ -1,28 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".signup_Fragment">
+    tools:context=".signup_Fragment"
+    android:paddingBottom="25dp">
     <TextView
         android:id="@+id/textlogin"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.5"
-        android:gravity="center"
+        android:layout_height="wrap_content"
         android:text="@string/create_account"
         android:textAlignment="center"
-        android:textColor="@color/white"
+        android:textColor="@color/black1"
+        android:layout_marginBottom="70dp"
+        android:layout_above="@id/sign_main"
         android:textSize="30sp" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/sign_main"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="10dp"
-        android:layout_weight="2"
-        android:background="@color/white"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="70dp"
+       android:layout_above="@id/txtlogingo"
+        android:background="@color/white1"
         app:cardCornerRadius="20dp"
         >
 
@@ -34,8 +36,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight=".3"
+                android:layout_height="50dp"
                 android:orientation="horizontal">
 
 
@@ -52,8 +53,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight=".5"
+                android:layout_height="70dp"
                 android:layout_marginTop="10dp"
                 android:layout_margin="2dp">
 
@@ -79,8 +79,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight=".5"
+                android:layout_height="70dp"
                 android:layout_marginTop="10dp"
                 android:layout_margin="2dp">
 
@@ -105,8 +104,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight=".5"
+                android:layout_height="70dp"
                 android:layout_marginTop="10dp"
                 android:layout_margin="2dp">
 
@@ -135,29 +133,23 @@
     <TextView
         android:id="@+id/txtlogingo"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:gravity="center"
-        android:textColor="@color/white"
+        android:textColor="@color/black1"
         android:textSize="20sp"
+        android:layout_above="@+id/btnlogin"
         android:text="@string/login_here"
-        android:layout_weight=".7" />
-    <ProgressBar
-        android:visibility="gone"
-        android:id="@+id/progressBar"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
+         />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnlogin"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".5"
-        android:background="@drawable/background_btn"
-        android:textColor="@color/white"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="25dp"
+        android:background="@drawable/background_btn_addf_red"
+        android:textColor="@color/black1"
         android:text="Done" />
 
 
-</LinearLayout>
+</RelativeLayout>

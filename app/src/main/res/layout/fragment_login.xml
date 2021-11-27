@@ -1,42 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".login_Fragment"
     android:orientation="vertical"
-    android:gravity="bottom">
+    android:paddingBottom="25dp"
+    >
 
     <TextView
         android:id="@+id/textlogin"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.5"
-        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/login_main"
         android:text="@string/login"
+        android:layout_marginBottom="50dp"
         android:textAlignment="center"
-        android:textColor="@color/white"
+        android:textColor="@color/black1"
         android:textSize="30sp" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/login_main"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="10dp"
-        android:layout_weight="1.5"
-        android:background="@color/white"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="70dp"
+        android:layout_above="@id/txtlogingo"
+        android:background="@color/white1"
         app:cardCornerRadius="20sp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+
             >
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight=".7"
+                android:layout_height="50dp"
                 android:orientation="horizontal">
 
 
@@ -53,8 +55,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1.2"
+                android:layout_height="70dp"
+
                 android:layout_marginTop="10dp"
                 android:layout_margin="2dp">
 
@@ -79,8 +81,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1.2"
+                android:layout_height="70dp"
                 android:layout_marginTop="10dp"
                 android:layout_margin="2dp">
 
@@ -112,31 +113,22 @@
     <TextView
         android:id="@+id/txtlogingo"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:textAlignment="center"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:textSize="20sp"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btnlogin"
         android:text="Dont' have an account?\nRegister Here"
-        android:layout_weight=".7" />
-    <ProgressBar
-        android:visibility="gone"
-        android:id="@+id/progressBar"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnlogin"
         android:layout_width="match_parent"
-        android:layout_gravity="bottom"
-
-        android:layout_height="0dp"
-        android:layout_weight=".4"
-        android:textColor="@color/white"
-        android:background="@drawable/background_btn"
+        android:layout_height="wrap_content"
+        android:layout_margin="25dp"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/black1"
+        android:background="@drawable/background_btn_addf_red"
         android:text="Done" />
 
-</LinearLayout>
+</RelativeLayout>

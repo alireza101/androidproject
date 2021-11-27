@@ -6,9 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:orientation="vertical"
-    android:background="@color/black"
+    android:background="#4FFF9800"
     android:layoutDirection="ltr"
-    android:weightSum="10"
+
     >
 
     <LinearLayout
@@ -18,22 +18,18 @@
         android:gravity="end"
         android:weightSum="4">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            app:cardBackgroundColor="@color/black"
-            android:layout_weight="1">
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="match_parent"
+
+            <Button
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_margin="15dp"
                 android:id="@+id/skipbtn"
-                android:background="@drawable/background_btn"
+                android:background="@drawable/background_btn_addf_yellow"
                 android:text="@string/skip"
-                android:textColor="@color/white" />
+                android:textColor="@color/black1" />
 
-        </androidx.cardview.widget.CardView>
+
     </LinearLayout>
 
     <androidx.viewpager.widget.ViewPager
@@ -52,21 +48,17 @@
         android:gravity="center"
         android:orientation="horizontal" />
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:cardBackgroundColor="@color/black"
-        android:layout_weight="1">
 
-        <androidx.appcompat.widget.AppCompatButton
+
+        <Button
             android:layout_width="match_parent"
             android:id="@+id/nextbtn"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:background="@drawable/background_btn"
+            android:layout_height="0dp"
+            android:layout_margin="15dp"
+            android:layout_weight=".7"
+            android:background="@drawable/background_btn_addf_red"
             android:text="@string/next"
-            android:textColor="@color/white" />
+            android:textColor="@color/black1" />
 
-    </androidx.cardview.widget.CardView>
 
 </LinearLayout>

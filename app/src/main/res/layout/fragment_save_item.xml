@@ -6,13 +6,13 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    android:weightSum="11"
+    android:layout_margin="8dp"
     tools:context=".save_item_Fragment">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".8">
+        android:layout_height="wrap_content"
+        >
 
         <TextView
             android:id="@+id/saveitem_back"
@@ -34,15 +34,15 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:layout_weight=".7"
         android:background="@drawable/background_btn_white"
         android:orientation="horizontal">
 
         <EditText
+            android:id="@+id/saveitem_search"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@null"
             android:hint="search item"
@@ -55,8 +55,9 @@
 
         <ImageView
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight=".1"
+            android:layout_gravity="center"
             android:background="@drawable/background_dialog"
             android:contentDescription="@string/app_name"
             android:padding="6dp"
@@ -66,8 +67,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="9.5"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <LinearLayout
@@ -77,17 +77,14 @@
             android:orientation="vertical"
             android:visibility="visible">
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp">
+
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/saveitem_recyclerview_save_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical" />
-            </ScrollView>
+
 
         </LinearLayout>
 
@@ -99,6 +96,7 @@
             android:visibility="gone">
 
             <RelativeLayout
+                android:id="@+id/saveitem_card"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:orientation="vertical">

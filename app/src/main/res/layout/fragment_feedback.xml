@@ -98,7 +98,7 @@
         android:layout_margin="30dp"
         android:id="@+id/feedback_send"
         android:text="@string/send_feedback"
-        android:background="@drawable/background_btn_white"/>
+        android:background="@drawable/background_btn_white1"/>
 
 
 </LinearLayout>

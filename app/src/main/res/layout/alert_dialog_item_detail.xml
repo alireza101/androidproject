@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="380dp"
+    android:layout_height="580dp"
+    android:orientation="vertical"
+    android:background="@drawable/background_dialog"
+    >
+
+    <RelativeLayout
+        android:id="@+id/detail_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/delete_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/ic_baseline_delete" />
+        <TextView
+            android:id="@+id/edit_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/delete_item"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/ic_baseline_edit_24" />
+
+        <ImageView
+            android:id="@+id/detail_picture"
+            android:layout_width="200dp"
+            android:layout_height="180dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:background="@color/white1" />
+
+        <TextView
+            android:id="@+id/detail_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/detail_picture"
+            android:layout_centerHorizontal="true"
+            android:textSize="25sp"
+            android:layout_marginTop="20dp" />
+
+        <LinearLayout
+
+            android:orientation="vertical"
+            android:layout_width="130dp"
+            android:layout_height="46dp"
+            android:padding="5dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/background_btn_white"
+            android:layout_below="@id/detail_name"
+            android:layout_centerHorizontal="true">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:layout_weight="2"
+                    android:id="@+id/detail_image_type"
+                    android:src="@mipmap/ic_launcher"
+                    />
+                <TextView
+                    android:layout_width="0dp"
+                    android:id="@+id/detail_name_type"
+                    android:layout_height="match_parent"
+                    android:text="texthor"
+                    android:layout_weight="3"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:layout_marginStart="5dp"
+                    android:autoSizeMinTextSize="5sp"
+                    android:autoSizeMaxTextSize="15sp"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/detail_main1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:layout_below="@+id/detail_main"
+        >
+
+        <TextView
+            android:id="@+id/detail_c"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="calorie:"
+            android:textSize="20sp"
+            android:textAllCaps="true"/>
+
+        <EditText
+            android:id="@+id/detail_calorie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/background_btn_white"
+            android:focusable="false"
+            android:fontFamily="@font/poppins_bold"
+            android:paddingHorizontal="8dp"
+            android:text="g"
+            android:textSize="15sp" />
+        <TextView
+            android:id="@+id/detail_s"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="50dp"
+            android:text="sum:"
+            android:textSize="20sp"
+            android:textAllCaps="true"/>
+
+        <EditText
+            android:id="@+id/detail_sum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="52dp"
+            android:layout_marginEnd="7dp"
+            android:layout_toStartOf="@id/detail_nsum"
+            android:background="@drawable/background_btn_white"
+            android:focusable="false"
+            android:fontFamily="@font/poppins_bold"
+            android:gravity="center"
+            android:paddingHorizontal="8dp"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/detail_nsum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="52dp"
+            android:layout_marginEnd="36dp"
+            android:fontFamily="@font/poppins_bold"
+            android:gravity="center"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/detail_e"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="90dp"
+            android:text="exp:"
+            android:textSize="20sp"
+            android:textAllCaps="true"/>
+
+        <EditText
+            android:id="@+id/detail_exp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="92dp"
+            android:layout_marginEnd="36dp"
+            android:background="@drawable/background_btn_white"
+            android:focusable="false"
+            android:fontFamily="@font/poppins_bold"
+
+            android:paddingHorizontal="8dp"
+            android:text="  Day"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:id="@+id/detail_g"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="130dp"
+            android:textAllCaps="true"
+            android:text="grading :"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/detail_grading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="132dp"
+            android:layout_marginEnd="36dp"
+            android:background="@drawable/background_btn_white"
+            android:focusable="true"
+            android:fontFamily="@font/poppins_bold"
+            android:paddingHorizontal="8dp"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/detail_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:background="@drawable/background_btn_addf_red"
+        android:gravity="center"
+        android:text="Back"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:layout_below="@+id/detail_main1"/>
+</RelativeLayout>

@@ -13,39 +13,17 @@ public class item {
     private String itemgrading;
     private String itemuser;
 
-
-    public item(String itemid,String itemname , String itempicture, String itemexp,String itemcalorie,String itemsnname,String itemsum, String typeitem,String itemgrading) {
+    public item(String itemid, String itemname, String itempicture, String itemexpiration, String itemcalorie, String itemsnname, String itemsum, String itemtype, String itemgrading, String itemuser) {
         this.setItemid(itemid);
         this.setItempicture(itempicture);
         this.setItemname(itemname);
-        this.setItemexpiration(itemexp);
-        this.setItemuser(typeitem);
+        this.setItemexpiration(itemexpiration);
+        this.setItemtype(itemtype);
         this.setItemcalorie(itemcalorie);
         this.setItemsnname(itemsnname);
         this.setItemsum(itemsum);
         this.setItemgrading(itemgrading);
-    }
-    public item(String itemid,String itemname , String itempicture, String itemexp,String itemcalorie,String itemsnname,String itemsum, String typeitem) {
-        this.setItemid(itemid);
-        this.setItempicture(itempicture);
-        this.setItemname(itemname);
-        this.setItemexpiration(itemexp);
-        this.setItemuser(typeitem);
-        this.setItemcalorie(itemcalorie);
-        this.setItemsnname(itemsnname);
-        this.setItemsum(itemsum);
-    }
-
-
-    public item(String itemid, String itempicture, String itemname, String itemtype, String itemexpiration, String itemsum, String itemuser) {
-        this.setItemid(itemid);
-        this.setItempicture(itempicture);
-        this.setItemname(itemname);
-        this.setItemtype(itemtype);
-        this.setItemexpiration(itemexpiration);
-        this.setItemsum(itemsum);
         this.setItemuser(itemuser);
-
     }
 
     public String getItemid() {

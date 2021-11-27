@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,12 +8,100 @@
     android:background="@color/white"
     tools:context=".mainapp">
 
-
-    <FrameLayout
-        android:id="@+id/frame_layout"
+<LinearLayout
+    android:id="@+id/main_1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_above="@id/bottom_navigation"
+    android:visibility="gone"
+    android:orientation="vertical">
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_height="match_parent">
+        <FrameLayout
+            android:id="@+id/frame_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </ScrollView>
+
+</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/main_2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_navigation"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/myprofile_man"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/choosing" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/myprofile_man"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="Click on + \n select one of the options"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+        <com.getbase.floatingactionbutton.FloatingActionsMenu
+            android:id="@+id/add_fam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            app:fab_addButtonColorNormal="@color/orange"
+            app:fab_expandDirection="up"
+            app:fab_addButtonSize="normal"
+            app:fab_labelStyle="@style/labelstyle"
+            app:fab_labelsPosition="left">
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/add_fam_additem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_colorNormal="#FFF"
+                app:fab_size="mini"
+                app:fab_icon="@drawable/icons8_add"
+                app:fab_colorPressed="@color/yellow"
+                app:fab_title="Add item" />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/add_fam_customitem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_colorNormal="#FFF"
+                app:fab_icon="@drawable/icons8_create"
+                app:fab_size="mini"
+                app:fab_colorPressed="@color/yellow"
+                app:fab_title="Custom item" />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/add_fam_historyitem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_colorNormal="#FFF"
+                app:fab_icon="@drawable/icon_history"
+                app:fab_size="mini"
+                app:fab_colorPressed="@color/yellow"
+                app:fab_title="History item" />
+        </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+
+    </RelativeLayout>
+
 
     <com.etebarian.meowbottomnavigation.MeowBottomNavigation
         android:id="@+id/bottom_navigation"
@@ -21,9 +109,11 @@
         android:layout_height="wrap_content"
         app:mbn_backgroundBottomColor="#f2f2f2"
         app:mbn_circleColor="@color/black"
+        android:layout_alignParentBottom="true"
         app:mbn_countBackgroundColor="@color/black"
         app:mbn_countTextColor="@color/white"
         app:mbn_defaultIconColor="@color/black"
-        app:mbn_selectedIconColor="@color/white" />
+        app:mbn_selectedIconColor="@color/white"
+        android:layout_gravity="bottom"/>
 
-</LinearLayout>
+</RelativeLayout>

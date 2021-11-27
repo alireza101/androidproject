@@ -6,15 +6,14 @@
     android:layout_height="46dp"
     android:layout_margin="5dp"
     android:padding="5dp"
-android:background="@drawable/background_btn_white"
+    android:id="@+id/namecard1"
+    android:background="@drawable/background_btn_white"
     >
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/namecard1"
-            android:background="#f2f2f2"
             android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView

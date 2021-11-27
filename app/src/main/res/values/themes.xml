@@ -22,4 +22,11 @@
         <item name="android:windowEnterAnimation">@anim/slide_up</item>
         <item name="android:windowExitAnimation">@anim/slide_bottom</item>
     </style>
+
+    <style name="labelstyle">
+        <item name="android:background">
+            @drawable/bg_label
+        </item>
+        <item name="android:textColor">#fff</item>
+    </style>
 </resources>

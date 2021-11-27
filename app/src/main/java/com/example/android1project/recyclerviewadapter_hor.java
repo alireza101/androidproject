@@ -1,6 +1,7 @@
 package com.example.android1project;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,13 +43,27 @@ public class recyclerviewadapter_hor extends RecyclerView.Adapter<recyclerviewad
         return new viewholder(view);
 
     }
-
+    int row_index;
     @Override
     public void onBindViewHolder(@NonNull viewholder holder, @SuppressLint("RecyclerView") int position) {
 
         type type=mtypelist.get(position);
         holder.namehor.setText(type.getTypename());
         Picasso.get().load(type.getTypepicture()).into(holder.imagehor);
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                row_index= position;
+                notifyDataSetChanged();
+            }
+        });
+        if(row_index==position){
+            holder.linearLayout.setBackgroundResource(R.drawable.background_btn_white1);
+        }
+        else
+        {
+            holder.linearLayout.setBackgroundResource(R.drawable.background_btn_white);
+        }
 
     }
 
@@ -60,11 +75,13 @@ public class recyclerviewadapter_hor extends RecyclerView.Adapter<recyclerviewad
     public class viewholder extends RecyclerView.ViewHolder{
         ImageView imagehor;
         TextView namehor;
+        LinearLayout linearLayout;
 
         public viewholder(@NonNull View itemView) {
             super(itemView);
             imagehor=itemView.findViewById(R.id.imagehor);
             namehor=itemView.findViewById(R.id.namehor);
+            linearLayout=itemView.findViewById(R.id.namecard1);
         }
     }
 

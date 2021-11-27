@@ -1,13 +1,21 @@
 package com.example.android1project;
 
+import android.app.ActionBar;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +37,7 @@ public class recyclerviewadapter_ver  extends RecyclerView.Adapter<recyclerviewa
     private ArrayList<item> mitemlist;
     private Context mitemcontext;
     int s=0;
+    Dialog dialog;
 
     public recyclerviewadapter_ver(Context mitemcontext ,ArrayList<item> mitemexprecine ) {
         this.mitemlist = mitemexprecine;
@@ -64,7 +73,7 @@ public class recyclerviewadapter_ver  extends RecyclerView.Adapter<recyclerviewa
                     holder.itemsum.setText(s+" "+item.getItemsnname());
                     item.setItemsum(s+"");
                     registeritem(String.valueOf(item.getItemsum()),String.valueOf(item.getItemid()));
-                    homeFragment.itemArrayList.set(holder.getAdapterPosition(),item);
+                    homeFragment.itemArrayList_filter.set(holder.getAdapterPosition(),item);
                 }else {
                     Toast.makeText(mitemcontext, "Not less than 100"+item.getItemsnname(), Toast.LENGTH_SHORT).show();
                 }
@@ -74,11 +83,7 @@ public class recyclerviewadapter_ver  extends RecyclerView.Adapter<recyclerviewa
         holder.itemdetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(mitemcontext,detail_item.class);
-                String[] putitem = new String[]{item.getItemid(), item.getItemname(), item.getItempicture(), item.getItemsum()
-                        , item.getItemtype(), item.getItemexpiration()};
-                intent.putExtra("item", putitem);
-                mitemcontext.startActivity(intent);
+                showdialog(item);
             }
         });
 
@@ -106,6 +111,182 @@ public class recyclerviewadapter_ver  extends RecyclerView.Adapter<recyclerviewa
             item_background=itemView.findViewById(R.id.item_background);
         }
     }
+//**********************************************************************************************************************
+    TextView ddelete,dname,dname_type,dnsum,dedit,dgrading;
+    EditText dcalorie,dsum,dexp;
+    ImageView dpicture,dimagetype;
+    Button button_back;
+    boolean fedit=false;
+private void showdialog(item item) {
+
+    dialog=new Dialog(mitemcontext);
+    dialog.setContentView(R.layout.alert_dialog_item_detail);
+    dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+    Window window=dialog.getWindow();
+    window.setGravity(Gravity.CENTER);
+    window.getAttributes().windowAnimations=R.style.DialogAnimation;
+
+    button_back = dialog.findViewById(R.id.detail_back);
+    ddelete = dialog.findViewById(R.id.delete_item);
+    dedit = dialog.findViewById(R.id.edit_item);
+    dpicture = dialog.findViewById(R.id.detail_picture);
+    dname = dialog.findViewById(R.id.detail_name);
+    dimagetype = dialog.findViewById(R.id.detail_image_type);
+    dname_type = dialog.findViewById(R.id.detail_name_type);
+    dcalorie = dialog.findViewById(R.id.detail_calorie);
+    dsum = dialog.findViewById(R.id.detail_sum);
+    dnsum = dialog.findViewById(R.id.detail_nsum);
+    dexp = dialog.findViewById(R.id.detail_exp);
+    dgrading=dialog.findViewById(R.id.detail_grading);
+    for (type type:mainapp.typeArrayList){
+        if (item.getItemtype().equals(type.getTypeid())){
+        Picasso.get().load(type.getTypepicture()).into(dimagetype);
+        dname_type.setText(type.getTypename());
+        }
+    }
+    dedit.setOnClickListener(view -> {
+        fedit=!fedit;
+        if (fedit){
+            button_back.setText("save");
+            dsum.setFocusableInTouchMode(true);
+            dcalorie.setFocusableInTouchMode(true);
+            dexp.setFocusableInTouchMode(true);
+        }else {
+            dsum.setFocusable(false);
+            dcalorie.setFocusable(false);
+            dexp.setFocusable(false);
+            button_back.setText("back");
+
+        }
+    });
+    button_back.setOnClickListener(view -> {
+        if (!fedit) {
+            dialog.dismiss();
+        }else {
+            String sum=dsum.getText().toString();
+            String calorie=dcalorie.getText().toString();
+            String exp=dexp.getText().toString();
+
+            if (TextUtils.isEmpty(sum)){
+                dsum.setError("Please enter the sum");
+                dsum.requestFocus();
+                return;
+            }if (TextUtils.isEmpty(calorie)){
+                dcalorie.setError("Please enter the month calorie");
+                dcalorie.requestFocus();
+                return;
+            }if (TextUtils.isEmpty(exp)){
+                dexp.setError("Please enter the day exp");
+                dexp.requestFocus();
+                return;
+            }
+            mainapp.itemArrayList.remove(item);
+            homeFragment.itemArrayList_filter.remove(item);
+            item.setItemsum(sum);
+            item.setItemcalorie(calorie);
+            item.setItemexpiration(exp);
+
+            updata_item(item);
+            dialog.dismiss();
+        }
+    });
+    ddelete.setOnClickListener(view -> {
+        deleteitem(item.getItemid());
+        dialog.dismiss();
+        homeFragment.itemArrayList_filter.remove(item);
+        mainapp.itemArrayList.remove(item);
+    });
+    Picasso.get().load(item.getItempicture()).into(dpicture);
+    dname.setText(item.getItemname());
+    dcalorie.setText(item.getItemcalorie());
+    dnsum.setText(item.getItemsnname());
+    dsum.setText(item.getItemsum());
+    dexp.setText(item.getItemexpiration());
+    dgrading.setText(item.getItemgrading());
+
+    dialog.setCancelable(true);
+    window.setLayout(ActionBar.LayoutParams.WRAP_CONTENT,ActionBar.LayoutParams.WRAP_CONTENT);
+    dialog.show();
+
+}
+
+    private void updata_item(item item) {
+        class update_item extends AsyncTask<Void, Void, String> {
+
+            @Override
+            protected String doInBackground(Void... voids) {
+                RequestHandler requestHandler = new RequestHandler();
+                HashMap<String, String> params = new HashMap<>();
+                params.put("itemid", item.getItemid());
+                params.put("itemsum", item.getItemsum());
+                params.put("itemcalorie", item.getItemcalorie());
+                params.put("itemexpiration", item.getItemexpiration());
+                return requestHandler.sendPostRequest(config.update_item, params);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+
+                try {
+                    JSONObject obj = new JSONObject(s);
+                    Toast.makeText(mitemcontext, obj.getString("message"), Toast.LENGTH_SHORT).show();
+                    for (int i=0;i<mainapp.itemArrayList.size();i++){
+                        item item1=mainapp.itemArrayList.get(i);
+                        if (Integer.parseInt(item1.getItemexpiration())>Integer.parseInt(item.getItemexpiration())){
+                            mainapp.itemArrayList.add(i,item);
+                            break;
+
+                        }
+                    }for (int i=0;i<homeFragment.itemArrayList_filter.size();i++){
+                        item item1=homeFragment.itemArrayList_filter.get(i);
+                        if (Integer.parseInt(item1.getItemexpiration())>Integer.parseInt(item.getItemexpiration())){
+                            homeFragment.itemArrayList_filter.add(i,item);
+                            break;
+
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+        update_item update_item = new update_item();
+        update_item.execute();
+    }
+
+    public void deleteitem(String id) {
+
+        class deleteitem extends AsyncTask<Void, Void, String> {
+
+            @Override
+            protected String doInBackground(Void... voids) {
+                RequestHandler requestHandler = new RequestHandler();
+                HashMap<String, String> params = new HashMap<>();
+                params.put("getitemid", id);
+                return requestHandler.sendPostRequest(config.delete, params);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+
+                try {
+                    JSONObject obj = new JSONObject(s);
+                    Toast.makeText(mitemcontext, obj.getString("message"), Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+        deleteitem deleteitem = new deleteitem();
+        deleteitem.execute();
+    }
+
+
 
     private void registeritem(String sum, String id) {
         class Registertype extends AsyncTask<Void, Void, String> {

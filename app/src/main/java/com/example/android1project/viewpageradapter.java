@@ -7,21 +7,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.squareup.picasso.Picasso;
 
 public class viewpageradapter extends PagerAdapter {
 
     Context context;
-
-    String images[] = {
-            "https://res.cloudinary.com/dlgnk4lmq/image/upload/v1631765973/android1pro/firstactivity/page1.jpg",
-            "https://res.cloudinary.com/dlgnk4lmq/image/upload/v1631765973/android1pro/firstactivity/page2.jpg",
-            "https://res.cloudinary.com/dlgnk4lmq/image/upload/v1631765973/android1pro/firstactivity/page3.jpg"
+    int images[] = {
+            R.raw.refrigerator,
+            R.raw.kitchen,
+            R.raw.dateclock
+//            "https://res.cloudinary.com/dlgnk4lmq/image/upload/v1631765973/android1pro/firstactivity/page1.jpg",
+//            "https://res.cloudinary.com/dlgnk4lmq/image/upload/v1631765973/android1pro/firstactivity/page2.jpg",
+//            "https://res.cloudinary.com/dlgnk4lmq/image/upload/v1631765973/android1pro/firstactivity/page3.jpg"
     };
 
     int headings[] = {
@@ -48,7 +52,7 @@ public class viewpageradapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-        return view == (LinearLayout) object;
+        return view == (RelativeLayout) object;
     }
 
     @NonNull
@@ -57,11 +61,13 @@ public class viewpageradapter extends PagerAdapter {
 
         LayoutInflater layoutInflater=(LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         View view=layoutInflater.inflate(R.layout.slider_layout,container,false);
-        ImageView slidetitleimage=(ImageView) view.findViewById(R.id.titleimage);
+        LottieAnimationView slidetitleimage=(LottieAnimationView) view.findViewById(R.id.titleimage);
         TextView slideheading=(TextView) view.findViewById(R.id.texttitle);
         TextView slidedescription=(TextView) view.findViewById(R.id.textdeccription);
 
-        Picasso.get().load(images[position]).into(slidetitleimage);
+//        Picasso.get().load(images[position]).into(slidetitleimage);
+        slidetitleimage.setAnimation(images[position]);
+
         slideheading.setText(headings[position]);
         slidedescription.setText(description[position]);
 
@@ -73,6 +79,6 @@ public class viewpageradapter extends PagerAdapter {
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
 
-        container.removeView((LinearLayout)object);
+        container.removeView((RelativeLayout)object);
     }
 }

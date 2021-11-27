@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -42,7 +44,17 @@ public class recyclerviewadapter_saveitem extends RecyclerView.Adapter<recyclerv
         holder.itemexp.setText(item.getItemexpiration()+" days exp");
         Picasso.get().load(item.getItempicture()).into(holder.itemimage);
         holder.imageshow.setImageResource(R.drawable.add);
-
+        holder.checkBox.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (b){
+                favoriteFragment.itemArrayList_favorite.add(item);
+                SharedPrefManeger_item.getInstance(mcontext).saveArrayList(favoriteFragment.itemArrayList_favorite,"favorite");
+            }else {
+                favoriteFragment.itemArrayList_favorite.remove(item);
+                SharedPrefManeger_item.getInstance(mcontext).saveArrayList(favoriteFragment.itemArrayList_favorite,"favorite");
+            }
+        });
+        if (holder.checkBox.isChecked()){
+        }
     }
 
     @Override
@@ -53,6 +65,7 @@ public class recyclerviewadapter_saveitem extends RecyclerView.Adapter<recyclerv
     public class viewholder extends RecyclerView.ViewHolder {
         ImageView itemimage, imageshow;
         TextView itemname,itemexp;
+        CheckBox checkBox;
 
         public viewholder(@NonNull View itemView) {
             super(itemView);
@@ -60,7 +73,7 @@ public class recyclerviewadapter_saveitem extends RecyclerView.Adapter<recyclerv
             imageshow = itemView.findViewById(R.id.saveitem_showitem);
             itemname = itemView.findViewById(R.id.saveitem_name);
             itemexp=itemView.findViewById(R.id.saveitem_exp);
-
+            checkBox=itemView.findViewById(R.id.saveitem_favorite);
         }
     }
 
