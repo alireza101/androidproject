@@ -195,7 +195,7 @@ public class custom_item_Fragment extends Fragment  {
                 String[] b = {name,pathpic,String.valueOf(exp),calorie,""
                         ,sum,typeid,grading};
                 if (ATF){
-                    user user=SharedPrefManager.getInstance(getActivity()).getUser();
+                    user user= SharedPrefManager_user.getInstance(getActivity()).getUser();
                     item item=new item(String.valueOf(favoriteFragment.itemArrayList_favorite.size()),name,pathpic,String.valueOf(exp),calorie,""
                             ,sum,typeid,grading,String.valueOf(user.getId()));
                     favoriteFragment.itemArrayList_favorite.add(item);
@@ -413,7 +413,7 @@ public class custom_item_Fragment extends Fragment  {
 //***************************************************************************************************************************
 
     void registeradditem(String[] a) {
-        user user = SharedPrefManager.getInstance(getActivity()).getUser();
+        user user = SharedPrefManager_user.getInstance(getActivity()).getUser();
 
         class Registeritem extends AsyncTask<Void, Void, String> {
             ProgressDialog progressDialog = ProgressDialog.show(getActivity(), "connecting...", "please wait", false, false);

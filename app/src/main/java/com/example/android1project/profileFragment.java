@@ -57,10 +57,10 @@ public class profileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 getActivity().finish();
-                SharedPrefManager.getInstance(getActivity()).logout();
+                SharedPrefManager_user.getInstance(getActivity()).logout();
             }
         });
-        user user = SharedPrefManager.getInstance(getActivity()).getUser();
+        user user = SharedPrefManager_user.getInstance(getActivity()).getUser();
         textView.setText(user.getUsername().toString().trim());
 
         if (user.getUsergender() == "man") {

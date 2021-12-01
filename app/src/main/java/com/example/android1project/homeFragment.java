@@ -66,6 +66,12 @@ public class homeFragment extends Fragment {
         recyclerviewadapter_ver adapter = new recyclerviewadapter_ver(getActivity(), itemArrayList_filter);
         rcmain.setLayoutManager(new LinearLayoutManager(getActivity()));
         rcmain.setAdapter(adapter);
+//        while (adapte1.getItemCount()==0){
+//            adapte1 = new recyclerviewadapter_hor(getActivity(), mainapp.typeArrayList);
+//            rcmainhor.setAdapter(adapte1);
+//            rcmain.setAdapter(adapter);
+//
+//        }
 //        rcmain.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), rcmain, new RecyclerTouchListener.ClickListener() {
 //            @Override
 //            public void onClick(View view, int position) {
@@ -162,7 +168,7 @@ public class homeFragment extends Fragment {
     //*******************************************************************************************************************************************************
 
 //    private void registeritem(String typeid) {
-//        user user = SharedPrefManager.getInstance(getActivity()).getUser();
+//        user user = SharedPrefManager_user.getInstance(getActivity()).getUser();
 //        int iduser = user.getId();
 //
 //

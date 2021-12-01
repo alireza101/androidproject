@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -23,6 +25,8 @@ public class favoriteFragment extends Fragment {
 
     RecyclerView recyclerView;
     TextView saveitem_back;
+    recyclerviewadapter_favorite adapter_favorite;
+    LottieAnimationView loview;
     public favoriteFragment() {
         // Required empty public constructor
     }
@@ -31,15 +35,19 @@ public class favoriteFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_favorite, container, false);
+        View view = inflater.inflate(R.layout.fragment_favorite, container, false);
         itemArrayList_favorite = SharedPrefManeger_item.getInstance(getActivity()).getArrayList("favorite");
-
+//        Toast.makeText(getActivity(), itemArrayList_favorite.size()+"", Toast.LENGTH_SHORT).show();
         recyclerView = view.findViewById(R.id.add_faverite);
         saveitem_back = view.findViewById(R.id.saveitem_back);
+        loview=view.findViewById(R.id.add_not_found);
+        if (itemArrayList_favorite!=null) {
+            loview.setVisibility(View.GONE);
+             adapter_favorite= new recyclerviewadapter_favorite(getActivity(), itemArrayList_favorite);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            recyclerView.setAdapter(adapter_favorite);
+        }
 
-        recyclerviewadapter_favorite adapter_favorite = new recyclerviewadapter_favorite(getActivity(),itemArrayList_favorite);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(adapter_favorite);
         saveitem_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,11 +63,13 @@ public class favoriteFragment extends Fragment {
 
             @Override
             public void onLongClick(View view, int position) {
-                item item=itemArrayList_favorite.get(position);
+                item item = itemArrayList_favorite.get(position);
+                mainapp.itemArrayList.add(item);
+                homeFragment.itemArrayList_filter.add(item);
                 registeritem(item);
             }
         }));
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
@@ -67,13 +77,13 @@ public class favoriteFragment extends Fragment {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                item item=itemArrayList_favorite.get(viewHolder.getLayoutPosition());
+                item item = itemArrayList_favorite.get(viewHolder.getLayoutPosition());
 
                 itemArrayList_favorite.remove(viewHolder.getAdapterPosition());
                 adapter_favorite.notifyItemRemoved(viewHolder.getAdapterPosition());
 
                 itemArrayList_favorite.remove(item);
-                SharedPrefManeger_item.getInstance(getActivity()).saveArrayList(itemArrayList_favorite,"favorite");
+                SharedPrefManeger_item.getInstance(getActivity()).saveArrayList(itemArrayList_favorite, "favorite");
                 Toast.makeText(getActivity(), "item favorite is delete", Toast.LENGTH_SHORT).show();
 
             }
@@ -81,6 +91,7 @@ public class favoriteFragment extends Fragment {
 
         return view;
     }
+
     private void registeritem(item item) {
         class Registertype extends AsyncTask<Void, Void, String> {
 
@@ -91,15 +102,15 @@ public class favoriteFragment extends Fragment {
 
                 //creating request parameters
                 HashMap<String, String> params = new HashMap<>();
-                params.put("itemsum",item.getItemsum());
-                params.put("itempicture",item.getItempicture());
-                params.put("itemname",item.getItemname());
-                params.put("itemtype",item.getItemtype());
-                params.put("itemexpiration",item.getItemexpiration());
-                params.put("itemuser",item.getItemuser());
-                params.put("itemcalorie",item.getItemcalorie());
-                params.put("itemsumn",item.getItemsnname());
-                params.put("itemgrading",item.getItemgrading());
+                params.put("itemsum", item.getItemsum());
+                params.put("itempicture", item.getItempicture());
+                params.put("itemname", item.getItemname());
+                params.put("itemtype", item.getItemtype());
+                params.put("itemexpiration", item.getItemexpiration());
+                params.put("itemuser", item.getItemuser());
+                params.put("itemcalorie", item.getItemcalorie());
+                params.put("itemsumn", item.getItemsnname());
+                params.put("itemgrading", item.getItemgrading());
 
                 //returing the response
                 return requestHandler.sendPostRequest(config.additem_save, params);

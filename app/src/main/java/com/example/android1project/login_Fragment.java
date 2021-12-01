@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -91,7 +90,19 @@ public class login_Fragment extends Fragment {
                 super.onPreExecute();
 
             }
+            @Override
+            protected String doInBackground(Void... voids) {
+                //creating request handler object
+                RequestHandler requestHandler = new RequestHandler();
 
+                //creating request parameters
+                HashMap<String, String> params = new HashMap<>();
+                params.put("username", username);
+                params.put("userpassword", userpassword);
+
+                //returing the response
+                return requestHandler.sendPostRequest(config.login, params);
+            }
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
@@ -118,7 +129,7 @@ public class login_Fragment extends Fragment {
                         );
 
                         //storing the user in shared preferences
-                        SharedPrefManager.getInstance(getActivity()).userLogin(user);
+                        SharedPrefManager_user.getInstance(getActivity()).userLogin(user);
 
                         //starting the profile activity
                         getActivity().finish();
@@ -133,19 +144,7 @@ public class login_Fragment extends Fragment {
 
             }
 
-            @Override
-            protected String doInBackground(Void... voids) {
-                //creating request handler object
-                RequestHandler requestHandler = new RequestHandler();
 
-                //creating request parameters
-                HashMap<String, String> params = new HashMap<>();
-                params.put("username", username);
-                params.put("userpassword", userpassword);
-
-                //returing the response
-                return requestHandler.sendPostRequest(config.login, params);
-            }
         }
 
         UserLogin ul = new UserLogin();

@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -156,7 +155,7 @@ public class signup_Fragment extends Fragment {
                         );
 
                         //storing the user in shared preferences
-                        SharedPrefManager.getInstance(getActivity()).userLogin(user);
+                        SharedPrefManager_user.getInstance(getActivity()).userLogin(user);
 
                         //starting the profile activity
                         getActivity().finish();

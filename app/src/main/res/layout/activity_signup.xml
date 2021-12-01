@@ -4,20 +4,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
-
-<ImageView
-    android:layout_width="match_parent"
-    android:layout_height="500dp"
-    android:src="@drawable/backg"/>
-    <FrameLayout
+    android:orientation="vertical">
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/page1"/>
+        android:layout_height="500dp"
+        android:src="@drawable/backg" />
+    <RelativeLayout
+        android:id="@+id/sign_main2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <FrameLayout
+            android:id="@+id/page1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/sign_main1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
 
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/sign_progress"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="200dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/w1" />
+
+        <TextView
+            android:id="@+id/sing_connect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sign_progress"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="45dp"
+            android:textAlignment="center"
+            android:textSize="30sp" />
+    </RelativeLayout>
 
 
 </RelativeLayout>

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-public class SharedPrefManager {
+public class SharedPrefManager_user {
     private static final String SHARED_PREF_NAME = "simplifiedcodingsharedpref";
     private static final String KEY_USERNAME = "keyusername";
     private static final String KEY_userEMAIL = "keyuseremail";
@@ -12,16 +12,16 @@ public class SharedPrefManager {
     private static final String KEY_userpassword = "keyuserpassword";
     private static final String KEY_usergender = "keyusergender";
 
-    private static SharedPrefManager mInstance;
+    private static SharedPrefManager_user mInstance;
     private static Context mCtx;
 
-    private SharedPrefManager(Context context ) {
+    private SharedPrefManager_user(Context context ) {
 
         mCtx=context;
     }
-    public static synchronized SharedPrefManager getInstance(Context context) {
+    public static synchronized SharedPrefManager_user getInstance(Context context) {
         if (mInstance == null) {
-            mInstance = new SharedPrefManager(context);
+            mInstance = new SharedPrefManager_user(context);
         }
         return mInstance;
     }

@@ -6,7 +6,6 @@ import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -428,7 +427,7 @@ public class save_item_Fragment extends Fragment {
 
 
      void registeradditem(String[] a) {
-        user user = SharedPrefManager.getInstance(getActivity()).getUser();
+        user user = SharedPrefManager_user.getInstance(getActivity()).getUser();
         class Registeritem extends AsyncTask<Void, Void, String> {
 
 
@@ -500,7 +499,7 @@ public class save_item_Fragment extends Fragment {
 
     private void Registeritem() {
         class Registeritem extends AsyncTask<Void, Void, String> {
-            user user=SharedPrefManager.getInstance(getActivity()).getUser();
+            user user= SharedPrefManager_user.getInstance(getActivity()).getUser();
 
             @Override
             protected String doInBackground(Void... voids) {

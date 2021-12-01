@@ -1,17 +1,22 @@
 package com.example.android1project;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.ProgressDialog;
+import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Observable;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -42,12 +47,24 @@ public class mainapp extends AppCompatActivity {
     RelativeLayout main_2;
     LinearLayout main_1;
     Intent intent;
-
-
+    private static final String LOG_TAG = "CheckNetworkStatus";
+    private NetworkChangeReceiver receiver;
+    private boolean isConnected = false;
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_mainapp);
+
+        startForegroundService(new Intent(getBaseContext(), run_service.class));
+        startService(new Intent(getBaseContext(), run_service.class));
+
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        receiver = new NetworkChangeReceiver();
+        registerReceiver(receiver, filter);
+
         registertype();
         registeritem();
         fab_custom = findViewById(R.id.add_fam_customitem);
@@ -81,9 +98,8 @@ public class mainapp extends AppCompatActivity {
                         fab.collapse();
                         break;
                     case 2:
+                        extracted();
 
-                        fragment = new homeFragment();
-                        loadFragment(fragment);
                         fab.collapse();
                         break;
 
@@ -113,9 +129,8 @@ public class mainapp extends AppCompatActivity {
 
         });
 
-        if (!SharedPrefManager.getInstance(this).isLoggedIn()) {
-            finish();
-            startActivity(new Intent(this, signup_activity.class));
+        if (!SharedPrefManager_user.getInstance(this).isLoggedIn()) {
+            callbackactivity();
         }
 
 
@@ -134,13 +149,81 @@ public class mainapp extends AppCompatActivity {
             }
         });
 
+
     }
+
+
+
+    private void callbackactivity() {
+        finish();
+        startActivity(new Intent(this, signup_activity.class));
+    }
+
+    private void extracted() {
+        fragment = new homeFragment();
+        loadFragment(fragment);
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.v(LOG_TAG, "onDestory");
+        super.onDestroy();
+    }
+    public void refreshVoid(View view) {
+        finish();
+        startActivity(getIntent());
+
+    }
+    public class NetworkChangeReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, final Intent intent) {
+
+            Log.v(LOG_TAG, "Receieved notification about network status");
+            Log.v(LOG_TAG, "+"+intent);
+            isNetworkAvailable(context);
+
+        }
+
+
+        private boolean isNetworkAvailable(Context context) {
+            ConnectivityManager connectivity = (ConnectivityManager)
+                    context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            if (connectivity != null) {
+                NetworkInfo[] info = connectivity.getAllNetworkInfo();
+                if (info != null) {
+                    for (int i = 0; i < info.length; i++) {
+                        if (info[i].getState() == NetworkInfo.State.CONNECTED) {
+                            if(!isConnected){
+                                Log.v(LOG_TAG, "Now you are connected to Internet!");
+                                registertype();
+                                registeritem();
+                                isConnected = true;
+                                //do your processing here ---
+                                //if you need to post any data to the server or get status
+                                //update from the server
+                            }
+                            return true;
+                        }
+                    }
+                }
+            }
+            Log.v(LOG_TAG, "You are not connected to Internet!");
+            Toast.makeText(getApplication(), "You are not connected to Internet!", Toast.LENGTH_SHORT).show();
+            ((Activity)context).finish();
+            callbackactivity();
+            isConnected = false;
+
+            return false;
+        }
+    }
+
 
 
     private void loadFragment(Fragment fragment) {
         main_2.setVisibility(View.GONE);
         main_1.setVisibility(View.VISIBLE);
-        getSupportFragmentManager()
+        mainapp.this.getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.frame_layout, fragment)
                 .commit();
@@ -159,8 +242,10 @@ public class mainapp extends AppCompatActivity {
                     }
                 }).create().show();
     }
-    private void registeritem() {
-        user user = SharedPrefManager.getInstance(getApplication()).getUser();
+
+
+    public void registeritem() {
+        user user = SharedPrefManager_user.getInstance(getApplication()).getUser();
         int iduser = user.getId();
 
 
@@ -220,8 +305,9 @@ public class mainapp extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                Toast.makeText(getApplication(), "load item", Toast.LENGTH_SHORT).show();
-
+                if (!itemArrayList.isEmpty()) {
+                    Log.d(LOG_TAG, "onPostExecute: load item ");
+                }
 //                progressDialog.dismiss();
 //                recyclerviewadapter_ver adapter = new recyclerviewadapter_ver(getActivity(), itemArrayList);
 //                rcmain.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -288,8 +374,8 @@ public class mainapp extends AppCompatActivity {
                     e.printStackTrace();
                 }
 //                progressDialog.dismiss();
-////                IData iData = (IData) getActivity();
-////                iData.sendata();
+//                IData iData = (IData) getApplicationContext();
+//                iData.sendata();
 //                recyclerviewadapter_hor adapte1 = new recyclerviewadapter_hor(getActivity(), typeArrayList);
 //                rcmainhor.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 //                rcmainhor.setAdapter(adapte1);

@@ -54,7 +54,7 @@ public class myprofileFragment extends Fragment {
         sedemail = edemail.getText().toString();
         sedpassword = edpassword.getText().toString();
 
-        user = SharedPrefManager.getInstance(getActivity()).getUser();
+        user = SharedPrefManager_user.getInstance(getActivity()).getUser();
 
         edname.setText(user.getUsername());
         edemail.setText(user.getUsermail());
@@ -183,7 +183,7 @@ public class myprofileFragment extends Fragment {
                             sedpassword,
                             sedgender
                     );
-                    SharedPrefManager.getInstance(getActivity()).userLogin(user);
+                    SharedPrefManager_user.getInstance(getActivity()).userLogin(user);
 
 
                 } catch (JSONException e) {
