@@ -41,7 +41,8 @@ public class favoriteFragment extends Fragment {
         recyclerView = view.findViewById(R.id.add_faverite);
         saveitem_back = view.findViewById(R.id.saveitem_back);
         loview=view.findViewById(R.id.add_not_found);
-        if (itemArrayList_favorite!=null) {
+        loview.setVisibility(View.VISIBLE);
+        if (itemArrayList_favorite.size()!=0) {
             loview.setVisibility(View.GONE);
              adapter_favorite= new recyclerviewadapter_favorite(getActivity(), itemArrayList_favorite);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -67,6 +68,7 @@ public class favoriteFragment extends Fragment {
                 mainapp.itemArrayList.add(item);
                 homeFragment.itemArrayList_filter.add(item);
                 registeritem(item);
+                Toast.makeText(getActivity(), "item is added", Toast.LENGTH_SHORT).show();
             }
         }));
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -81,11 +83,11 @@ public class favoriteFragment extends Fragment {
 
                 itemArrayList_favorite.remove(viewHolder.getAdapterPosition());
                 adapter_favorite.notifyItemRemoved(viewHolder.getAdapterPosition());
-
-                itemArrayList_favorite.remove(item);
                 SharedPrefManeger_item.getInstance(getActivity()).saveArrayList(itemArrayList_favorite, "favorite");
                 Toast.makeText(getActivity(), "item favorite is delete", Toast.LENGTH_SHORT).show();
-
+                if (itemArrayList_favorite.size()==0){
+                    loview.setVisibility(View.VISIBLE);
+                }
             }
         }).attachToRecyclerView(recyclerView);
 

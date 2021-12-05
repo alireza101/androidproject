@@ -46,6 +46,7 @@ public class recyclerviewadapter_saveitem extends RecyclerView.Adapter<recyclerv
         holder.imageshow.setImageResource(R.drawable.add);
         holder.checkBox.setOnCheckedChangeListener((compoundButton, b) -> {
             if (b){
+                item.setItemgrading("household");
                 favoriteFragment.itemArrayList_favorite.add(item);
                 SharedPrefManeger_item.getInstance(mcontext).saveArrayList(favoriteFragment.itemArrayList_favorite,"favorite");
             }else {
@@ -53,8 +54,6 @@ public class recyclerviewadapter_saveitem extends RecyclerView.Adapter<recyclerv
                 SharedPrefManeger_item.getInstance(mcontext).saveArrayList(favoriteFragment.itemArrayList_favorite,"favorite");
             }
         });
-        if (holder.checkBox.isChecked()){
-        }
     }
 
     @Override

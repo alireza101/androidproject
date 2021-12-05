@@ -3,21 +3,24 @@ package com.example.android1project;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class profileFragment extends Fragment {
     Button btn_logout, btn_myprofile, btn_about, btn_feedback;
     TextView textView;
     ImageView imageView;
-
+    SwitchCompat switchCompat;
     public profileFragment() {
         // Required empty public constructor
     }
@@ -33,7 +36,18 @@ public class profileFragment extends Fragment {
         btn_about = view.findViewById(R.id.profile_aboutapp);
         btn_feedback = view.findViewById(R.id.profile_feedback);
         imageView = view.findViewById(R.id.profile_image);
+        switchCompat=view.findViewById(R.id.profile_switch1);
 
+        switchCompat.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (switchCompat.isChecked()){
+                run_service.flag_notification=1;
+                Toast.makeText(getActivity(), "notification is enable", Toast.LENGTH_SHORT).show();
+            }else {
+                run_service.flag_notification=0;
+                Toast.makeText(getActivity(), "notification is disable", Toast.LENGTH_SHORT).show();
+
+            }
+        });
         btn_feedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

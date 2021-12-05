@@ -1,5 +1,6 @@
 package com.example.android1project;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
@@ -8,16 +9,23 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.util.Log;
+
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.logging.SimpleFormatter;
 
 public class check_internet_broadcast extends BroadcastReceiver {
      ArrayList<item> itemArrayList_increment = new ArrayList<>();
@@ -26,16 +34,27 @@ public class check_internet_broadcast extends BroadcastReceiver {
     private boolean isConnected = false;
     int def=0;
     int id=1;
+    Context context;
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.v(LOG_TAG,"onrecive");
-        String date=SharePrefManager_string.getInstance(context).getString("Date");
-        Date c = Calendar.getInstance().getTime();
-        def= (int) getDateDiff.getDateDiff(date,String.valueOf(c));
+        this.context=context;
+        SimpleDateFormat format=new SimpleDateFormat("yy/M/d");
+
+        try {
+            String d=SharePrefManager_string.getInstance(context).getString("Date");
+            Date dateold = format.parse(d);
+
+            String datenew=format.format(Calendar.getInstance().getTime());
+            def= (int) getDateDiff.getDateDiff(dateold,format.parse(datenew));
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         if (def>0) {
             if (isNetworkAvailable(context)){
                 registeritem(context);
-                SharePrefManager_string.getInstance(context).saveString("Date",String.valueOf(c));
 
 
             }
@@ -44,6 +63,7 @@ public class check_internet_broadcast extends BroadcastReceiver {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivity = (ConnectivityManager)
                 context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -78,24 +98,24 @@ public class check_internet_broadcast extends BroadcastReceiver {
                 item.setItemexpiration(String.valueOf(exp-def));
                 updata_item(item);
             }else if (exp==0){
-                Notification notification =new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.add)
-                        .setContentTitle(item.getItemname()+" expiration date is coming to an end")
-                        .setPriority(NotificationManager.IMPORTANCE_LOW)
-                        .setCategory(Notification.CATEGORY_SERVICE)
-                        .setChannelId("0")
-                        .build();
+                if (run_service.flag_notification==1){
+                    Notification notification =new NotificationCompat.Builder(context)
+                            .setSmallIcon(R.drawable.add)
+                            .setContentTitle(item.getItemname()+" expiration date is coming to an end")
+                            .setPriority(NotificationManager.IMPORTANCE_LOW)
+                            .setCategory(Notification.CATEGORY_SERVICE)
+                            .setChannelId("0")
+                            .build();
 
-                NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
-                mNotificationManager.notify(++id, notification);
+                    NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
+                    mNotificationManager.notify(++id, notification);
+                }
                 item.setItemexpiration(String.valueOf(exp-def));
                 updata_item(item);
             }else{
                 deleteitem(item.getItemid());
             }
         }
-
-
     }
     private void registeritem(Context context) {
         user user = SharedPrefManager_user.getInstance(context).getUser();
@@ -148,11 +168,10 @@ public class check_internet_broadcast extends BroadcastReceiver {
                         itemArrayList_increment.add(item);
 
                     }
-
+                    startmyservice(context,def);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                startmyservice(context,def);
             }
         }
         //executing the async task
@@ -180,6 +199,8 @@ public class check_internet_broadcast extends BroadcastReceiver {
 
                 try {
                     JSONObject obj = new JSONObject(s);
+                    SharePrefManager_string.getInstance(context).saveString("Date",Calendar.getInstance().getTime().toString());
+                    homeFragment.adapter.notifyDataSetChanged();
 
                 } catch (JSONException e) {
                     e.printStackTrace();

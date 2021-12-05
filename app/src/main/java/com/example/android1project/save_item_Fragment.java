@@ -6,6 +6,7 @@ import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Dialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.ContentInfo;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -170,24 +172,26 @@ public class save_item_Fragment extends Fragment {
         recyclerviewadapter_saveitem adapte = new recyclerviewadapter_saveitem(getActivity(), itemArrayList_save_filter);
         recyclerViewitem.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerViewitem.setAdapter(adapte);
+
         recyclerViewitem.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerViewitem, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                itemimage=view.findViewById(R.id.saveitem_showitem);
-                roateImage(true,itemimage);
                 item item=itemArrayList_save_filter.get(position);
-                String []a={item.getItemname(),item.getItempicture(),item.getItemexpiration(),item.getItemcalorie()
-                        ,item.getItemsnname(),item.getItemsum(),item.getItemtype()};
+                itemimage=view.findViewById(R.id.saveitem_showitem);
+                itemimage.setOnClickListener(view1 -> {
+                    roateImage(true,itemimage);
+                    String []a={item.getItemname(),item.getItempicture(),item.getItemexpiration(),item.getItemcalorie()
+                            ,item.getItemsnname(),item.getItemsum(),item.getItemtype()};
 
-                showdialog(a);
-                roateImage(false,itemimage);
+                    showdialog(a);
+                    roateImage(false, itemimage);
+
+                });
 
 
             }
-
             @Override
             public void onLongClick(View view, int position) {
-
             }
         }));
 
@@ -379,7 +383,11 @@ public class save_item_Fragment extends Fragment {
                 String[] b = {name,a[1],String.valueOf(exp),a[3],a[4],sum,a[6],grading};
                 registeradditem(b);
 
-
+                user user= SharedPrefManager_user.getInstance(getActivity()).getUser();
+                item item=new item("",name,a[1],String.valueOf(exp),a[3],a[4]
+                        ,sum,a[6],grading,String.valueOf(user.getId()));
+                homeFragment.itemArrayList_filter.add(item);
+                homeFragment.adapter.notifyDataSetChanged();
                 dialog.dismiss();
 
 
@@ -426,7 +434,7 @@ public class save_item_Fragment extends Fragment {
     //****************************************************************************************************************  api
 
 
-     void registeradditem(String[] a) {
+     private void registeradditem(String[] a) {
         user user = SharedPrefManager_user.getInstance(getActivity()).getUser();
         class Registeritem extends AsyncTask<Void, Void, String> {
 

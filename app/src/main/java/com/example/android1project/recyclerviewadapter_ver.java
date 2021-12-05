@@ -5,6 +5,8 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -13,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
@@ -29,6 +33,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -62,7 +67,19 @@ public class recyclerviewadapter_ver  extends RecyclerView.Adapter<recyclerviewa
         holder.itemname.setText(item.getItemname());
         holder.itemsum.setText(item.getItemsum()+" "+item.getItemsnname());
         holder.itemexprece.setText(item.getItemexpiration()+" days");
-        Picasso.get().load(item.getItempicture()).into(holder.itemimage);
+        if (item.getItempicture().contains("/storage/emulated/0/Android/data/com.example.android1project/cache/")){
+            File imgFile = new File(item.getItempicture());
+            if (imgFile.exists()) {
+
+                Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                holder.itemimage.setImageBitmap(myBitmap);
+            }
+        }else if (item.getItempicture().isEmpty()){}
+        else
+            {
+                Picasso.get().load(item.getItempicture()).into(holder.itemimage);
+            }
+
 
         holder.itemsum_min.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +100,8 @@ public class recyclerviewadapter_ver  extends RecyclerView.Adapter<recyclerviewa
         holder.itemdetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showdialog(item);
+                showdialog(item,holder.getAdapterPosition());
+
             }
         });
 
@@ -112,12 +130,12 @@ public class recyclerviewadapter_ver  extends RecyclerView.Adapter<recyclerviewa
         }
     }
 //**********************************************************************************************************************
-    TextView ddelete,dname,dname_type,dnsum,dedit,dgrading;
+    TextView ddelete,dname,dname_type,dnsum,dgrading;
     EditText dcalorie,dsum,dexp;
     ImageView dpicture,dimagetype;
     Button button_back;
-    boolean fedit=false;
-private void showdialog(item item) {
+    CheckBox dedit;
+private void showdialog(item item ,int i) {
 
     dialog=new Dialog(mitemcontext);
     dialog.setContentView(R.layout.alert_dialog_item_detail);
@@ -144,23 +162,28 @@ private void showdialog(item item) {
         dname_type.setText(type.getTypename());
         }
     }
-    dedit.setOnClickListener(view -> {
-        fedit=!fedit;
-        if (fedit){
+    dedit.setOnCheckedChangeListener((compoundButton, b) -> {
+        if (dedit.isChecked()){
             button_back.setText("save");
             dsum.setFocusableInTouchMode(true);
+            dsum.setBackgroundResource(R.drawable.background_btn_white1);
             dcalorie.setFocusableInTouchMode(true);
+            dcalorie.setBackgroundResource(R.drawable.background_btn_white1);
             dexp.setFocusableInTouchMode(true);
+            dexp.setBackgroundResource(R.drawable.background_btn_white1);
         }else {
             dsum.setFocusable(false);
+            dsum.setBackgroundResource(R.drawable.background_btn_white);
             dcalorie.setFocusable(false);
+            dcalorie.setBackgroundResource(R.drawable.background_btn_white);
             dexp.setFocusable(false);
+            dexp.setBackgroundResource(R.drawable.background_btn_white);
             button_back.setText("back");
 
         }
     });
     button_back.setOnClickListener(view -> {
-        if (!fedit) {
+        if (!dedit.isChecked()) {
             dialog.dismiss();
         }else {
             String sum=dsum.getText().toString();
@@ -193,10 +216,26 @@ private void showdialog(item item) {
     ddelete.setOnClickListener(view -> {
         deleteitem(item.getItemid());
         dialog.dismiss();
-        homeFragment.itemArrayList_filter.remove(item);
-        mainapp.itemArrayList.remove(item);
+        homeFragment.itemArrayList_filter.remove(i);
+        for (int j=0;mainapp.itemArrayList.size()>j;j++){
+            item item1=mainapp.itemArrayList.get(j);
+            if (item1.getItemid().equals(item.getItemid())){
+                mainapp.itemArrayList.remove(j);
+                homeFragment.adapter.notifyDataSetChanged();
+                break;
+            }
+        }
     });
-    Picasso.get().load(item.getItempicture()).into(dpicture);
+    if (item.getItempicture().contains("/storage/emulated/0/Android/data/com.example.android1project/cache/")){
+        File imgFile = new File(item.getItempicture());
+        if (imgFile.exists()) {
+
+            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+            dpicture.setImageBitmap(myBitmap);
+        }
+    }else{
+        Picasso.get().load(item.getItempicture()).into(dpicture);
+    }
     dname.setText(item.getItemname());
     dcalorie.setText(item.getItemcalorie());
     dnsum.setText(item.getItemsnname());
@@ -315,7 +354,11 @@ private void showdialog(item item) {
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-
+                try {
+                    JSONObject obj = new JSONObject(s);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }
         //executing the async task

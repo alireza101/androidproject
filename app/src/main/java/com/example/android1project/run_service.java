@@ -7,7 +7,7 @@ import android.net.ConnectivityManager;
 import android.os.IBinder;
 
 public class run_service extends Service {
-
+    static int flag_notification=1;
     public run_service() {
     }
 
@@ -27,7 +27,6 @@ public class run_service extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
         return START_STICKY;
     }
 

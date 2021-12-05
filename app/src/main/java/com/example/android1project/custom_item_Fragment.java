@@ -62,7 +62,7 @@ public class custom_item_Fragment extends Fragment  {
     LinearLayout linearLayoutg;
     String name,em,ed,sum,calorie,grading,typeid;
     FloatingActionButton floatingActionButton;
-    String pathpic;
+    String pathpic="";
     RecyclerView recyclerView;
     CheckBox checkBox;
     Boolean ATF=false;
@@ -192,18 +192,20 @@ public class custom_item_Fragment extends Fragment  {
 
                 int exp = (int) ((m * 30.415) + (d));
 
-                String[] b = {name,pathpic,String.valueOf(exp),calorie,""
-                        ,sum,typeid,grading};
+
+                user user= SharedPrefManager_user.getInstance(getActivity()).getUser();
+                item item=new item("",name,pathpic,String.valueOf(exp),calorie,""
+                        ,sum,typeid,grading,String.valueOf(user.getId()));
                 if (ATF){
-                    user user= SharedPrefManager_user.getInstance(getActivity()).getUser();
-                    item item=new item(String.valueOf(favoriteFragment.itemArrayList_favorite.size()),name,pathpic,String.valueOf(exp),calorie,""
-                            ,sum,typeid,grading,String.valueOf(user.getId()));
+
                     favoriteFragment.itemArrayList_favorite.add(item);
                     SharedPrefManeger_item.getInstance(getActivity()).saveArrayList(favoriteFragment.itemArrayList_favorite,"favorite");
                     Toast.makeText(getActivity(), "the item add to favorite", Toast.LENGTH_SHORT).show();
                 }
-                registeradditem(b);
+                registeradditem(item);
+                homeFragment.itemArrayList_filter.add(item);
                 getActivity().finish();
+                homeFragment.adapter.notifyDataSetChanged();
 
             }
         });
@@ -272,7 +274,7 @@ public class custom_item_Fragment extends Fragment  {
 
     // function to let's the user to choose image from camera or gallery
     void chooseImage(Context context) {
-        final CharSequence[] optionsMenu = {"Take Photo", "Choose from Gallery", "History"}; // create a menuOption Array
+        final CharSequence[] optionsMenu = {"Take Photo", "Choose from Gallery"}; // create a menuOption Array
         // create a dialog for showing the optionsMenu
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         // set the items in builder
@@ -287,9 +289,6 @@ public class custom_item_Fragment extends Fragment  {
                     // choose from  external storage
                     Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     startActivityForResult(pickPhoto, 1);
-                } else if (optionsMenu[i].equals("History")) {
-//                    openFolder(pathname);
-                    dialogInterface.dismiss();
                 }
             }
         });
@@ -412,8 +411,7 @@ public class custom_item_Fragment extends Fragment  {
 
 //***************************************************************************************************************************
 
-    void registeradditem(String[] a) {
-        user user = SharedPrefManager_user.getInstance(getActivity()).getUser();
+    void registeradditem(item item) {
 
         class Registeritem extends AsyncTask<Void, Void, String> {
             ProgressDialog progressDialog = ProgressDialog.show(getActivity(), "connecting...", "please wait", false, false);
@@ -425,15 +423,15 @@ public class custom_item_Fragment extends Fragment  {
                 RequestHandler requestHandler = new RequestHandler();
                 //creating request parameters
                 HashMap<String, String> params = new HashMap<>();
-                params.put("itempicture", a[1]);
-                params.put("itemname", a[0]);
-                params.put("itemtype", a[6]);
-                params.put("itemexpiration", a[2]);
-                params.put("itemsum", a[5]);
-                params.put("itemcalorie", a[3]);
-                params.put("itemsumn", a[4]);
-                params.put("itemgrading", a[7]);
-                params.put("itemuser", String.valueOf(user.getId()));
+                params.put("itempicture",item.getItempicture());
+                params.put("itemname",item.getItemname());
+                params.put("itemtype", item.getItemtype());
+                params.put("itemexpiration", item.getItemexpiration());
+                params.put("itemsum", item.getItemsum());
+                params.put("itemcalorie",item.getItemcalorie());
+                params.put("itemsumn", item.getItemsnname());
+                params.put("itemgrading", item.getItemgrading());
+                params.put("itemuser", item.getItemuser());
 
                 //returing the response
                 return requestHandler.sendPostRequest(config.additem_save, params);
@@ -453,7 +451,14 @@ public class custom_item_Fragment extends Fragment  {
                     JSONObject jsonObject = new JSONObject(s);
                     if (!jsonObject.getBoolean("error")) {
                         Toast.makeText(getActivity(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        for (int i=0;i<mainapp.itemArrayList.size();i++){
+                            item item1=mainapp.itemArrayList.get(i);
+                            if (Integer.parseInt(item1.getItemexpiration())>Integer.parseInt(item.getItemexpiration())){
+                                mainapp.itemArrayList.add(i,item);
+                                break;
 
+                            }
+                        }
                     } else {
                         Toast.makeText(getActivity(), jsonObject.getString("message") + "..", Toast.LENGTH_SHORT).show();
                     }

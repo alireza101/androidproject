@@ -29,7 +29,7 @@ import java.util.HashMap;
 
 public class homeFragment extends Fragment {
     static ArrayList<item> itemArrayList_filter = new ArrayList<>();
-//
+   static recyclerviewadapter_ver adapter;
 //    static ArrayList<type> typeArrayList = new ArrayList<>();
 
     RecyclerView rcmain, rcmainhor;
@@ -63,7 +63,7 @@ public class homeFragment extends Fragment {
         recyclerviewadapter_hor adapte1 = new recyclerviewadapter_hor(getActivity(), mainapp.typeArrayList);
         rcmainhor.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         rcmainhor.setAdapter(adapte1);
-        recyclerviewadapter_ver adapter = new recyclerviewadapter_ver(getActivity(), itemArrayList_filter);
+         adapter= new recyclerviewadapter_ver(getActivity(), itemArrayList_filter);
         rcmain.setLayoutManager(new LinearLayoutManager(getActivity()));
         rcmain.setAdapter(adapter);
 //        while (adapte1.getItemCount()==0){
@@ -120,6 +120,7 @@ public class homeFragment extends Fragment {
                     }
                 }
                 rcmain.setAdapter(adapter);
+
 //                recyclerviewadapter_ver adapter = new recyclerviewadapter_ver(getActivity(), itemArrayList);
 //                rcmain.setAdapter(adapter);
 //                flagfilter = true;
@@ -322,6 +323,7 @@ public class homeFragment extends Fragment {
 //    }
 
     //***********************************************************************************************************************************************
+
     public void deleteitem(String id) {
 
         class deleteitem extends AsyncTask<Void, Void, String> {

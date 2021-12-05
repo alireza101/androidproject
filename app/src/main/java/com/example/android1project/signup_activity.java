@@ -71,7 +71,7 @@ public class signup_activity extends AppCompatActivity  {
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface arg0, int arg1) {
-                        finish();
+                        signup_activity.this.finish();
                     }
                 }).create().show();
     }
@@ -120,7 +120,6 @@ public class signup_activity extends AppCompatActivity  {
                 }
             }
             Log.v(LOG_TAG, "You are not connected to Internet!");
-            Toast.makeText(getApplication(), "You are not connected to Internet!", Toast.LENGTH_SHORT).show();
             isConnected = false;
             main1.setVisibility(View.VISIBLE);
             main2.setVisibility(View.GONE);

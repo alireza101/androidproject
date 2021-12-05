@@ -22,12 +22,7 @@ TextView tv_back;
         View view= inflater.inflate(R.layout.fragment_about, container, false);
         tv_back=view.findViewById(R.id.about_back);
 
-        tv_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().finish();
-            }
-        });
+        tv_back.setOnClickListener(view1 -> requireActivity().finish());
 
         return view;
     }

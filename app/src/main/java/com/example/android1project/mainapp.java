@@ -47,7 +47,7 @@ public class mainapp extends AppCompatActivity {
     RelativeLayout main_2;
     LinearLayout main_1;
     Intent intent;
-    private static final String LOG_TAG = "CheckNetworkStatus";
+    private static final String LOG_TAG = "mainapp.class";
     private NetworkChangeReceiver receiver;
     private boolean isConnected = false;
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -209,8 +209,7 @@ public class mainapp extends AppCompatActivity {
                 }
             }
             Log.v(LOG_TAG, "You are not connected to Internet!");
-            Toast.makeText(getApplication(), "You are not connected to Internet!", Toast.LENGTH_SHORT).show();
-            ((Activity)context).finish();
+            mainapp.this.finish();
             callbackactivity();
             isConnected = false;
 

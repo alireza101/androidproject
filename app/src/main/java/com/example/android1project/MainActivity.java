@@ -15,8 +15,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,7 +34,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         context=getApplicationContext();
         Date c = Calendar.getInstance().getTime();
-        SharePrefManager_string.getInstance(context).saveString("Date",String.valueOf(c));
+        SimpleDateFormat format=new SimpleDateFormat("yy/M/d", Locale.getDefault());
+
+        SharePrefManager_string.getInstance(context).saveString("Date",String.valueOf(format.format(c)));
 
         if (SharePrefManager_string.getInstance(context).getString("startac").equals("1")){
             startActivity(new Intent(this, signup_activity.class));

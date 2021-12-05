@@ -2,7 +2,8 @@ package com.example.android1project;
 
 public class config {
 
-
+//192.168.1.102
+        //192.168.14.48
         static String ip_value="http://192.168.14.48/android1project/api/api.php?apicall=";
         static String delete=ip_value+"delete";
         static String change=ip_value+"change";
