@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
@@ -19,7 +18,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 public class signup_activity extends AppCompatActivity  {
@@ -35,17 +33,14 @@ public class signup_activity extends AppCompatActivity  {
         setContentView(R.layout.activity_signup);
         main1=findViewById(R.id.sign_main1);
         main2=findViewById(R.id.sign_main2);
-        main1.setVisibility(View.VISIBLE);
-        main2.setVisibility(View.GONE);
+        main1.setVisibility(View.GONE);
+        main2.setVisibility(View.VISIBLE);
         view=findViewById(R.id.sing_connect);
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         receiver = new NetworkChangeReceiver();
         registerReceiver(receiver, filter);
         fragment = new login_Fragment();
         loadFragment(fragment);
-
-
-
     }
 
     private void extracted() {
@@ -68,43 +63,34 @@ public class signup_activity extends AppCompatActivity  {
                 .setTitle("Really Exit?")
                 .setMessage("Are you sure you want to exit?")
                 .setNegativeButton(android.R.string.no, null)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        signup_activity.this.finish();
-                    }
-                }).create().show();
+                .setPositiveButton(android.R.string.yes, (arg0, arg1) -> signup_activity.this.finish()).create().show();
     }
     @Override
     protected void onDestroy() {
-        Log.v(LOG_TAG, "onDestory");
+        Log.v(LOG_TAG, "on_Destroy");
         super.onDestroy();
     }
-    public void refreshVoid(View view) {
-        finish();
-        startActivity(getIntent());
 
-    }
     public class NetworkChangeReceiver extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, final Intent intent) {
 
-            Log.v(LOG_TAG, "Receieved notification about network status");
+            Log.v(LOG_TAG, "Received notification about network status");
             isNetworkAvailable(context);
 
         }
 
 
-        private boolean isNetworkAvailable(Context context) {
+        private void isNetworkAvailable(Context context) {
             ConnectivityManager connectivity = (ConnectivityManager)
                     context.getSystemService(Context.CONNECTIVITY_SERVICE);
             if (connectivity != null) {
                 NetworkInfo[] info = connectivity.getAllNetworkInfo();
                 if (info != null) {
-                    for (int i = 0; i < info.length; i++) {
-                        if (info[i].getState() == NetworkInfo.State.CONNECTED) {
-                            if(!isConnected){
+                    for  (NetworkInfo networkInfo : info) {
+                        if (networkInfo.getState() == NetworkInfo.State.CONNECTED) {
+                            if (!isConnected) {
                                 Log.v(LOG_TAG, "Now you are connected to Internet!");
                                 main1.setVisibility(View.GONE);
                                 main2.setVisibility(View.VISIBLE);
@@ -114,7 +100,7 @@ public class signup_activity extends AppCompatActivity  {
                                 //update from the server
                                 extracted();
                             }
-                            return true;
+                            return;
                         }
                     }
                 }
@@ -123,9 +109,8 @@ public class signup_activity extends AppCompatActivity  {
             isConnected = false;
             main1.setVisibility(View.VISIBLE);
             main2.setVisibility(View.GONE);
-            view.setText("please connect you phone to internet");
+            view.setText(R.string.P_connect_internet);
 
-            return false;
         }
     }
 }

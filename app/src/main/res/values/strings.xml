@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">android1project</string>
+    <string name="app_name">refrigerator</string>
     <string name="heading_page1">welcome to \n My Refrigerator </string>
     <string name="page1"></string>
     <string name="heading_page2">Kitchen</string>
@@ -24,4 +24,5 @@ To create an alternating eighth expiration date</string>
     <string name="send_feedback">Send Feedback</string>
     <string name="more_about_it">Care to share more about it?</string>
     <string name="how_do">How did we do?</string>
+    <string name="P_connect_internet">please connect your phone to internet</string>
 </resources>

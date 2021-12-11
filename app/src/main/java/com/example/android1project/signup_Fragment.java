@@ -43,19 +43,12 @@ public class signup_Fragment extends Fragment {
         txtlogingo=view.findViewById(R.id.txtlogingo);
         btnlogin=view.findViewById(R.id.btnlogin);
 
-        btnlogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                    registerUser();
-            }
-        });
+        btnlogin.setOnClickListener(view1 -> registerUser());
 
 
 
 
-            txtlogingo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            txtlogingo.setOnClickListener(view12 -> {
                 Fragment fragment=new login_Fragment();
 
                 getActivity().getSupportFragmentManager()
@@ -65,8 +58,7 @@ public class signup_Fragment extends Fragment {
 //                finish();
 //                startActivity(new Intent(signup_activity.this,login_activity.class));
 
-            }
-        });
+            });
 
 
         return view;
@@ -143,10 +135,8 @@ public class signup_Fragment extends Fragment {
                     if (!obj.getBoolean("error")) {
                         Toast.makeText(getActivity(), obj.getString("message"), Toast.LENGTH_SHORT).show();
 
-                        //getting the user from the response
                         JSONObject userJson = obj.getJSONObject("user");
 
-                        //creating a new user object
                         user user = new user(
                                 userJson.getInt("userid"),
                                 userJson.getString("username"),
@@ -154,10 +144,8 @@ public class signup_Fragment extends Fragment {
                                 userJson.getString("userpassword")
                         );
 
-                        //storing the user in shared preferences
                         SharedPrefManager_user.getInstance(getActivity()).userLogin(user);
 
-                        //starting the profile activity
                         getActivity().finish();
                         startActivity(new Intent(getActivity(), mainapp.class));
                     } else {

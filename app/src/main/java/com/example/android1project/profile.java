@@ -27,8 +27,7 @@ import java.util.List;
 
 public class profile extends AppCompatActivity {
     Fragment fragment = null;
-    ImageView imageView;
-    Bitmap selectedimage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

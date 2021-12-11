@@ -54,9 +54,8 @@ public class mainapp extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         setContentView(R.layout.activity_mainapp);
+
 
         startForegroundService(new Intent(getBaseContext(), run_service.class));
         startService(new Intent(getBaseContext(), run_service.class));
@@ -82,31 +81,25 @@ public class mainapp extends AppCompatActivity {
 
         intent = new Intent(getApplication(), profile.class);
 
-        bottomNavigation.setOnShowListener(new MeowBottomNavigation.ShowListener() {
-            @Override
-            public void onShowItem(MeowBottomNavigation.Model item) {
-                switch (item.getId()) {
-                    case 1:
-
-                        fragment = new profileFragment();
-                        loadFragment(fragment);
-                        fab.collapse();
-                        break;
-                    case 3:
-                        main_2.setVisibility(View.VISIBLE);
-                        main_1.setVisibility(View.GONE);
-                        fab.collapse();
-                        break;
-                    case 2:
-                        extracted();
-
-                        fab.collapse();
-                        break;
-
-                }
-
-
+        bottomNavigation.setOnShowListener(item -> {
+            switch (item.getId()) {
+                case 1:
+                    fragment = new profileFragment();
+                    loadFragment(fragment);
+                    fab.collapse();
+                    break;
+                case 3:
+                    main_2.setVisibility(View.VISIBLE);
+                    main_1.setVisibility(View.GONE);
+                    fab.collapse();
+                    break;
+                case 2:
+                    extracted();
+                    fab.collapse();
+                    break;
             }
+
+
         });
 
 
@@ -135,18 +128,12 @@ public class mainapp extends AppCompatActivity {
 
 
         bottomNavigation.show(2, true);
-        bottomNavigation.setOnClickMenuListener(new MeowBottomNavigation.ClickListener() {
-            @Override
-            public void onClickItem(MeowBottomNavigation.Model item) {
+        bottomNavigation.setOnClickMenuListener(item -> {
 //                Toast.makeText(getApplicationContext(), "you click "+item.getId(), Toast.LENGTH_SHORT).show();
-            }
         });
 
-        bottomNavigation.setOnReselectListener(new MeowBottomNavigation.ReselectListener() {
-            @Override
-            public void onReselectItem(MeowBottomNavigation.Model item) {
+        bottomNavigation.setOnReselectListener(item -> {
 //                Toast.makeText(getApplicationContext(), "you reselect "+item.getId(), Toast.LENGTH_SHORT).show();
-            }
         });
 
 

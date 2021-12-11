@@ -9,8 +9,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".6">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/feedback_back"
@@ -32,13 +31,13 @@
     </LinearLayout>
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".4"
+        android:layout_height="wrap_content"
         android:text="@string/how_do"
         android:gravity="center|start"
         android:textSize="20sp"
         android:textStyle="bold"
         android:paddingStart="15dp"
+        android:layout_marginVertical="14dp"
          />
 
     <RatingBar
@@ -54,18 +53,17 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".4"
+        android:layout_height="wrap_content"
         android:text="@string/more_about_it"
         android:gravity="center|start"
         android:textSize="20sp"
+        android:layout_marginVertical="14dp"
         android:textStyle="bold"
         android:paddingStart="15dp"/>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_height="wrap_content"
         android:layout_margin="15dp"
         app:cardCornerRadius="15dp">
         <ScrollView
@@ -85,20 +83,18 @@
         </ScrollView>
 
     </androidx.cardview.widget.CardView>
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight=".5"/>
+
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".4"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_margin="30dp"
+        android:layout_gravity="bottom"
         android:id="@+id/feedback_send"
         android:text="@string/send_feedback"
-        android:background="@drawable/background_btn_white1"/>
+        android:drawableEnd="@drawable/arrow_next"
+        android:background="@drawable/background_btn_addf_red"/>
 
 
 </LinearLayout>

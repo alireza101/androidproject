@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
 
 public class feedbackFragment extends Fragment {
 RatingBar ratingBar;
@@ -43,28 +45,25 @@ boolean f=false;
 
 
 
-        btnsend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String rat = String.valueOf(ratingBar.getRating());
-                String text=edtext.getText().toString();
-                Intent intent=new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("mailto:"+mailto));
-                intent.putExtra(Intent.EXTRA_SUBJECT,"feedback app");
-                intent.putExtra(Intent.EXTRA_TEXT,text+"\n rate to your app is "+rat);
-                startActivity(intent);
-                f=true;
-                edtext.setText(null);
-                ratingBar.setRating(1);
-                showdialog();
+        btnsend.setOnClickListener(view1 -> {
+            if (TextUtils.isEmpty(edtext.getText().toString())){
+                edtext.setError("write something");
+                edtext.requestFocus();
+                return;
             }
+            String rat = String.valueOf(ratingBar.getRating());
+            String text=edtext.getText().toString();
+            Intent intent=new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("mailto:"+mailto));
+            intent.putExtra(Intent.EXTRA_SUBJECT,"feedback app");
+            intent.putExtra(Intent.EXTRA_TEXT,text+"\n rate to your app is "+rat);
+            startActivity(intent);
+            f=true;
+            edtext.setText(null);
+            ratingBar.setRating(1);
+            showdialog();
         });
-        btnback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().finish();
-            }
-        });
+        btnback.setOnClickListener(view12 -> getActivity().finish());
 
         return view;
     }
@@ -80,12 +79,9 @@ boolean f=false;
 
         btnback=dialog.findViewById(R.id.dialog_button);
 
-        btnback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-                getActivity().finish();
-            }
+        btnback.setOnClickListener(view -> {
+            dialog.dismiss();
+            getActivity().finish();
         });
 
         dialog.setCancelable(true);

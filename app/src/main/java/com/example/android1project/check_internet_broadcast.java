@@ -41,7 +41,7 @@ public class check_internet_broadcast extends BroadcastReceiver {
         Log.v(LOG_TAG,"onrecive");
         this.context=context;
         SimpleDateFormat format=new SimpleDateFormat("yy/M/d");
-
+        isNetworkAvailable(context);
         try {
             String d=SharePrefManager_string.getInstance(context).getString("Date");
             Date dateold = format.parse(d);
@@ -53,13 +53,9 @@ public class check_internet_broadcast extends BroadcastReceiver {
             e.printStackTrace();
         }
         if (def>0) {
-            if (isNetworkAvailable(context)){
+            if (isConnected){
                 registeritem(context);
-
-
             }
-
-
         }
     }
 
@@ -100,7 +96,7 @@ public class check_internet_broadcast extends BroadcastReceiver {
             }else if (exp==0){
                 if (run_service.flag_notification==1){
                     Notification notification =new NotificationCompat.Builder(context)
-                            .setSmallIcon(R.drawable.add)
+                            .setSmallIcon(R.drawable.minus)
                             .setContentTitle(item.getItemname()+" expiration date is coming to an end")
                             .setPriority(NotificationManager.IMPORTANCE_LOW)
                             .setCategory(Notification.CATEGORY_SERVICE)
@@ -115,9 +111,12 @@ public class check_internet_broadcast extends BroadcastReceiver {
             }else{
                 deleteitem(item.getItemid());
             }
+            SharePrefManager_string.getInstance(context).saveString("Date", Calendar.getInstance().getTime().toString());
         }
+        this.def=0;
     }
     private void registeritem(Context context) {
+        Log.v("register","run");
         user user = SharedPrefManager_user.getInstance(context).getUser();
         int iduser = user.getId();
 
@@ -168,12 +167,16 @@ public class check_internet_broadcast extends BroadcastReceiver {
                         itemArrayList_increment.add(item);
 
                     }
-                    startmyservice(context,def);
+                    if (!jsonObject.getBoolean("error")) {
+                        startmyservice(context,def);
+                    }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         }
+
         //executing the async task
         Registeritem ru = new Registeritem();
         ru.execute();
@@ -199,8 +202,7 @@ public class check_internet_broadcast extends BroadcastReceiver {
 
                 try {
                     JSONObject obj = new JSONObject(s);
-                    SharePrefManager_string.getInstance(context).saveString("Date",Calendar.getInstance().getTime().toString());
-                    homeFragment.adapter.notifyDataSetChanged();
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();

@@ -9,8 +9,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".8">
+        android:layout_height="wrap_content"
+        >
 
         <TextView
             android:id="@+id/myprofile_back"
@@ -48,15 +48,13 @@
 
    <de.hdodenhof.circleimageview.CircleImageView
        android:layout_width="match_parent"
-       android:layout_height="0dp"
-       android:layout_weight="2"
+       android:layout_height="150dp"
        android:id="@+id/myprofile_image"
        android:src="@drawable/male_user"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="10dp">
 
@@ -82,8 +80,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="10dp">
 
@@ -101,14 +98,14 @@
             android:id="@+id/myprofile_email"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3" />
+            android:layout_weight="3"
+            android:inputType="textEmailAddress"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="10dp">
 
@@ -132,13 +129,11 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="0dp"
@@ -167,9 +162,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="150dp"
             android:layout_gravity="start"
-            android:layout_weight="3"
             android:orientation="horizontal"
             android:layout_margin="10dp"
             >

@@ -41,22 +41,14 @@ public class login_Fragment extends Fragment {
         txtlogingo=view.findViewById(R.id.txtlogingo);
 
         btnlogin=view.findViewById(R.id.btnlogin);
-        btnlogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                userLogin();
-            }
-        });
-        txtlogingo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Fragment fragment=new signup_Fragment();
+        btnlogin.setOnClickListener(view1 -> userLogin());
+        txtlogingo.setOnClickListener(view12 -> {
+            Fragment fragment=new signup_Fragment();
 
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.page1,fragment)
-                        .commit();
-            }
+            getActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.page1,fragment)
+                    .commit();
         });
 
         return view;

@@ -42,20 +42,14 @@ public class favoriteFragment extends Fragment {
         saveitem_back = view.findViewById(R.id.saveitem_back);
         loview=view.findViewById(R.id.add_not_found);
         loview.setVisibility(View.VISIBLE);
-        if (itemArrayList_favorite.size()!=0) {
+        if (itemArrayList_favorite != null) {
             loview.setVisibility(View.GONE);
              adapter_favorite= new recyclerviewadapter_favorite(getActivity(), itemArrayList_favorite);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             recyclerView.setAdapter(adapter_favorite);
         }
 
-        saveitem_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().finish();
-
-            }
-        });
+        saveitem_back.setOnClickListener(view1 -> getActivity().finish());
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -79,8 +73,6 @@ public class favoriteFragment extends Fragment {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                item item = itemArrayList_favorite.get(viewHolder.getLayoutPosition());
-
                 itemArrayList_favorite.remove(viewHolder.getAdapterPosition());
                 adapter_favorite.notifyItemRemoved(viewHolder.getAdapterPosition());
                 SharedPrefManeger_item.getInstance(getActivity()).saveArrayList(itemArrayList_favorite, "favorite");

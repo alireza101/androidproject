@@ -15,8 +15,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-         />
+        app:lottie_loop="true" />
+
     <TextView
         android:id="@+id/texttitle"
         android:layout_width="match_parent"
@@ -33,10 +33,10 @@
         android:id="@+id/textdeccription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/texttitle"
         android:layout_marginHorizontal="30dp"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/poppins_light"
-        android:layout_below="@+id/texttitle"
         android:text="@string/page1"
         android:textAlignment="center"
         android:textColor="#FF5100"

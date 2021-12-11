@@ -50,9 +50,9 @@ public class myprofileFragment extends Fragment {
         edgender = view.findViewById(R.id.myprofile_gender);
         imageView = view.findViewById(R.id.myprofile_image);
 
-        sedname = edname.getText().toString();
-        sedemail = edemail.getText().toString();
-        sedpassword = edpassword.getText().toString();
+//        sedname = edname.getText().toString();
+//        sedemail = edemail.getText().toString();
+//        sedpassword = edpassword.getText().toString();
 
         user = SharedPrefManager_user.getInstance(getActivity()).getUser();
 
@@ -64,48 +64,36 @@ public class myprofileFragment extends Fragment {
 
         if (edgender.getText().equals("man")) {
             imageView.setImageResource(R.drawable.male_user);
+            edgender.setText("man");
         } else {
             imageView.setImageResource(R.drawable.female_user);
+            edgender.setText("woman");
         }
-        tvback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().finish();
-            }
+        tvback.setOnClickListener(view1 -> getActivity().finish());
+        tvok.setOnClickListener(view12 -> {
+            registeruser();
+            getActivity().finish();
         });
-        tvok.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                registeruser();
-                getActivity().finish();
-            }
-        });
-        myprofile_man.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                edgender.setText("man");
-                imageView.setImageResource(R.drawable.male_user);
+        myprofile_man.setOnClickListener(view13 -> {
+            edgender.setText("man");
+            imageView.setImageResource(R.drawable.male_user);
 
-            }
         });
-        myprofile_woman.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                edgender.setText("woman");
-                imageView.setImageResource(R.drawable.female_user);
-            }
+        myprofile_woman.setOnClickListener(view14 -> {
+            edgender.setText("woman");
+            imageView.setImageResource(R.drawable.female_user);
         });
 
         return view;
     }
-
-    private void loadfragment(Fragment fragment) {
-
-        getActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.frame_layout, fragment)
-                .commit();
-    }
+//
+//    private void loadfragment(Fragment fragment) {
+//
+//        getActivity().getSupportFragmentManager()
+//                .beginTransaction()
+//                .replace(R.id.frame_layout, fragment)
+//                .commit();
+//    }
 
     private void registeruser() {
 

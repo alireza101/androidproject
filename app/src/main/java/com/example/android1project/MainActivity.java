@@ -1,16 +1,12 @@
 package com.example.android1project;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
-import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -36,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat format=new SimpleDateFormat("yy/M/d", Locale.getDefault());
 
-        SharePrefManager_string.getInstance(context).saveString("Date",String.valueOf(format.format(c)));
+        SharePrefManager_string.getInstance(context).saveString("Date", format.format(c));
 
         if (SharePrefManager_string.getInstance(context).getString("startac").equals("1")){
             startActivity(new Intent(this, signup_activity.class));
@@ -45,28 +41,22 @@ public class MainActivity extends AppCompatActivity {
         skipbtn=findViewById(R.id.skipbtn);
         nextbtn=findViewById(R.id.nextbtn);
 
-        skipbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        skipbtn.setOnClickListener(view -> {
+            SharePrefManager_string.getInstance(context).saveString("startac","1");
+            Intent i =new Intent(MainActivity.this, signup_activity.class);
+            startActivity(i);
+            finish();
+        });
+        nextbtn.setOnClickListener(view -> {
+
+            if (getitem(0)<2) {
+                msliderviewpager.setCurrentItem(getitem(1), true);
+            }else {
                 SharePrefManager_string.getInstance(context).saveString("startac","1");
                 Intent i =new Intent(MainActivity.this, signup_activity.class);
                 startActivity(i);
                 finish();
-            }
-        });
-        nextbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                if (getitem(0)<2) {
-                    msliderviewpager.setCurrentItem(getitem(1), true);
-                }else {
-                    SharePrefManager_string.getInstance(context).saveString("startac","1");
-                    Intent i =new Intent(MainActivity.this, signup_activity.class);
-                    startActivity(i);
-                    finish();
-
-                }
             }
         });
 
@@ -75,12 +65,9 @@ public class MainActivity extends AppCompatActivity {
 
         viewpageradapter =new viewpageradapter (this);
         msliderviewpager.setAdapter(viewpageradapter);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            setupindicator(0);
-        }
+        setupindicator(0);
         msliderviewpager.addOnPageChangeListener(viewlistener);
     }
-    @RequiresApi(api = Build.VERSION_CODES.M)
     public void setupindicator(int position){
         dots=new TextView[3];
         mdotlayout.removeAllViews();
@@ -92,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
             dots[i].setTextColor(getResources().getColor(R.color.white, getApplicationContext().getTheme()));
             mdotlayout.addView(dots[i]);
         }
-        dots[position].setTextColor(getResources().getColor(R.color.gold,getApplicationContext().getTheme()));
+        dots[position].setTextColor(getResources().getColor(R.color.orange,getApplicationContext().getTheme()));
     }
     ViewPager.OnPageChangeListener viewlistener=new ViewPager.OnPageChangeListener() {
         @Override
@@ -100,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
         public void onPageSelected(int position) {
 

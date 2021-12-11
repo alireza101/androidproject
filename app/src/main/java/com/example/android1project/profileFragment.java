@@ -48,34 +48,15 @@ public class profileFragment extends Fragment {
 
             }
         });
-        btn_feedback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loadprodile(3);
-            }
-        });
-        btn_about.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loadprodile(2);
-            }
-        });
-        btn_myprofile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loadprodile(1);
-
-            }
-        });
-        btn_logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().finish();
-                SharedPrefManager_user.getInstance(getActivity()).logout();
-            }
+        btn_feedback.setOnClickListener(view1 -> loadprodile(3));
+        btn_about.setOnClickListener(view12 -> loadprodile(2));
+        btn_myprofile.setOnClickListener(view13 -> loadprodile(1));
+        btn_logout.setOnClickListener(view14 -> {
+            getActivity().finish();
+            SharedPrefManager_user.getInstance(getActivity()).logout();
         });
         user user = SharedPrefManager_user.getInstance(getActivity()).getUser();
-        textView.setText(user.getUsername().toString().trim());
+        textView.setText(user.getUsername().trim());
 
         if (user.getUsergender() == "man") {
             imageView.setImageResource(R.drawable.male_user);

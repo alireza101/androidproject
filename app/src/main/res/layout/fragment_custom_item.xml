@@ -7,6 +7,7 @@
     tools:context=".custom_item_Fragment"
     android:padding="5dp"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -332,7 +333,6 @@
             android:background="@drawable/background_btn_addf_red"
             android:drawableStart="@drawable/add"
             />
-
 
 
 

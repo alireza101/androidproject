@@ -54,16 +54,20 @@
             android:text="Click on + \n select one of the options"
             android:textSize="25sp"
             android:textStyle="bold" />
+
         <com.getbase.floatingactionbutton.FloatingActionsMenu
             android:id="@+id/add_fam"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
             app:fab_addButtonColorNormal="@color/orange"
-            app:fab_expandDirection="up"
             app:fab_addButtonSize="normal"
+            app:fab_expandDirection="up"
             app:fab_labelStyle="@style/labelstyle"
             app:fab_labelsPosition="left">
 
@@ -72,19 +76,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:fab_colorNormal="#FFF"
-                app:fab_size="mini"
-                app:fab_icon="@drawable/icons8_add"
                 app:fab_colorPressed="@color/yellow"
-                app:fab_title="Add item" />
+                app:fab_icon="@drawable/icons8_add"
+                app:fab_size="mini"
+                app:fab_title="save item" />
 
             <com.getbase.floatingactionbutton.FloatingActionButton
                 android:id="@+id/add_fam_customitem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:fab_colorNormal="#FFF"
+                app:fab_colorPressed="@color/yellow"
                 app:fab_icon="@drawable/icons8_create"
                 app:fab_size="mini"
-                app:fab_colorPressed="@color/yellow"
                 app:fab_title="Custom item" />
 
             <com.getbase.floatingactionbutton.FloatingActionButton
@@ -92,10 +96,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:fab_colorNormal="#FFF"
+                app:fab_colorPressed="@color/yellow"
                 app:fab_icon="@drawable/icon_history"
                 app:fab_size="mini"
-                app:fab_colorPressed="@color/yellow"
-                app:fab_title="History item" />
+                app:fab_title="favorite item" />
         </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
 
@@ -106,13 +110,13 @@
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
         app:mbn_backgroundBottomColor="#f2f2f2"
         app:mbn_circleColor="@color/black"
-        android:layout_alignParentBottom="true"
         app:mbn_countBackgroundColor="@color/black"
         app:mbn_countTextColor="@color/white"
         app:mbn_defaultIconColor="@color/black"
-        app:mbn_selectedIconColor="@color/white"
-        android:layout_gravity="bottom"/>
+        app:mbn_selectedIconColor="@color/white" />
 
 </RelativeLayout>
