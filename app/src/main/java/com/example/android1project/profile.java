@@ -51,11 +51,11 @@ public class profile extends AppCompatActivity {
                 fragment = new save_item_Fragment();
                 loadfragment(fragment);
                 break;
-            case 5:
+                case 5:
                 fragment = new custom_item_Fragment();
                 loadfragment(fragment);
                 break;
-            case 6:
+                case 6:
                 fragment = new favoriteFragment();
                 loadfragment(fragment);
                 break;

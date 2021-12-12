@@ -39,6 +39,6 @@
         android:fontFamily="@font/poppins_light"
         android:text="@string/page1"
         android:textAlignment="center"
-        android:textColor="@color/red"
+        android:textColor="#FF5100"
         android:textSize="15dp" />
 </RelativeLayout>
