@@ -28,6 +28,7 @@ import java.util.HashMap;
 
 
 public class homeFragment extends Fragment {
+    static ArrayList<item> itemArrayList = new ArrayList<>();
     static ArrayList<item> itemArrayList_filter = new ArrayList<>();
    static recyclerviewadapter_ver adapter;
 //    static ArrayList<type> typeArrayList = new ArrayList<>();
