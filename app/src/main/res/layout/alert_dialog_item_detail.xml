@@ -22,16 +22,15 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/ic_baseline_delete" />
-
-        <CheckBox
+        <TextView
             android:id="@+id/edit_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/delete_item"
             android:layout_alignParentEnd="true"
+            android:layout_below="@id/delete_item"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
-            android:button="@drawable/edit" />
+            android:background="@drawable/ic_baseline_edit_24" />
 
         <ImageView
             android:id="@+id/detail_picture"
