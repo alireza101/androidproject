@@ -29,10 +29,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context=getApplicationContext();
-//        Date c = Calendar.getInstance().getTime();
-//        SimpleDateFormat format=new SimpleDateFormat("yy/M/d", Locale.getDefault());
-//
-//        SharePrefManager_string.getInstance(context).saveString("Date", format.format(c));
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat format=new SimpleDateFormat("yy/M/d", Locale.getDefault());
+
+        SharePrefManager_string.getInstance(context).saveString("Date", format.format(c));
 
         if (SharePrefManager_string.getInstance(context).getString("startac").equals("1")){
             startActivity(new Intent(this, signup_activity.class));
