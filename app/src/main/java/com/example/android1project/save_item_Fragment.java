@@ -333,65 +333,59 @@ public class save_item_Fragment extends Fragment {
             }
         });
 
-        btnclose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        btnclose.setOnClickListener(view -> {
 //                if (getActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
 //                    getActivity().getSupportFragmentManager().popBackStack();
 //
 //                }
-                dialog.dismiss();
-            }
+            dialog.dismiss();
         });
 
 
 
-        btnadd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                name =edname.getText().toString();
-                em   =edM.getText().toString();
-                ed   =edD.getText().toString();
-                sum  =edsum.getText().toString();
+        btnadd.setOnClickListener(view -> {
+            name =edname.getText().toString();
+            em   =edM.getText().toString();
+            ed   =edD.getText().toString();
+            sum  =edsum.getText().toString();
 
 
 
-                if (TextUtils.isEmpty(name)){
-                    edname.setError("Please enter the name");
-                    edname.requestFocus();
-                    return;
-                }if (TextUtils.isEmpty(em)){
-                    edM.setError("Please enter the month exp");
-                    edM.requestFocus();
-                    return;
-                }if (TextUtils.isEmpty(ed)){
-                    edD.setError("Please enter the day exp");
-                    edD.requestFocus();
-                    return;
-                }if (TextUtils.isEmpty(sum)){
-                    edsum.setError("Please enter the sum");
-                    edsum.requestFocus();
-                    return;
-                }
-
-                int m = Integer.parseInt(em);
-                int d = Integer.parseInt(ed);
-
-
-                int exp = (int) ((m * 30.415) + (d));
-
-                String[] b = {name,a[1],String.valueOf(exp),a[3],a[4],sum,a[6],grading};
-                registeradditem(b);
-
-                user user= SharedPrefManager_user.getInstance(getActivity()).getUser();
-                item item=new item("",name,a[1],String.valueOf(exp),a[3],a[4]
-                        ,sum,a[6],grading,String.valueOf(user.getId()));
-                homeFragment.itemArrayList_filter.add(item);
-                homeFragment.adapter.notifyDataSetChanged();
-                dialog.dismiss();
-
-
+            if (TextUtils.isEmpty(name)){
+                edname.setError("Please enter the name");
+                edname.requestFocus();
+                return;
+            }if (TextUtils.isEmpty(em)){
+                edM.setError("Please enter the month exp");
+                edM.requestFocus();
+                return;
+            }if (TextUtils.isEmpty(ed)){
+                edD.setError("Please enter the day exp");
+                edD.requestFocus();
+                return;
+            }if (TextUtils.isEmpty(sum)){
+                edsum.setError("Please enter the sum");
+                edsum.requestFocus();
+                return;
             }
+
+            int m = Integer.parseInt(em);
+            int d = Integer.parseInt(ed);
+
+
+            int exp = (int) ((m * 30.415) + (d));
+
+            String[] b = {name,a[1],String.valueOf(exp),a[3],a[4],sum,a[6],grading};
+            registeradditem(b);
+
+            user user= SharedPrefManager_user.getInstance(getActivity()).getUser();
+            item item=new item("",name,a[1],String.valueOf(exp),a[3],a[4]
+                    ,sum,a[6],grading,String.valueOf(user.getId()));
+            homeFragment.itemArrayList_filter.add(item);
+            homeFragment.adapter.notifyDataSetChanged();
+            dialog.dismiss();
+
+
         });
 
         minus.setOnClickListener(new View.OnClickListener() {
@@ -473,11 +467,11 @@ public class save_item_Fragment extends Fragment {
                     JSONObject jsonObject = new JSONObject(s);
                     if (!jsonObject.getBoolean("error")) {
                         Toast.makeText(getActivity(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                        item item=new item(String.valueOf(mainapp.itemArrayList.size()),a[0],a[1],a[2],a[3],a[4],a[5],a[6],a[7],String.valueOf(user.getId()));
-                        for (int i=0;i<mainapp.itemArrayList.size();i++){
-                            item item1=mainapp.itemArrayList.get(i);
+                        item item=new item(String.valueOf(homeFragment.itemArrayList.size()),a[0],a[1],a[2],a[3],a[4],a[5],a[6],a[7],String.valueOf(user.getId()));
+                        for (int i=0;i<homeFragment.itemArrayList.size();i++){
+                            item item1=homeFragment.itemArrayList.get(i);
                             if (Integer.parseInt(item1.getItemexpiration())>Integer.parseInt(item.getItemexpiration())){
-                                mainapp.itemArrayList.add(i,item);
+                                homeFragment.itemArrayList.add(i,item);
                                 break;
 
                             }

@@ -1,8 +1,10 @@
 package com.example.android1project;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +13,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.util.Log;
+import android.view.View;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
@@ -33,25 +36,31 @@ public class check_internet_broadcast extends BroadcastReceiver {
     private static final String LOG_TAG = "CheckNetworkStatus";
     private boolean isConnected = false;
     int def=0;
-    int id=1;
+    int id=100;
     Context context;
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.v(LOG_TAG,"onrecive");
         this.context=context;
-        SimpleDateFormat format=new SimpleDateFormat("yy/M/d");
         isNetworkAvailable(context);
-        try {
-            String d=SharePrefManager_string.getInstance(context).getString("Date");
-            Date dateold = format.parse(d);
+    }
 
-            String datenew=format.format(Calendar.getInstance().getTime());
-            def= (int) getDateDiff.getDateDiff(dateold,format.parse(datenew));
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void extracted() {
+        SimpleDateFormat format=new SimpleDateFormat("yy/M/d");
 
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            String d=SharePrefManager_string.getInstance(context).getString("Date");
+//            Date dateold = format.parse(d);
+//
+//            String datenew=format.format(Calendar.getInstance().getTime());
+//            def= (int) getDateDiff.getDateDiff(dateold,format.parse(datenew));
+//
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+        def=1;
         if (def>0) {
             if (isConnected){
                 registeritem(context);
@@ -70,8 +79,8 @@ public class check_internet_broadcast extends BroadcastReceiver {
                     if (info[i].getState() == NetworkInfo.State.CONNECTED) {
                         if (!isConnected) {
                             Log.v(LOG_TAG, "Now you are connected to Internet!");
-
                             isConnected = true;
+                            extracted();
                         }
                         return true;
                     }
@@ -88,23 +97,47 @@ public class check_internet_broadcast extends BroadcastReceiver {
         //AEDR mean of Automatic expiration date reduction
         Log.v(LOG_TAG,"***************************");
         Log.v(LOG_TAG,"run");
+        addNotification();
         for (item item:itemArrayList_increment){
             int exp= Integer.parseInt(item.getItemexpiration());
             if (exp>0){
                 item.setItemexpiration(String.valueOf(exp-def));
+
                 updata_item(item);
             }else if (exp==0){
                 if (run_service.flag_notification==1){
-                    Notification notification =new NotificationCompat.Builder(context)
-                            .setSmallIcon(R.drawable.minus)
-                            .setContentTitle(item.getItemname()+" expiration date is coming to an end")
-                            .setPriority(NotificationManager.IMPORTANCE_LOW)
-                            .setCategory(Notification.CATEGORY_SERVICE)
-                            .setChannelId("0")
-                            .build();
 
-                    NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
-                    mNotificationManager.notify(++id, notification);
+//                    String CHANNEL_ID="MYCHANNEL";
+//                    Intent intent = new Intent(context, mainapp.class);
+//                    PendingIntent contentIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//
+//                    NotificationCompat.Builder b = new NotificationCompat.Builder(context);
+//
+//                    b.setAutoCancel(true)
+//                            .setDefaults(Notification.DEFAULT_ALL)
+//                            .setWhen(System.currentTimeMillis())
+//                            .setSmallIcon(R.drawable.minus)
+//                            .setTicker("Hearty365")
+//                            .setContentTitle("Default notification")
+//                            .setContentText(item.getItemname()+" expiration date is coming to an end")
+//                            .setDefaults(Notification.DEFAULT_LIGHTS| Notification.DEFAULT_SOUND)
+//                            .setContentIntent(contentIntent)
+//                            .setChannelId(CHANNEL_ID)
+//                            .setContentInfo("Info");
+//
+//
+//                    NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+//                    notificationManager.notify(id, b.build());
+//                    Notification notification =new NotificationCompat.Builder(context)
+//                            .setSmallIcon(R.drawable.minus)
+//                            .setContentTitle(item.getItemname()+" expiration date is coming to an end")
+//                            .setPriority(NotificationManager.IMPORTANCE_LOW)
+//                            .setCategory(Notification.CATEGORY_SERVICE)
+//                            .setChannelId("110")
+//                            .build();
+//
+//                    NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
+//                    mNotificationManager.notify(++id, notification);
                 }
                 item.setItemexpiration(String.valueOf(exp-def));
                 updata_item(item);
@@ -115,6 +148,21 @@ public class check_internet_broadcast extends BroadcastReceiver {
         }
         this.def=0;
     }
+    private void addNotification() {
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(context)
+                        .setSmallIcon(R.drawable.minus) //set icon for notification
+                        .setContentTitle("Notifications Example") //set title of notification
+                        .setContentText("This is a notification message")//this is notification message
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT); //set priority of notification
+
+
+
+
+        // Add as notification
+        NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(0, builder.build());
+    }
     private void registeritem(Context context) {
         Log.v("register","run");
         user user = SharedPrefManager_user.getInstance(context).getUser();
@@ -124,6 +172,7 @@ public class check_internet_broadcast extends BroadcastReceiver {
         //if it passes all the validations
 
         class Registeritem extends AsyncTask<Void, Void, String> {
+
 
             @Override
             protected String doInBackground(Void... voids) {
@@ -167,7 +216,7 @@ public class check_internet_broadcast extends BroadcastReceiver {
                         itemArrayList_increment.add(item);
 
                     }
-                    if (!jsonObject.getBoolean("error")) {
+                    if (itemArrayList_increment.size()>0) {
                         startmyservice(context,def);
                     }
 

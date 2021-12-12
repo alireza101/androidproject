@@ -181,7 +181,7 @@ public class custom_item_Fragment extends Fragment  {
                     edsum.requestFocus();
                     return;
                 }if (TextUtils.isEmpty(calorie)){
-                    edcalorie.setError("Please enter the sum");
+                    edcalorie.setError("Please enter the calorie");
                     edcalorie.requestFocus();
                     return;
                 }
@@ -221,16 +221,11 @@ public class custom_item_Fragment extends Fragment  {
                 }
                 int sum = Integer.parseInt(edsum.getText().toString());
 
-                if (sum > 100) {
+                if (sum > 199) {
                     sum=sum-100;
                 } else {
-                    if(!fsum){
-                        edsum.setError("Not less than 100 g");
-                        edsum.requestFocus();
-                    }else {
-                        edsum.setError("Not less than 100 ml");
-                        edsum.requestFocus();
-                    }
+                    edsum.setError("Not less than 100 g");
+                    edsum.requestFocus();
                 }
                 edsum.setText(sum + "");
 
@@ -248,7 +243,7 @@ public class custom_item_Fragment extends Fragment  {
                 }
                 int sum = Integer.parseInt(edsum.getText().toString());
                 sum=sum+100;
-                edsum.setText(sum + "");
+                edsum.setText(sum );
 
             }
         });
@@ -264,13 +259,13 @@ public class custom_item_Fragment extends Fragment  {
     }
 
 
-    void openFolder(String location) {
-        // location = "/sdcard/my_folder";
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        Uri mydir = Uri.parse(location);
-        intent.setDataAndType(mydir, "*/*");    // or use */*
-        startActivity(intent);
-    }
+//    void openFolder(String location) {
+//        // location = "/sdcard/my_folder";
+//        Intent intent = new Intent(Intent.ACTION_VIEW);
+//        Uri mydir = Uri.parse(location);
+//        intent.setDataAndType(mydir, "*/*");
+//        startActivity(intent);
+//    }
 
     // function to let's the user to choose image from camera or gallery
     void chooseImage(Context context) {
@@ -451,10 +446,10 @@ public class custom_item_Fragment extends Fragment  {
                     JSONObject jsonObject = new JSONObject(s);
                     if (!jsonObject.getBoolean("error")) {
                         Toast.makeText(getActivity(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                        for (int i=0;i<mainapp.itemArrayList.size();i++){
-                            item item1=mainapp.itemArrayList.get(i);
+                        for (int i=0;i<homeFragment.itemArrayList.size();i++){
+                            item item1=homeFragment.itemArrayList.get(i);
                             if (Integer.parseInt(item1.getItemexpiration())>Integer.parseInt(item.getItemexpiration())){
-                                mainapp.itemArrayList.add(i,item);
+                                homeFragment.itemArrayList.add(i,item);
                                 break;
 
                             }

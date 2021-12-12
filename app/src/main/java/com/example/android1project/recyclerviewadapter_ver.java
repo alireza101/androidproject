@@ -203,7 +203,7 @@ private void showdialog(item item ,int i) {
                 dexp.requestFocus();
                 return;
             }
-            mainapp.itemArrayList.remove(item);
+            homeFragment.itemArrayList.remove(item);
             homeFragment.itemArrayList_filter.remove(item);
             item.setItemsum(sum);
             item.setItemcalorie(calorie);
@@ -217,10 +217,10 @@ private void showdialog(item item ,int i) {
         deleteitem(item.getItemid());
         dialog.dismiss();
         homeFragment.itemArrayList_filter.remove(i);
-        for (int j=0;mainapp.itemArrayList.size()>j;j++){
-            item item1=mainapp.itemArrayList.get(j);
+        for (int j=0;homeFragment.itemArrayList.size()>j;j++){
+            item item1=homeFragment.itemArrayList.get(j);
             if (item1.getItemid().equals(item.getItemid())){
-                mainapp.itemArrayList.remove(j);
+                homeFragment.itemArrayList.remove(j);
                 homeFragment.adapter.notifyDataSetChanged();
                 break;
             }
@@ -270,10 +270,10 @@ private void showdialog(item item ,int i) {
                 try {
                     JSONObject obj = new JSONObject(s);
                     Toast.makeText(mitemcontext, obj.getString("message"), Toast.LENGTH_SHORT).show();
-                    for (int i=0;i<mainapp.itemArrayList.size();i++){
-                        item item1=mainapp.itemArrayList.get(i);
+                    for (int i=0;i<homeFragment.itemArrayList.size();i++){
+                        item item1=homeFragment.itemArrayList.get(i);
                         if (Integer.parseInt(item1.getItemexpiration())>Integer.parseInt(item.getItemexpiration())){
-                            mainapp.itemArrayList.add(i,item);
+                            homeFragment.itemArrayList.add(i,item);
                             break;
 
                         }

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ import java.util.HashMap;
 
 
 public class homeFragment extends Fragment {
+    static ArrayList<item> itemArrayList = new ArrayList<>();
     static ArrayList<item> itemArrayList_filter = new ArrayList<>();
    static recyclerviewadapter_ver adapter;
 //    static ArrayList<type> typeArrayList = new ArrayList<>();
@@ -54,16 +56,16 @@ public class homeFragment extends Fragment {
 //        }
 
 //        registertype();
-//        registeritem();
+        registeritem();
         itemArrayList_filter.clear();
-        itemArrayList_filter.addAll(mainapp.itemArrayList);
+        itemArrayList_filter.addAll(itemArrayList);
         rcmain = view.findViewById(R.id.recyclerviewver);
         rcmainhor = view.findViewById(R.id.recyclerview);
 
         recyclerviewadapter_hor adapte1 = new recyclerviewadapter_hor(getActivity(), mainapp.typeArrayList);
         rcmainhor.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         rcmainhor.setAdapter(adapte1);
-         adapter= new recyclerviewadapter_ver(getActivity(), itemArrayList_filter);
+         adapter= new recyclerviewadapter_ver(getActivity(), itemArrayList);
         rcmain.setLayoutManager(new LinearLayoutManager(getActivity()));
         rcmain.setAdapter(adapter);
 //        while (adapte1.getItemCount()==0){
@@ -110,9 +112,9 @@ public class homeFragment extends Fragment {
                 type type = mainapp.typeArrayList.get(position);
 
                 if (type.getTypename().equals("All")){
-                    itemArrayList_filter.addAll(mainapp.itemArrayList);
+                    itemArrayList_filter.addAll(itemArrayList);
                 }else {
-                    for (item item : mainapp.itemArrayList) {
+                    for (item item : itemArrayList) {
 
                         if (item.getItemtype().equals(type.getTypeid())) {
                             itemArrayList_filter.add(item);
@@ -156,7 +158,7 @@ public class homeFragment extends Fragment {
                 item = itemArrayList_filter.get(viewHolder.getAdapterPosition());
                 itemArrayList_filter.remove(viewHolder.getAdapterPosition());
                 adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
-                mainapp.itemArrayList.remove(item);
+                itemArrayList.remove(item);
                 deleteitem(item.getItemid());
             }
         }).attachToRecyclerView(rcmain);
@@ -168,95 +170,83 @@ public class homeFragment extends Fragment {
 
     //*******************************************************************************************************************************************************
 
-//    private void registeritem(String typeid) {
-//        user user = SharedPrefManager_user.getInstance(getActivity()).getUser();
-//        int iduser = user.getId();
-//
-//
-//        //if it passes all the validations
-//
-//        class Registeritem extends AsyncTask<Void, Void, String> {
-//
-//            ProgressDialog progressDialog = ProgressDialog.show(getActivity(), "connecting...", "please wait", false, false);
-//
-//            @Override
-//            protected String doInBackground(Void... voids) {
-//                //creating request handler object
-//                RequestHandler requestHandler = new RequestHandler();
-//
-//                //creating request parameters
-//                HashMap<String, String> params = new HashMap<>();
-//                if (Integer.parseInt(typeid) == 1) {
-//                    f = true;
-//                }
-//                if (Integer.parseInt(typeid) > 1) {
-//                    f = false;
-//                }
-//                if (f) {
-//                    params.put("itemuser", String.valueOf(iduser));
-//
-//
-//                    //returing the response
-//                    return requestHandler.sendPostRequest(config.selectitem, params);
-//                } else {
-//                    params.put("itemuser", String.valueOf(iduser));
-//                    params.put("itemtype", typeid);
-//
-//
-//                    //returing the response
-//                    return requestHandler.sendPostRequest(config.selectitem_type, params);
-//                }
-//
-//            }
-//
-//            @Override
-//            protected void onPreExecute() {
-//                super.onPreExecute();
-//                //displaying the progress bar while user registers on the server
-//            }
-//
-//            @Override
-//            protected void onPostExecute(String s) {
-//                super.onPostExecute(s);
-//                //hiding the progressbar after completion
-//                itemArrayList.clear();
-//                try {
-//                    JSONObject jsonObject = new JSONObject(s);
-//                    JSONArray jsonArray = jsonObject.getJSONArray("item");
-//                    for (int i = 0; i < jsonArray.length(); i++) {
-//                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-//                        String itemid = jsonObject1.getString("itemid");
-//                        String itempicture = jsonObject1.getString("itempicture");
-//                        String itemname = jsonObject1.getString("itemname");
-//                        String itemtype = jsonObject1.getString("itemtype");
-//                        String itemexpiration = jsonObject1.getString("itemexpiration");
-//                        String itemsum = jsonObject1.getString("itemsum");
-//                        String itemcalorie = jsonObject1.getString("itemcalorie");
-//                        String itemsumn = jsonObject1.getString("itemsumn");
-//                        String itemgrading = jsonObject1.getString("itemgrading");
-//
-//                        item item = new item(itemid, itemname, itempicture, itemexpiration, itemcalorie, itemsumn, itemsum, itemtype, itemgrading,String.valueOf(user.getId()));
-//                        itemArrayList.add(item);
-//
-//                    }
-//
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
+    public void registeritem() {
+        user user = SharedPrefManager_user.getInstance(getContext()).getUser();
+        int iduser = user.getId();
+
+
+        //if it passes all the validations
+
+        class Registeritem extends AsyncTask<Void, Void, String> {
+
+
+            @Override
+            protected String doInBackground(Void... voids) {
+                //creating request handler object
+                RequestHandler requestHandler = new RequestHandler();
+
+                //creating request parameters
+                HashMap<String, String> params = new HashMap<>();
+
+                    params.put("itemuser", String.valueOf(iduser));
+
+
+                    //returing the response
+                    return requestHandler.sendPostRequest(config.selectitem, params);
+
+
+            }
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                //displaying the progress bar while user registers on the server
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                //hiding the progressbar after completion
+                itemArrayList.clear();
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    JSONArray jsonArray = jsonObject.getJSONArray("item");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                        String itemid = jsonObject1.getString("itemid");
+                        String itempicture = jsonObject1.getString("itempicture");
+                        String itemname = jsonObject1.getString("itemname");
+                        String itemtype = jsonObject1.getString("itemtype");
+                        String itemexpiration = jsonObject1.getString("itemexpiration");
+                        String itemsum = jsonObject1.getString("itemsum");
+                        String itemcalorie = jsonObject1.getString("itemcalorie");
+                        String itemsumn = jsonObject1.getString("itemsumn");
+                        String itemgrading = jsonObject1.getString("itemgrading");
+
+                        item item = new item(itemid, itemname, itempicture, itemexpiration, itemcalorie, itemsumn, itemsum, itemtype, itemgrading,String.valueOf(user.getId()));
+                        itemArrayList.add(item);
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                if (!itemArrayList.isEmpty()) {
+                    Log.d("home fragment", "onPostExecute: load item ");
+                }
 //                progressDialog.dismiss();
-//                recyclerviewadapter_ver adapter = new recyclerviewadapter_ver(getActivity(), itemArrayList);
-//                rcmain.setLayoutManager(new LinearLayoutManager(getActivity()));
-//                rcmain.setAdapter(adapter);
-//
-//            }
-//
-//
-//        }
-//        //executing the async task
-//        Registeritem ru = new Registeritem();
-//        ru.execute();
-//
-//    }
+                 adapter = new recyclerviewadapter_ver(getActivity(), itemArrayList);
+                rcmain.setAdapter(adapter);
+
+            }
+
+
+        }
+        //executing the async task
+        Registeritem ru = new Registeritem();
+        ru.execute();
+
+    }
 //
 //    //***********************************************************************************************************************************************
 //    private void registertype() {
