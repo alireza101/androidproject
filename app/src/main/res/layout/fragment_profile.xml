@@ -127,6 +127,21 @@
             android:textAlignment="viewStart"
             android:textSize="18sp"
             android:textStyle="bold" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+
+            android:id="@+id/profile_cost"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/background_btn_white1"
+            android:drawableStart="@drawable/icons_money"
+            android:drawablePadding="15dp"
+            android:elevation="3dp"
+            android:paddingStart="20dp"
+            android:text="expense "
+            android:textAlignment="viewStart"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
 
     </LinearLayout>

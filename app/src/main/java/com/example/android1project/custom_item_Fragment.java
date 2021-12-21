@@ -2,6 +2,7 @@ package com.example.android1project;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -28,6 +29,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -43,7 +45,10 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -52,15 +57,14 @@ public class custom_item_Fragment extends Fragment  {
 
 
     ImageView imageview, add, minus;
-    TextView edsumn,saveitem_back;
+    TextView edsumn,saveitem_back,edexp;
 
     Button btnclose, btnadd;
-    EditText edM, edD, edname, edsum,edcalorie;
-    boolean fsum=false;
+    EditText  edname, edsum,edcalorie,edcost;
     RadioGroup radioGroup;
     RadioButton radioButton;
     LinearLayout linearLayoutg;
-    String name,em,ed,sum,calorie,grading,typeid;
+    String name,exp,sum,calorie,grading,typeid,cost;
     FloatingActionButton floatingActionButton;
     String pathpic="";
     RecyclerView recyclerView;
@@ -83,8 +87,7 @@ public class custom_item_Fragment extends Fragment  {
         btnadd = view.findViewById(R.id.additem_add);
         edname = view.findViewById(R.id.additem_name);
         imageview = view.findViewById(R.id.additem_image);
-        edM = view.findViewById(R.id.additem_M);
-        edD = view.findViewById(R.id.additem_D);
+        edexp = view.findViewById(R.id.additem_exp);
         edsum = view.findViewById(R.id.additem_sum);
         add = view.findViewById(R.id.additem_sum_add);
         minus = view.findViewById(R.id.additem_sum_minus);
@@ -96,6 +99,7 @@ public class custom_item_Fragment extends Fragment  {
         recyclerView=view.findViewById(R.id.additem_recyclerview);
         checkBox=view.findViewById(R.id.additem_favorite);
         saveitem_back=view.findViewById(R.id.saveitem_back);
+        edcost=view.findViewById(R.id.additem_cost);
 
         edsum.setText("100");
         grading="industrial";
@@ -126,134 +130,111 @@ public class custom_item_Fragment extends Fragment  {
                 chooseImage(getActivity());
 
             }});
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b){
-                    ATF=true;
-                }
-                else {
-                    ATF = false;
-                }
+        checkBox.setOnCheckedChangeListener((compoundButton, b) -> ATF= b);
+
+
+        radioGroup.setOnCheckedChangeListener((radioGroup, i) -> {
+            radioButton=radioGroup.findViewById(i);
+            if (radioButton.getText().equals("Household")){
+                grading="Household";
+            }else {
+                grading="industrial";
             }
         });
-
-
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                radioButton=radioGroup.findViewById(i);
-                if (radioButton.getText().equals("Household")){
-                    grading="Household";
-                }else {
-                    grading="industrial";
-                }
-            }
+        edexp.setOnClickListener(view1 -> {
+            final Calendar cldr = Calendar.getInstance();
+            int day = cldr.get(Calendar.DAY_OF_MONTH);
+            int month = cldr.get(Calendar.MONTH);
+            int year = cldr.get(Calendar.YEAR);
+            // date picker dialog
+            DatePickerDialog picker = new DatePickerDialog(getActivity(),
+                    (view2, year1, monthOfYear, dayOfMonth) -> {
+                        Date date = new Date(year1 -1900,monthOfYear,dayOfMonth);
+//                                Calendar calendar=null;
+//                                calendar.set(year,monthOfYear,dayOfMonth);
+                        Date date1=Calendar.getInstance().getTime();
+                        long exp1=getDateDiff.getDateDiff(date1,date);
+                        edexp.setText(exp1+"");
+                    }, year, month, day);
+            picker.show();
         });
-        btnadd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                name =edname.getText().toString();
-                em   =edM.getText().toString();
-                ed   =edD.getText().toString();
-                sum  =edsum.getText().toString();
-                calorie=edcalorie.getText().toString();
+        btnadd.setOnClickListener(view15 -> {
+            name =edname.getText().toString();
+            exp   =edexp.getText().toString();
 
-
-                if (TextUtils.isEmpty(typeid)){
-                    Toast.makeText(getActivity(), "please selcect one of type", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (TextUtils.isEmpty(name)){
-                    edname.setError("Please enter the name");
-                    edname.requestFocus();
-                    return;
-                }if (TextUtils.isEmpty(em)){
-                    edM.setError("Please enter the month exp");
-                    edM.requestFocus();
-                    return;
-                }if (TextUtils.isEmpty(ed)){
-                    edD.setError("Please enter the day exp");
-                    edD.requestFocus();
-                    return;
-                }if (TextUtils.isEmpty(sum)){
-                    edsum.setError("Please enter the sum");
-                    edsum.requestFocus();
-                    return;
-                }if (TextUtils.isEmpty(calorie)){
-                    edcalorie.setError("Please enter the calorie");
-                    edcalorie.requestFocus();
-                    return;
-                }
-
-                int m = Integer.parseInt(em);
-                int d = Integer.parseInt(ed);
-
-
-                int exp = (int) ((m * 30.415) + (d));
-
-
-                user user= SharedPrefManager_user.getInstance(getActivity()).getUser();
-                item item=new item("",name,pathpic,String.valueOf(exp),calorie,""
-                        ,sum,typeid,grading,String.valueOf(user.getId()));
-                if (ATF){
-
-                    favoriteFragment.itemArrayList_favorite.add(item);
-                    SharedPrefManeger_item.getInstance(getActivity()).saveArrayList(favoriteFragment.itemArrayList_favorite,"favorite");
-                    Toast.makeText(getActivity(), "the item add to favorite", Toast.LENGTH_SHORT).show();
-                }
-                registeradditem(item);
-                homeFragment.itemArrayList_filter.add(item);
-                getActivity().finish();
-                homeFragment.adapter.notifyDataSetChanged();
-
+            sum  =edsum.getText().toString();
+            calorie=edcalorie.getText().toString();
+            cost=edcost.getText().toString();
+            if (TextUtils.isEmpty(edcost.getText().toString())){
+                cost="0";
             }
-        });
-        minus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String sum1  =edsum.getText().toString();
-
-                if (TextUtils.isEmpty(sum1)){
-                    edsum.setError("Please enter the sum");
-                    edsum.requestFocus();
-                    return;
-                }
-                int sum = Integer.parseInt(edsum.getText().toString());
-
-                if (sum > 199) {
-                    sum=sum-100;
-                } else {
-                    edsum.setError("Not less than 100 g");
-                    edsum.requestFocus();
-                }
-                edsum.setText(sum + "");
-
+            if (TextUtils.isEmpty(name)){
+                edname.setError("Please enter the name");
+                edname.requestFocus();
+                return;
+            }if (TextUtils.isEmpty(exp)){
+                edexp.setError("Please enter the exp");
+                edexp.requestFocus();
+                return;
+            }if (TextUtils.isEmpty(sum)){
+                edsum.setError("Please enter the sum");
+                edsum.requestFocus();
+                return;
+            }if (TextUtils.isEmpty(calorie)){
+                edcalorie.setError("Please enter the calorie");
+                edcalorie.requestFocus();
+                return;
             }
-        });
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String sum1  =edsum.getText().toString();
 
-                if (TextUtils.isEmpty(sum1)){
-                    edsum.setError("Please enter the sum");
-                    edsum.requestFocus();
-                    return;
-                }
-                int sum = Integer.parseInt(edsum.getText().toString());
-                sum=sum+100;
-                edsum.setText(sum );
 
+
+            user user= SharedPrefManager_user.getInstance(getActivity()).getUser();
+            item item=new item("",name,pathpic,exp,calorie,""
+                    ,sum,typeid,grading,String.valueOf(user.getId()),cost);
+            if (ATF){
+                favoriteFragment.itemArrayList_favorite.add(item);
+                SharedPrefManeger_item.getInstance(getActivity()).saveArrayList(favoriteFragment.itemArrayList_favorite,"favorite");
+                Toast.makeText(getActivity(), "the item add to favorite", Toast.LENGTH_SHORT).show();
             }
-        });
-        saveitem_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().finish();
+            registeradditem(item);
+            homeFragment.itemArrayList_filter.add(item);
+            getActivity().finish();
+            homeFragment.adapter.notifyDataSetChanged();
 
-            }
         });
+        minus.setOnClickListener(view12 -> {
+            String sum1  =edsum.getText().toString();
+
+            if (TextUtils.isEmpty(sum1)){
+                edsum.setError("Please enter the sum");
+                edsum.requestFocus();
+                return;
+            }
+            int sum = Integer.parseInt(edsum.getText().toString());
+
+            if (sum > 199) {
+                sum=sum-100;
+            } else {
+                edsum.setError("Not less than 100 g");
+                edsum.requestFocus();
+            }
+            edsum.setText(sum+"");
+
+        });
+        add.setOnClickListener(view13 -> {
+            String sum1  =edsum.getText().toString();
+
+            if (TextUtils.isEmpty(sum1)){
+                edsum.setError("Please enter the sum");
+                edsum.requestFocus();
+                return;
+            }
+            int sum = Integer.parseInt(edsum.getText().toString());
+            sum=sum+100;
+            edsum.setText(sum+"" );
+
+        });
+        saveitem_back.setOnClickListener(view14 -> getActivity().finish());
 
         return view;
     }
@@ -268,7 +249,7 @@ public class custom_item_Fragment extends Fragment  {
 //    }
 
     // function to let's the user to choose image from camera or gallery
-    void chooseImage(Context context) {
+    public void chooseImage(Context context) {
         final CharSequence[] optionsMenu = {"Take Photo", "Choose from Gallery"}; // create a menuOption Array
         // create a dialog for showing the optionsMenu
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
@@ -446,6 +427,8 @@ public class custom_item_Fragment extends Fragment  {
                     JSONObject jsonObject = new JSONObject(s);
                     if (!jsonObject.getBoolean("error")) {
                         Toast.makeText(getActivity(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        String id=jsonObject.getString("item");
+                        item.setItemid(id);
                         for (int i=0;i<homeFragment.itemArrayList.size();i++){
                             item item1=homeFragment.itemArrayList.get(i);
                             if (Integer.parseInt(item1.getItemexpiration())>Integer.parseInt(item.getItemexpiration())){
@@ -454,6 +437,9 @@ public class custom_item_Fragment extends Fragment  {
 
                             }
                         }
+
+                        costFragment.costarray.add(new cost(item.getItemname(),item.getItemcost(),item.getItemid(),String.valueOf(Calendar.getInstance().getTimeInMillis())));
+                        SharedPrefManeger_item.getInstance(getActivity()).saveArrayList_cost(costFragment.costarray,"cost");
                     } else {
                         Toast.makeText(getActivity(), jsonObject.getString("message") + "..", Toast.LENGTH_SHORT).show();
                     }

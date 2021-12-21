@@ -43,4 +43,20 @@ public class SharedPrefManeger_item {
         Type type = new TypeToken<ArrayList<item>>() {}.getType();
         return gson.fromJson(json, type);
     }
+    public  void saveArrayList_cost(ArrayList<cost> list, String key){
+
+        SharedPreferences prefs = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+        editor.putString(key, json);
+        editor.apply();
+    }
+    public ArrayList<cost> getArrayList_cost(String key){
+        SharedPreferences prefs = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = prefs.getString(key, null);
+        Type type = new TypeToken<ArrayList<cost>>() {}.getType();
+        return gson.fromJson(json, type);
+    }
 }

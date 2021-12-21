@@ -12,8 +12,10 @@ public class item {
     private String itemtype;
     private String itemgrading;
     private String itemuser;
+    private String itemcost;
 
-    public item(String itemid, String itemname, String itempicture, String itemexpiration, String itemcalorie, String itemsnname, String itemsum, String itemtype, String itemgrading, String itemuser) {
+    public item(String itemid, String itemname, String itempicture, String itemexpiration, String itemcalorie
+            , String itemsnname, String itemsum, String itemtype, String itemgrading, String itemuser,String itemcost) {
         this.setItemid(itemid);
         this.setItempicture(itempicture);
         this.setItemname(itemname);
@@ -24,6 +26,7 @@ public class item {
         this.setItemsum(itemsum);
         this.setItemgrading(itemgrading);
         this.setItemuser(itemuser);
+        this.setItemcost(itemcost);
     }
 
     public String getItemid() {
@@ -102,5 +105,12 @@ public class item {
 
     public void setItemgrading(String itemgrading) {
         this.itemgrading = itemgrading;
+    }
+    public String getItemcost() {
+        return itemcost;
+    }
+
+    public void setItemcost(String itemcost) {
+        this.itemcost = itemcost;
     }
 }

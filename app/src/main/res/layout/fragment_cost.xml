@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".costFragment">
+
+    <LinearLayout
+        android:id="@+id/cost_main1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="9dp"
+        >
+
+        <TextView
+            android:id="@+id/cost_back"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            tools:ignore="NestedWeights"
+            app:drawableStartCompat="@drawable/left_arrow" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:gravity="center|start"
+            android:text="  expense"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:id="@+id/cost_main2"
+    android:layout_marginTop="30sp"
+    android:layout_below="@+id/cost_main1"
+    android:layout_centerHorizontal="true">
+
+    <TextView
+        android:id="@+id/cost_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/orange"
+        android:textSize="30sp" />
+</RelativeLayout>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cost_daily"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_below="@+id/cost_main2"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="20dp"
+        app:cardCornerRadius="15dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#D5B6FA">
+            <TextView
+                android:id="@+id/cost_daily_icon"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:drawableTop="@drawable/daily"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:layout_alignParentTop="true"/>
+
+            <TextView
+                android:id="@+id/cost_daily_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cost_daily_icon"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:text="daily expense"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/cost_daily_cost"
+                android:text="$"
+                android:textSize="30sp"
+                android:textColor="@color/black"
+                android:layout_below="@id/cost_daily_name"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"/>
+
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cost_weekly"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_below="@+id/cost_main2"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="15dp"
+        android:layout_toEndOf="@+id/cost_daily"
+        app:cardCornerRadius="15dp" >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#BE8CF8">
+            <TextView
+                android:id="@+id/cost_weekly_icon"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:drawableTop="@drawable/weekly"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:layout_alignParentTop="true"/>
+
+            <TextView
+                android:id="@+id/cost_weekly_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cost_weekly_icon"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:text="weekly expense"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/cost_weekly_cost"
+                android:text="$"
+                android:textSize="30sp"
+                android:textColor="@color/black"
+                android:layout_below="@id/cost_weekly_name"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"/>
+
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cost_monthly"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_below="@+id/cost_daily"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="20dp"
+        app:cardCornerRadius="15dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#B073FA">
+            <TextView
+                android:id="@+id/cost_monthly_icon"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:drawableTop="@drawable/monthly"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:layout_alignParentTop="true"/>
+
+            <TextView
+                android:id="@+id/cost_monthly_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cost_monthly_icon"
+                android:layout_centerHorizontal="true"
+                android:text="monthly expense"
+                android:layout_marginTop="15dp"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/cost_monthly_cost"
+                android:text="$"
+                android:textSize="30sp"
+                android:textColor="@color/black"
+                android:layout_below="@id/cost_monthly_name"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"/>
+
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cost_yearly"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_below="@+id/cost_weekly"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="15dp"
+        android:layout_toEndOf="@+id/cost_daily"
+        app:cardCornerRadius="15dp" >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#9F50FD">
+            <TextView
+                android:id="@+id/cost_yearly_icon"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:drawableTop="@drawable/yearly"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:layout_alignParentTop="true"/>
+
+            <TextView
+                android:id="@+id/cost_yearly_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cost_yearly_icon"
+                android:layout_centerHorizontal="true"
+                android:text="yearly expense"
+                android:layout_marginTop="15dp"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/cost_yearly_cost"
+                android:text="$"
+                android:textSize="30sp"
+                android:textColor="@color/black"
+                android:layout_below="@id/cost_yearly_name"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"/>
+
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+
+
+</RelativeLayout>

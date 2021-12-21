@@ -1,8 +1,10 @@
 package com.example.android1project;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -36,7 +38,7 @@ public class check_internet_broadcast extends BroadcastReceiver {
     private static final String LOG_TAG = "CheckNetworkStatus";
     private boolean isConnected = false;
     int def=0;
-    int id=100;
+    int idint=100;
     Context context;
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -50,17 +52,16 @@ public class check_internet_broadcast extends BroadcastReceiver {
     private void extracted() {
         SimpleDateFormat format=new SimpleDateFormat("yy/M/d");
 
-//        try {
-//            String d=SharePrefManager_string.getInstance(context).getString("Date");
-//            Date dateold = format.parse(d);
-//
-//            String datenew=format.format(Calendar.getInstance().getTime());
-//            def= (int) getDateDiff.getDateDiff(dateold,format.parse(datenew));
-//
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-        def=1;
+        try {
+            String d=SharePrefManager_string.getInstance(context).getString("Date");
+            Date dateold = format.parse(d);
+
+            String datenew=format.format(Calendar.getInstance().getTime());
+            def= (int) getDateDiff.getDateDiff(dateold,format.parse(datenew));
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         if (def>0) {
             if (isConnected){
                 registeritem(context);
@@ -93,19 +94,21 @@ public class check_internet_broadcast extends BroadcastReceiver {
         return false;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void startmyservice(Context context, int def) {
         //AEDR mean of Automatic expiration date reduction
         Log.v(LOG_TAG,"***************************");
         Log.v(LOG_TAG,"run");
-        addNotification();
         for (item item:itemArrayList_increment){
             int exp= Integer.parseInt(item.getItemexpiration());
+            exp-=def;
+            item.setItemexpiration(String.valueOf(exp));
             if (exp>0){
-                item.setItemexpiration(String.valueOf(exp-def));
 
                 updata_item(item);
             }else if (exp==0){
                 if (run_service.flag_notification==1){
+                    addNotification(item.getItemname()," expiration date is coming to an end");
 
 //                    String CHANNEL_ID="MYCHANNEL";
 //                    Intent intent = new Intent(context, mainapp.class);
@@ -139,29 +142,52 @@ public class check_internet_broadcast extends BroadcastReceiver {
 //                    NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
 //                    mNotificationManager.notify(++id, notification);
                 }
-                item.setItemexpiration(String.valueOf(exp-def));
                 updata_item(item);
             }else{
+                addNotification(item.getItemname()," expiration date is finish");
                 deleteitem(item.getItemid());
             }
             SharePrefManager_string.getInstance(context).saveString("Date", Calendar.getInstance().getTime().toString());
         }
-        this.def=0;
     }
-    private void addNotification() {
-        NotificationCompat.Builder builder =
-                new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.minus) //set icon for notification
-                        .setContentTitle("Notifications Example") //set title of notification
-                        .setContentText("This is a notification message")//this is notification message
-                        .setPriority(NotificationCompat.PRIORITY_DEFAULT); //set priority of notification
-
-
-
-
-        // Add as notification
-        NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.notify(0, builder.build());
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void addNotification(String itemname, String s) {
+        Intent intent = new Intent(context, mainapp.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        NotificationManager manager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+        if(Build.VERSION.SDK_INT >= 26)
+        {
+            //When sdk version is larger than26
+            String id = "channel_1";
+            String description = "143";
+            int importance = NotificationManager.IMPORTANCE_LOW;
+            NotificationChannel channel = new NotificationChannel(id, description, importance);
+//                     channel.enableLights(true);
+//                     channel.enableVibration(true);//
+            manager.createNotificationChannel(channel);
+            Notification notification = new Notification.Builder(context, id)
+                    .setCategory(Notification.CATEGORY_MESSAGE)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentTitle("expire")
+                    .setContentText(itemname+s)
+                    .setContentIntent(pendingIntent)
+                    .setAutoCancel(true)
+                    .setWhen(System.currentTimeMillis())
+                    .build();
+            manager.notify(idint++, notification);
+        }
+        else
+        {
+            //When sdk version is less than26
+            Notification notification = new NotificationCompat.Builder(context)
+                    .setContentTitle("expire")
+                    .setContentText(itemname+s)
+                    .setContentIntent(pendingIntent)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setWhen(System.currentTimeMillis())
+                    .build();
+            manager.notify(idint++,notification);
+        }
     }
     private void registeritem(Context context) {
         Log.v("register","run");
@@ -192,6 +218,7 @@ public class check_internet_broadcast extends BroadcastReceiver {
                 //displaying the progress bar while user registers on the server
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
@@ -211,8 +238,10 @@ public class check_internet_broadcast extends BroadcastReceiver {
                         String itemcalorie = jsonObject1.getString("itemcalorie");
                         String itemsumn = jsonObject1.getString("itemsumn");
                         String itemgrading = jsonObject1.getString("itemgrading");
+                        String itemcost = jsonObject1.getString("itemcost");
 
-                        item item = new item(itemid, itemname, itempicture, itemexpiration, itemcalorie, itemsumn, itemsum, itemtype, itemgrading,String.valueOf(user.getId()));
+                        item item = new item(itemid, itemname, itempicture, itemexpiration, itemcalorie
+                                , itemsumn, itemsum, itemtype, itemgrading,String.valueOf(user.getId()),itemcost);
                         itemArrayList_increment.add(item);
 
                     }

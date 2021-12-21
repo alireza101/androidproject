@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 
 public class profileFragment extends Fragment {
-    Button btn_logout, btn_myprofile, btn_about, btn_feedback;
+    Button btn_logout, btn_myprofile, btn_about, btn_feedback,btn_cost;
     TextView textView;
     ImageView imageView;
     SwitchCompat switchCompat;
@@ -37,7 +37,7 @@ public class profileFragment extends Fragment {
         btn_feedback = view.findViewById(R.id.profile_feedback);
         imageView = view.findViewById(R.id.profile_image);
         switchCompat=view.findViewById(R.id.profile_switch1);
-
+        btn_cost=view.findViewById(R.id.profile_cost);
         switchCompat.setOnCheckedChangeListener((compoundButton, b) -> {
             if (switchCompat.isChecked()){
                 run_service.flag_notification=1;
@@ -49,9 +49,10 @@ public class profileFragment extends Fragment {
             }
         });
         btn_feedback.setOnClickListener(view1 -> loadprodile(3));
-        btn_about.setOnClickListener(view12 -> loadprodile(2));
-        btn_myprofile.setOnClickListener(view13 -> loadprodile(1));
-        btn_logout.setOnClickListener(view14 -> {
+        btn_about.setOnClickListener(view1 -> loadprodile(2));
+        btn_myprofile.setOnClickListener(view1 -> loadprodile(1));
+        btn_cost.setOnClickListener(view1 -> loadprodile(8));
+        btn_logout.setOnClickListener(view1 -> {
             getActivity().finish();
             SharedPrefManager_user.getInstance(getActivity()).logout();
         });

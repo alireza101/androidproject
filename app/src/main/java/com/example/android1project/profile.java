@@ -59,6 +59,16 @@ public class profile extends AppCompatActivity {
                 fragment = new favoriteFragment();
                 loadfragment(fragment);
                 break;
+            case 7:
+                fragment = new detailFragment();
+                Bundle bundle = intent.getBundleExtra("detailbundle");
+                fragment.setArguments(bundle);
+                loadfragment(fragment);
+                break;
+            case 8:
+                fragment = new costFragment();
+                loadfragment(fragment);
+                break;
         }
     }
 
