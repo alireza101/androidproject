@@ -163,9 +163,7 @@ public class detailFragment extends Fragment {
 
 
         button_back.setOnClickListener(view1 -> {
-            if (!dedit.isChecked()) {
-                getActivity().finish();
-            } else {
+            if (dedit.isChecked()) {
                 String name = dname.getText().toString();
                 String sum = dsum.getText().toString();
                 String calorie = dcalorie.getText().toString();
@@ -191,17 +189,24 @@ public class detailFragment extends Fragment {
                     dname.requestFocus();
                     return;
                 }
-                homeFragment.itemArrayList.remove(item);
-                homeFragment.itemArrayList_filter.remove(item);
+
                 item.setItempicture(pathpic);
                 item.setItemsum(sum);
                 item.setItemcalorie(calorie);
                 item.setItemexpiration(exp);
                 item.setItemcost(dcost.getText().toString());
                 item.setItemname(dname.getText().toString());
+                costFragment.costarray=SharedPrefManeger_item.getInstance(getActivity()).getArrayList_cost("cost");
+                for (cost cost:costFragment.costarray){
+                    if (cost.getItemid().equals(item.getItemid())){
+                        costFragment.costarray.remove(cost);
+                        costFragment.costarray.add(new cost(item.getItemname(),item.getItemcost(),item.getItemid(),String.valueOf(Calendar.getInstance().getTimeInMillis())));
+                    }
+                }
+                SharedPrefManeger_item.getInstance(getActivity()).saveArrayList_cost(costFragment.costarray,"cost");
                 updata_item(item);
-                getActivity().finish();
             }
+            getActivity().finish();
             startActivity(new Intent(getActivity(), mainapp.class));
 
         });

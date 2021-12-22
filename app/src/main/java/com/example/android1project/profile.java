@@ -79,4 +79,8 @@ public class profile extends AppCompatActivity {
                 .commit();
     }
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this,mainapp.class));
+    }
 }

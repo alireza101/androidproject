@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -40,6 +41,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 public class save_item_Fragment extends Fragment {
@@ -199,6 +201,7 @@ public class save_item_Fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 getActivity().finish();
+                startActivity(new Intent(getActivity(),mainapp.class));
 
             }
         });
@@ -385,10 +388,13 @@ public class save_item_Fragment extends Fragment {
 
                 user user= SharedPrefManager_user.getInstance(getActivity()).getUser();
                 item item=new item("",name,a[1],String.valueOf(exp),a[3],a[4]
-                        ,sum,a[6],grading,String.valueOf(user.getId()));
+                        ,sum,a[6],grading,String.valueOf(user.getId()),"0");
                 homeFragment.itemArrayList_filter.add(item);
                 homeFragment.adapter.notifyDataSetChanged();
                 dialog.dismiss();
+                costFragment.costarray=SharedPrefManeger_item.getInstance(getActivity()).getArrayList_cost("cost");
+                costFragment.costarray.add(new cost(item.getItemname(),item.getItemcost(),item.getItemid(),String.valueOf(Calendar.getInstance().getTimeInMillis())));
+                SharedPrefManeger_item.getInstance(getActivity()).saveArrayList_cost(costFragment.costarray,"cost");
 
 
             }
@@ -454,6 +460,7 @@ public class save_item_Fragment extends Fragment {
                 params.put("itemsumn", a[4]);
                 params.put("itemgrading", a[7]);
                 params.put("itemuser", String.valueOf(user.getId()));
+                params.put("itemcost", "0");
 
                 //returing the response
                 return requestHandler.sendPostRequest(config.additem_save, params);
@@ -473,11 +480,12 @@ public class save_item_Fragment extends Fragment {
                     JSONObject jsonObject = new JSONObject(s);
                     if (!jsonObject.getBoolean("error")) {
                         Toast.makeText(getActivity(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                        item item=new item(String.valueOf(mainapp.itemArrayList.size()),a[0],a[1],a[2],a[3],a[4],a[5],a[6],a[7],String.valueOf(user.getId()));
-                        for (int i=0;i<mainapp.itemArrayList.size();i++){
-                            item item1=mainapp.itemArrayList.get(i);
+                        String id=jsonObject.getString("item");
+                        item item=new item(id,a[0],a[1],a[2],a[3],a[4],a[5],a[6],a[7],String.valueOf(user.getId()),"0");
+                        for (int i=0;i<homeFragment.itemArrayList.size();i++){
+                            item item1=homeFragment.itemArrayList.get(i);
                             if (Integer.parseInt(item1.getItemexpiration())>Integer.parseInt(item.getItemexpiration())){
-                                mainapp.itemArrayList.add(i,item);
+                                homeFragment.itemArrayList.add(i,item);
                                 break;
 
                             }
@@ -547,7 +555,7 @@ public class save_item_Fragment extends Fragment {
                             String istypeid = jsonObject1.getString("istypeid");
 
                             item item = new
-                                    item(isid, isname, ispicture, isexp,iscalorie,snname,issum,istypeid,"",String.valueOf(user.getId()));
+                                    item(isid, isname, ispicture, isexp,iscalorie,snname,issum,istypeid,"",String.valueOf(user.getId()),"0");
                             itemArrayList_save.add(item);
                         }
                     } else {

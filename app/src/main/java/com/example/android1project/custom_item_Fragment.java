@@ -198,7 +198,9 @@ public class custom_item_Fragment extends Fragment  {
             }
             registeradditem(item);
             homeFragment.itemArrayList_filter.add(item);
+            homeFragment.itemArrayList.add(item);
             getActivity().finish();
+            startActivity(new Intent(getActivity(),mainapp.class));
             homeFragment.adapter.notifyDataSetChanged();
 
         });
@@ -408,6 +410,7 @@ public class custom_item_Fragment extends Fragment  {
                 params.put("itemsumn", item.getItemsnname());
                 params.put("itemgrading", item.getItemgrading());
                 params.put("itemuser", item.getItemuser());
+                params.put("itemcost", item.getItemcost());
 
                 //returing the response
                 return requestHandler.sendPostRequest(config.additem_save, params);
@@ -437,7 +440,7 @@ public class custom_item_Fragment extends Fragment  {
 
                             }
                         }
-
+                        costFragment.costarray=SharedPrefManeger_item.getInstance(getActivity()).getArrayList_cost("cost");
                         costFragment.costarray.add(new cost(item.getItemname(),item.getItemcost(),item.getItemid(),String.valueOf(Calendar.getInstance().getTimeInMillis())));
                         SharedPrefManeger_item.getInstance(getActivity()).saveArrayList_cost(costFragment.costarray,"cost");
                     } else {

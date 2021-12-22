@@ -59,7 +59,7 @@ public class favoriteFragment extends Fragment {
             @Override
             public void onLongClick(View view, int position) {
                 item item = itemArrayList_favorite.get(position);
-                mainapp.itemArrayList.add(item);
+                homeFragment.itemArrayList.add(item);
                 homeFragment.itemArrayList_filter.add(item);
                 registeritem(item);
                 Toast.makeText(getActivity(), "item is added", Toast.LENGTH_SHORT).show();

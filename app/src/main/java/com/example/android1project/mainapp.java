@@ -36,7 +36,6 @@ import java.util.HashMap;
 
 
 public class mainapp extends AppCompatActivity {
-    static ArrayList<item> itemArrayList = new ArrayList<>();
 
     static ArrayList<type> typeArrayList = new ArrayList<>();
 
@@ -50,6 +49,7 @@ public class mainapp extends AppCompatActivity {
     private static final String LOG_TAG = "mainapp.class";
     private NetworkChangeReceiver receiver;
     private boolean isConnected = false;
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +65,6 @@ public class mainapp extends AppCompatActivity {
         registerReceiver(receiver, filter);
 
         registertype();
-        registeritem();
         fab_custom = findViewById(R.id.add_fam_customitem);
         fab_item = findViewById(R.id.add_fam_additem);
         fab_history = findViewById(R.id.add_fam_historyitem);
@@ -107,18 +106,19 @@ public class mainapp extends AppCompatActivity {
             intent.putExtra("profileitem", 4);
             startActivity(intent);
             fab.collapse();
-
+            finish();
         });
         fab_history.setOnClickListener(view1 -> {
             intent.putExtra("profileitem", 6);
             startActivity(intent);
             fab.collapse();
-
+            finish();
         });
         fab_custom.setOnClickListener(view1 -> {
             intent.putExtra("profileitem", 5);
             startActivity(intent);
             fab.collapse();
+            finish();
 
         });
 
@@ -140,7 +140,6 @@ public class mainapp extends AppCompatActivity {
     }
 
 
-
     private void callbackactivity() {
         finish();
         startActivity(new Intent(this, signup_activity.class));
@@ -156,18 +155,20 @@ public class mainapp extends AppCompatActivity {
         Log.v(LOG_TAG, "onDestory");
         super.onDestroy();
     }
+
     public void refreshVoid(View view) {
         finish();
         startActivity(getIntent());
 
     }
+
     public class NetworkChangeReceiver extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, final Intent intent) {
 
             Log.v(LOG_TAG, "Receieved notification about network status");
-            Log.v(LOG_TAG, "+"+intent);
+            Log.v(LOG_TAG, "+" + intent);
             isNetworkAvailable(context);
 
         }
@@ -181,10 +182,9 @@ public class mainapp extends AppCompatActivity {
                 if (info != null) {
                     for (int i = 0; i < info.length; i++) {
                         if (info[i].getState() == NetworkInfo.State.CONNECTED) {
-                            if(!isConnected){
+                            if (!isConnected) {
                                 Log.v(LOG_TAG, "Now you are connected to Internet!");
                                 registertype();
-                                registeritem();
                                 isConnected = true;
                                 //do your processing here ---
                                 //if you need to post any data to the server or get status
@@ -203,7 +203,6 @@ public class mainapp extends AppCompatActivity {
             return false;
         }
     }
-
 
 
     private void loadFragment(Fragment fragment) {
@@ -229,85 +228,6 @@ public class mainapp extends AppCompatActivity {
                 }).create().show();
     }
 
-
-    public void registeritem() {
-        user user = SharedPrefManager_user.getInstance(getApplication()).getUser();
-        int iduser = user.getId();
-
-
-        //if it passes all the validations
-
-        class Registeritem extends AsyncTask<Void, Void, String> {
-
-
-            @Override
-            protected String doInBackground(Void... voids) {
-                //creating request handler object
-                RequestHandler requestHandler = new RequestHandler();
-
-                //creating request parameters
-                HashMap<String, String> params = new HashMap<>();
-
-                    params.put("itemuser", String.valueOf(iduser));
-
-
-                    //returing the response
-                    return requestHandler.sendPostRequest(config.selectitem, params);
-
-
-            }
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                //displaying the progress bar while user registers on the server
-            }
-
-            @Override
-            protected void onPostExecute(String s) {
-                super.onPostExecute(s);
-                //hiding the progressbar after completion
-                itemArrayList.clear();
-                try {
-                    JSONObject jsonObject = new JSONObject(s);
-                    JSONArray jsonArray = jsonObject.getJSONArray("item");
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                        String itemid = jsonObject1.getString("itemid");
-                        String itempicture = jsonObject1.getString("itempicture");
-                        String itemname = jsonObject1.getString("itemname");
-                        String itemtype = jsonObject1.getString("itemtype");
-                        String itemexpiration = jsonObject1.getString("itemexpiration");
-                        String itemsum = jsonObject1.getString("itemsum");
-                        String itemcalorie = jsonObject1.getString("itemcalorie");
-                        String itemsumn = jsonObject1.getString("itemsumn");
-                        String itemgrading = jsonObject1.getString("itemgrading");
-
-                        item item = new item(itemid, itemname, itempicture, itemexpiration, itemcalorie, itemsumn, itemsum, itemtype, itemgrading,String.valueOf(user.getId()));
-                        itemArrayList.add(item);
-
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                if (!itemArrayList.isEmpty()) {
-                    Log.d(LOG_TAG, "onPostExecute: load item ");
-                }
-//                progressDialog.dismiss();
-//                recyclerviewadapter_ver adapter = new recyclerviewadapter_ver(getActivity(), itemArrayList);
-//                rcmain.setLayoutManager(new LinearLayoutManager(getActivity()));
-//                rcmain.setAdapter(adapter);
-
-            }
-
-
-        }
-        //executing the async task
-        Registeritem ru = new Registeritem();
-        ru.execute();
-
-    }
 
     //***********************************************************************************************************************************************
     private void registertype() {
